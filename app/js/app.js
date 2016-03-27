@@ -1,13 +1,14 @@
 
 
-var timeTrackerApp = angular.module('timeTracker', ['ngRoute', 'ngResource']);
+var timeTrackerApp = angular.module('timeTracker', ['ngRoute', 'ngResource', 'timer']);
 
 
 timeTrackerApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/add', {
-        templateUrl: 'partials/add.html'
+        templateUrl: 'partials/add.html',
+        controller: 'AddCtrl'
       }).
       when('/statistics', {
         templateUrl: 'partials/statistics.html'

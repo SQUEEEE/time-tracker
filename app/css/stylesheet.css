@@ -39,6 +39,14 @@
 	min-width: 100%;
 }
 
+.timer {
+	font-size: 60px;
+}
+
+.timerIcons {
+	font-size: 20px;
+}
+
 /*********** STATISTICS ************/
 
 #statistics {

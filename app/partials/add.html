@@ -1,7 +1,17 @@
 <div class="container" id="add">
 	<br>
 	<div class="col-md-12">
-		<span class="mediumTitle">Add</span><hr>
+		<span class="mediumTitle">Add</span><hr><br>
+
+		<center>
+		<span class="timer"><timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}</timer></span><br>
+
+		
+		<button class="btn btn-default" ng-show="!timerRunning" ng-click="startTimer()" ng-disabled="timerRunning"><span class="glyphicon glyphicon-play timerIcons"></span></button>
+        <button class="btn btn-default" ng-show="timerRunning" ng-click="pauseTimer()" ng-disabled="!timerRunning"><span class="glyphicon glyphicon-pause timerIcons"></span></button>
+        <button class="btn btn-default" ng-disabled="timerRunning" ng-click="resetTimer()"><span class="glyphicon glyphicon-stop timerIcons"></span></button>
+        <center>
+
 	</div>
 </div>
 <!-- We include the menu as it is shared across several screens.  -->
