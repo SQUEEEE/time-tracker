@@ -1,6 +1,6 @@
 
 
-var timeTrackerApp = angular.module('timeTracker', ['ngRoute']);
+var timeTrackerApp = angular.module('timeTracker', ['ngRoute', 'ngResource']);
 
 
 timeTrackerApp.config(['$routeProvider',
