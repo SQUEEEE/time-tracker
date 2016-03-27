@@ -1,9 +1,19 @@
 
 
 
-/* To style our menubar if we want */
+/*********** STYLING MENUBAR ************/
 .menuBar {
-		
 	min-width: 100%;
+}
 
+.menuBarNav, .menuBarHeader {
+	text-align: center;
+}
+
+.menuBarNav li {
+	min-width: 200px;
+}
+
+.menuIcon {
+	font-size: 50px;
 }
