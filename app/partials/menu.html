@@ -4,18 +4,20 @@
       <a class="navbar-brand" ng-href="#/home">*plats for logotyp*<br><br>Time Tracker</a>
     </div>
     <ul class="nav navbar-nav menuBarNav">
-      <li><a ng-href="#/add">
+      <li class="{{isActive('/add')}}"><a ng-href="#/add">
       	<span class='glyphicon glyphicon-plus-sign menuIcon'></span><br>Add</a>
       </li>
-      <li><a ng-href="#/statistics">
+      <li class="{{isActive('/statistics')}}"><a ng-href="#/statistics">
       	<span class='glyphicon glyphicon-stats menuIcon'></span><br>Statistics</a>
       </li>
-      <li><a ng-href="#/calendar">
+      <li class="{{isActive('/calendar')}}"><a ng-href="#/calendar">
       	<span class='glyphicon glyphicon-calendar menuIcon'></span><br>Calendar</a>
       </li> 
-      <li><a ng-href="#/settings">
+      <li class="{{isActive('/settings')}}"><a ng-href="#/settings">
       	<span class='glyphicon glyphicon-cog menuIcon'></span><br>Settings</a>
       </li> 
     </ul>
   </div>
 </nav>
+
+
