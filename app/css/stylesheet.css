@@ -1,7 +1,15 @@
 
+/*********** TITLES ************/
+
+.mediumTitle {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	font-size: 25px;
+}
 
 
-/*********** STYLING MENUBAR ************/
+/*********** MENUBAR ************/
 .menuBar {
 	min-width: 100%;
 }
@@ -16,4 +24,35 @@
 
 .menuIcon {
 	font-size: 50px;
+}
+
+
+/*********** SETTINGS ************/
+
+#settings {
+	min-width: 100%;
+}
+
+/*********** ADD ************/
+
+#add {
+	min-width: 100%;
+}
+
+/*********** STATISTICS ************/
+
+#statistics {
+	min-width: 100%;
+}
+
+/*********** CALENDAR ************/
+
+#calendar {
+	min-width: 100%;
+}
+
+/*********** HOME ************/
+
+#home {
+	min-width: 100%;
 }
