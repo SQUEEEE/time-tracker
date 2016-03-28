@@ -18,8 +18,8 @@
 	text-align: center;
 }
 
-.menuBarNav li {
-	min-width: 200px;
+.menuBarNav li, .menuBarHeader {
+	min-width: 180px;
 }
 
 .menuIcon {
