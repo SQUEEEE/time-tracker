@@ -89,7 +89,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		var iteratedData = [];
 		for(index in testData){
 			var current = testData[index];
-			var eventObject = new EventClass(current, "KTH", false);
+			var eventObject = new EventClass(current, "KTH", true);
 			iteratedData.push(eventObject);
 		}
 		return iteratedData;
