@@ -1,10 +1,10 @@
 timeTrackerApp.factory('TimeTracker', function ($resource) {
 
-	var data = [];
+	var data = []; // a list of events with the right attributes
 
 	var testCategories = ["KTH", "Work"];
 
-	var testData = [
+	var testData = [			//a list of events imported from the api
 	{
 	   "kind": "calendar#event",
 	   "etag": "\"2756392697640000\"",
@@ -74,6 +74,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	];
 
 	var EventClass = function(current, category, logged){
+	//creates objects with the attributes we want, current is a object we want to copy most from
+
 		//this.id=current.id;
 		//this.created=current.created;
 		//this.updated=current.updated;
@@ -96,6 +98,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return eventObject
 	}*/
 
+	//creates "our" objects of all objects in the imported list
 	this.iterateData = function(){
 		var iteratedData = [];
 		for(index in testData){
@@ -107,7 +110,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return data;
 	};
 	
-
+	//returns the data
 	this.getTestData = function() {
 		return data;
 	};

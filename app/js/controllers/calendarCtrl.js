@@ -1,6 +1,6 @@
 timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
 
-	$scope.testData = TimeTracker.getTestData();
+	$scope.testData = TimeTracker.getTestData();		//a list of data
 
 
 // initializes the calendar
