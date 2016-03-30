@@ -14,7 +14,8 @@ timeTrackerApp.config(['$routeProvider',
         templateUrl: 'partials/statistics.html'
       }).
       when('/calendar', {
-        templateUrl: 'partials/calendar.html'
+        templateUrl: 'partials/calendar.html',
+        controller: 'CalendarCtrl'
       }).
       when('/settings', {
         templateUrl: 'partials/settings.html',
