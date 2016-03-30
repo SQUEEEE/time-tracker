@@ -2,6 +2,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	var data = [];
 
+	var testCategories = ["KTH", "Work"];
+
 	var testData = [
 	{
 	   "kind": "calendar#event",
@@ -110,7 +112,47 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return data;
 	};
 
+
+	/******* Statistics *******/
+
+	this.calcDuration = function(start, end) {		// TODO: Funkar inte just nu!
+		duration = 0;
+		duration += end.dateTime - start.dateTime;
+		console.log(end.dateTime);
+		console.log(start.dateTime);
+		console.log(duration);
+
+		return 2;
+	}
+
+	this.calcTimeCategory = function(category) {
+		sum = 0;
+		for (index in data) {
+			if (category == data[index].category) {
+				if (data[index].logged == true) {
+					sum += this.calcDuration(data[index].start, data[index].end);
+				}
+			}
+		}
+		return sum;
+	}
+
+	this.calcTimeAllCategories = function() {
+		sum = 0;
+		for (index in testCategories) {
+			sum += this.calcTimeCategory(testCategories[index]);
+		}
+
+		return sum;
+	}
+
+	this.getTestCategories = function() {
+		return testCategories;
+	}
+
 	this.iterateData();
+	this.calcTimeCategory("KTH");
+
 
 	return this;
 
