@@ -2,7 +2,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	var data = []; // a list of events with the right attributes
 
-	var testCategories = ["KTH", "Work"];
+	var testCategories = ["KTH", "Work", "Other"];
 
 	var testData = [			//a list of events imported from the api
 	{
@@ -70,6 +70,106 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	   "reminders": {
 	    "useDefault": true
 	   }
+	},
+	{
+
+	   "kind": "calendar#event",
+	   "etag": "\"2756392697640000\"",
+	   "id": "_65hm4dhg6grj6e1hcgo32phi6dh66e9m6grjaphoc8o64eb3cphjgp1i65h6apb3",
+	   "status": "confirmed",
+	   "htmlLink": "https://www.google.com/calendar/event?eid=XzY1aG00ZGhnNmdyajZlMWhjZ28zMnBoaTZkaDY2ZTltNmdyamFwaG9jOG82NGViM2NwaGpncDFpNjVoNmFwYjMgaGVsbHF1aXN0LmVyaWthQG0",
+	   "created": "2013-08-31T00:15:59.000Z",
+	   "updated": "2013-09-03T08:19:08.820Z",
+	   "summary": "Envariabelanalys (SF1625) Föreläsning",
+	   "description": "https://www.kth.se/social/course/SF1625/subgroup/ht-2013-cdate-copen/event/6899260/\n",
+	   "location": "D1",
+	   "creator": {
+	    "email": "hellquist.erika@gmail.com",
+	    "displayName": "Erika Hellquist",
+	    "self": true
+	   },
+	   "organizer": {
+	    "email": "hellquist.erika@gmail.com",
+	    "displayName": "Erika Hellquist",
+	    "self": true
+	   },
+	   "start": {
+	    "dateTime": "2016-03-30T08:00:00+01:00"
+	   },
+	   "end": {
+	    "dateTime": "2016-03-30T10:00:00+01:00"
+	   },
+	   "iCalUID": "1cb6047381d01f23bc96475f8b0b9cfc8d21beec",
+	   "sequence": 0,
+	   "reminders": {
+	    "useDefault": true
+	   }
+  	},
+  	{
+	   "kind": "calendar#event",
+	   "etag": "\"2756392697640000\"",
+	   "id": "_65imcd9l6opjephi64p64cr3ckp30pj464rmacj374rm8d9nclj30oj1ccp36chl",
+	   "status": "confirmed",
+	   "htmlLink": "https://www.google.com/calendar/event?eid=XzY1aW1jZDlsNm9wamVwaGk2NHA2NGNyM2NrcDMwcGo0NjRybWFjajM3NHJtOGQ5bmNsajMwb2oxY2NwMzZjaGwgaGVsbHF1aXN0LmVyaWthQG0",
+	   "created": "2013-08-31T00:15:49.000Z",
+	   "updated": "2013-09-03T08:19:08.820Z",
+	   "summary": "Envariabelanalys (SF1625) Föreläsning",
+	   "description": "https://www.kth.se/social/course/SF1625/subgroup/ht-2013-cdate-copen/event/6898920/\n",
+	   "location": "E1",
+	   "creator": {
+	    "email": "hellquist.erika@gmail.com",
+	    "displayName": "Erika Hellquist",
+	    "self": true
+	   },
+	   "organizer": {
+	    "email": "hellquist.erika@gmail.com",
+	    "displayName": "Erika Hellquist",
+	    "self": true
+	   },
+	   "start": {
+	    "dateTime": "2016-03-31T08:00:00+01:00"
+	   },
+	   "end": {
+	    "dateTime": "2016-03-31T10:00:00+01:00"
+	   },
+	   "iCalUID": "1ef55637f212b3ce20fd17e2c97d57ef0bac2325",
+	   "sequence": 0,
+	   "reminders": {
+	    "useDefault": true
+	   }
+  	},
+  	{
+	   "kind": "calendar#event",
+	   "etag": "\"2756392708568000\"",
+	   "id": "_60r38dhh74om6d9nchgm8db16him4opkckoj0phh64p6aoppc4o38cj260o32pb2",
+	   "status": "confirmed",
+	   "htmlLink": "https://www.google.com/calendar/event?eid=XzYwcjM4ZGhoNzRvbTZkOW5jaGdtOGRiMTZoaW00b3BrY2tvajBwaGg2NHA2YW9wcGM0bzM4Y2oyNjBvMzJwYjIgaGVsbHF1aXN0LmVyaWthQG0",
+	   "created": "2011-05-13T14:43:39.000Z",
+	   "updated": "2013-09-03T08:19:14.284Z",
+	   "summary": "Envariabelanalys (SF1625) Övning",
+	   "description": "https://www.kth.se/social/course/SF1625/event/5410390/\n",
+	   "location": "D34, D35, D41",
+	   "creator": {
+	    "email": "hellquist.erika@gmail.com",
+	    "displayName": "Erika Hellquist",
+	    "self": true
+	   },
+	   "organizer": {
+	    "email": "hellquist.erika@gmail.com",
+	    "displayName": "Erika Hellquist",
+	    "self": true
+	   },
+	   "start": {
+	    "dateTime": "2016-04-01T11:00:00+01:00"
+	   },
+	   "end": {
+	    "dateTime": "2016-04-01T15:00:00+01:00"
+	   },
+	   "iCalUID": "0646191c57dad5a4ebc4e10f112ec9a042b001eb",
+	   "sequence": 0,
+	   "reminders": {
+	    "useDefault": true
+	   }
 	}
 	];
 
@@ -85,8 +185,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		this.start=current.start.dateTime;
 		this.end=current.end.dateTime;
 		//this.iCalUID=current.iCalUID;
-		//this.category=category;
-		//this.logged=logged;
+		this.category=category;
+		this.logged=logged;
 
 		return this
 	};
@@ -118,6 +218,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	/******* Statistics *******/
 
+	// calculate duration between two datetimes
 	this.calcDuration = function(start, end) {		// TODO: Funkar inte just nu!
 		duration = 0;
 		duration += end.dateTime - start.dateTime;
@@ -127,10 +228,11 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 		return 2;
 	}
-
+	// calculate total amount of logged time for a category
 	this.calcTimeCategory = function(category) {
 		sum = 0;
 		for (index in data) {
+			console.log(data[index])
 			if (category == data[index].category) {
 				if (data[index].logged == true) {
 					sum += this.calcDuration(data[index].start, data[index].end);
@@ -139,7 +241,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		}
 		return sum;
 	}
-
+	// calculate total amount of logged time
 	this.calcTimeAllCategories = function() {
 		sum = 0;
 		for (index in testCategories) {
