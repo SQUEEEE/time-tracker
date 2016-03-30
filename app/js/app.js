@@ -1,6 +1,6 @@
 
 
-var timeTrackerApp = angular.module('timeTracker', ['ngRoute', 'ngResource', 'timer']);
+var timeTrackerApp = angular.module('timeTracker', ['ngRoute', 'ngResource', 'timer', 'firebase']);
 
 
 timeTrackerApp.config(['$routeProvider',
@@ -22,6 +22,13 @@ timeTrackerApp.config(['$routeProvider',
       }).
       when('/home', {
         templateUrl: 'partials/home.html'
+      }).
+
+      //testing authorization with firebase
+
+      when('/auth', {
+        templateUrl: 'partials/auth.html',
+        controller: 'authCtrl'
       }).
       // redirects all other url:s to '/add'
       otherwise({
