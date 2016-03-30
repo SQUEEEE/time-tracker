@@ -65,7 +65,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	}
 
 	this.getTestData = function() {
-		return testData;
+		return iterateData();
 	}
 
 
