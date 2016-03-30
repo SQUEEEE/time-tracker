@@ -70,8 +70,33 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	}
 	];
 
+	var EventClass = function(current, category, logged){
+		this.id=current.id;
+		this.created=current.cerated;
+		this.updated=current.updated;
+		this.summary=current.summar;
+		this.creator=current.creator.email;
+		this.organizer=current.organizer.email;
+		this.start=current.start;
+		this.end=current.end;
+		this.iCalUID=current.iCalUID;
+		this.category=category;
+		this.logged=logged;
+		return this
+	}
+
+	this.iterateData = function(){
+		var iteratedData = [];
+		for(index in testData){
+			var current = testData[index];
+			var eventObject = new EventClass(current, "KTH", "false");
+			iteratedData.push(eventObject);
+		}
+		return iteratedData;
+	}
+
 	this.getTestData = function() {
-		return testData;
+		return iterateData();
 	}
 
 
