@@ -1,5 +1,6 @@
 timeTrackerApp.factory('TimeTracker', function ($resource) {
 
+	var data = [];
 
 	var testData = [
 	{
@@ -72,9 +73,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	var EventClass = function(current, category, logged){
 		this.id=current.id;
-		this.created=current.cerated;
+		this.created=current.created;
 		this.updated=current.updated;
-		this.summary=current.summar;
+		this.summary=current.summary;
 		this.creator=current.creator.email;
 		this.organizer=current.organizer.email;
 		this.start=current.start;
@@ -82,8 +83,16 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		this.iCalUID=current.iCalUID;
 		this.category=category;
 		this.logged=logged;
+
 		return this
 	}
+
+	/*this.addEvent = function(category, logged) {
+		// TODO skapa object
+		var eventObject = new EventClass(object, category, logged);
+		data.push(eventObject)
+		return eventObject
+	}*/
 
 	this.iterateData = function(){
 		var iteratedData = [];
@@ -92,11 +101,13 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 			var eventObject = new EventClass(current, "KTH", true);
 			iteratedData.push(eventObject);
 		}
-		return iteratedData;
+		data = iteratedData
+		return data;
 	}
+	iterateData();
 
 	this.getTestData = function() {
-		return this.iterateData();
+		return data;
 	}
 
 
