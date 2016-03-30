@@ -7,8 +7,14 @@
 	</div> 
 </div>
 
+<!-- We include the menu as it is shared across several screens. -->
+<ng-include src="'partials/menu.html'" ng-controller="MenuCtrl"></ng-include>
 
-<!--  initializes the calendar -->
+
+
+
+<!--  initializes the calendar
+I moved it to a better place but i wanna keep it 
 <script>
 	$(document).ready(function() {
     //page is now ready
@@ -41,5 +47,4 @@
 
 </script>
 
-<!-- We include the menu as it is shared across several screens. -->
-<ng-include src="'partials/menu.html'" ng-controller="MenuCtrl"></ng-include>
+-->

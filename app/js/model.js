@@ -27,10 +27,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2013-12-06T08:00:00+01:00"
+	    "dateTime": "2016-03-30T08:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2013-12-06T10:00:00+01:00"
+	    "dateTime": "2016-03-30T10:00:00+01:00"
 	   },
 	   "iCalUID": "080045b8ce6d8543b8945ad1212b349e1a9c3c0f",
 	   "sequence": 0,
@@ -60,10 +60,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2013-11-26T10:00:00+01:00"
+	    "dateTime": "2016-03-30T10:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2013-11-26T12:00:00+01:00"
+	    "dateTime": "2016-03-30T12:00:00+01:00"
 	   },
 	   "iCalUID": "1b3527e85a8dc67ad7bc9b948d9d4f73bbee8354",
 	   "sequence": 0,
@@ -74,17 +74,17 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	];
 
 	var EventClass = function(current, category, logged){
-		this.id=current.id;
-		this.created=current.created;
-		this.updated=current.updated;
+		//this.id=current.id;
+		//this.created=current.created;
+		//this.updated=current.updated;
 		this.title=current.summary;
-		this.creator=current.creator.email;
-		this.organizer=current.organizer.email;
-		this.start=current.start;
-		this.end=current.end;
-		this.iCalUID=current.iCalUID;
-		this.category=category;
-		this.logged=logged;
+		//this.creator=current.creator.email;
+		//this.organizer=current.organizer.email;
+		this.start=current.start.dateTime;
+		this.end=current.end.dateTime;
+		//this.iCalUID=current.iCalUID;
+		//this.category=category;
+		//this.logged=logged;
 
 		return this
 	};
