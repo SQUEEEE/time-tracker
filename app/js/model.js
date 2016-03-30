@@ -77,7 +77,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		this.id=current.id;
 		this.created=current.created;
 		this.updated=current.updated;
-		this.summary=current.summary;
+		this.title=current.summary;
 		this.creator=current.creator.email;
 		this.organizer=current.organizer.email;
 		this.start=current.start;
