@@ -1,20 +1,25 @@
 <div class="container" id="calendar">
 	<br>
 	<div class="col-md-12">
-		<span class="mediumTitle">Calendar</span><hr>
+		<span class="mediumTitle">Calendar</span><hr> <!-- the title -->
 	</div>
-	<div id='calendar'></div>
+	<div id='calendar'> <!-- the calendar inserts here -->
+	</div> 
 </div>
 
-{{testData}}
 
+<!--  initializes the calendar -->
 <script>
 	$(document).ready(function() {
     //page is now ready
     	$('#calendar').fullCalendar({
-        	//input here
-    	})
+    		dayClick: function(){ 			//pop up at a click, maybe we can use?
+        		alert('a day has been clicked!');
+    		}
+    	});
 	});
+
 </script>
+
 <!-- We include the menu as it is shared across several screens. -->
 <ng-include src="'partials/menu.html'" ng-controller="MenuCtrl"></ng-include>
