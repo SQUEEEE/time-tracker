@@ -2,6 +2,17 @@
 
 var timeTrackerApp = angular.module('timeTracker', ['ngRoute', 'ngResource', 'timer', 'firebase']);
 
+//auth routing
+timeTrackerApp.run(["$rootScope", "$location", function($rootScope, $location) {
+$rootScope.$on("$routeChangeError", function(event, next, previous, error) {
+  // We can catch the error thrown when the $requireAuth promise is rejected
+  // and redirect the user back to the home page
+  if (error === "AUTH_REQUIRED") {
+    $location.path("/home");
+  }
+});
+}]);
+
 
 timeTrackerApp.config(['$routeProvider',
   function($routeProvider) {
@@ -21,14 +32,22 @@ timeTrackerApp.config(['$routeProvider',
         controller: 'SettingsCtrl'
       }).
       when('/home', {
-        templateUrl: 'partials/home.html'
+        templateUrl: 'partials/home.html',
       }).
 
       //testing authorization with firebase
 
       when('/auth', {
         templateUrl: 'partials/auth.html',
-        controller: 'authCtrl'
+        controller: 'authCtrl' /*,
+        resolve: {
+          //controller will not be loaded until $waitForAuth resolves
+          //Auth refers to $firebaseAuth wrapper in authCtrl?
+
+          "currentAuth": ["Auth", function(Auth){
+            return Auth.$waitForAuth();
+          }];
+        }*/
       }).
       // redirects all other url:s to '/add'
       otherwise({
