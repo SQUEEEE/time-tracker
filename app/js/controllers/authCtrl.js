@@ -1,18 +1,30 @@
-app.controller("authCtrl", function($scope, $firebaseAuth){
-	var ref = new Firebase("https://time-trackertest.firebaseio.com/data");
 
-	
-	var auth = $firebaseAuth(ref);
+//model for auth
+timeTrackerApp.factory("Auth", ["$firebaseAuth", 
+	function($firebaseAuth){
+		var ref = new Firebase("https://time-trackertest.firebaseio.com/data");
+		return $firebaseAuth(ref);
 
-	
+	}]);
+
+
+timeTrackerApp.controller("authCtrl", function($scope, Auth){
+
+	$scope.auth = Auth;
+
 	$scope.login = function(){
-		auth.$authWithOAuthPopup("google").then(function(authData){
+		Auth.$authWithOAuthPopup("google").then(function(authData){
 			console.log("Logged in as:", authData.uid);
 
 		}).catch(function(error){
 			console.log("Authentication failed:", error);
 		});
 	}
+
+	$scope.auth.$onAuth(function(authData){
+		$scope.authData = authData;
+	})
+
 
 	
 })
