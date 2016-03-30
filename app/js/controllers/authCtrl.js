@@ -1,10 +1,18 @@
-app.controller("authCtrl", function($scope, $firebaseObject){
+app.controller("authCtrl", function($scope, $firebaseAuth){
 	var ref = new Firebase("https://time-trackertest.firebaseio.com/data");
 
-	//download the data into a local object
-	var syncObject = $firebaseObject(ref);
+	
+	var auth = $firebaseAuth(ref);
 
-	//sync the object with a three-way data binding
+	
+	$scope.login = function(){
+		auth.$authWithOAuthPopup("google").then(function(authData){
+			console.log("Logged in as:", authData.uid);
 
-	syncObject.$bindTo($scope, "data");
+		}).catch(function(error){
+			console.log("Authentication failed:", error);
+		});
+	}
+
+	
 })
