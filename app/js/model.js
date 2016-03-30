@@ -85,7 +85,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		this.logged=logged;
 
 		return this
-	}
+	};
 
 	/*this.addEvent = function(category, logged) {
 		// TODO skapa object
@@ -103,13 +103,14 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		}
 		data = iteratedData
 		return data;
-	}
-	iterateData();
+	};
+	
 
 	this.getTestData = function() {
 		return data;
-	}
+	};
 
+	this.iterateData();
 
 	return this;
 
