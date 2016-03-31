@@ -176,17 +176,17 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	var EventClass = function(current, category, logged){
 	//creates objects with the attributes we want, current is a object we want to copy most from
 
-		//this.id=current.id;
-		//this.created=current.created;
-		//this.updated=current.updated;
+		this.id=current.id;
+		this.created=current.created;
+		this.updated=current.updated;
 		this.title=current.summary;
-		//this.creator=current.creator.email;
-		//this.organizer=current.organizer.email;
+		this.creator=current.creator.email;
+		this.organizer=current.organizer.email;		//do we want organizer or creator? Which is what?
 		this.start=current.start.dateTime;
 		this.end=current.end.dateTime;
-		//this.iCalUID=current.iCalUID;
-		this.category=category;
-		this.logged=logged;
+		this.iCalUID=current.iCalUID;		//what is it and do we need it?
+		this.category=category;				//a category grouping some events together, should have a unique color
+		this.logged=logged;					//true/false depending on if the event is logged or not
 
 		return this
 	};
@@ -199,6 +199,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	}*/
 
 	//creates "our" objects of all objects in the imported list
+	//can be used for automatic logging when a whole calendar should have the same category
 	this.iterateData = function(){
 		var iteratedData = [];
 		for(index in testData){
