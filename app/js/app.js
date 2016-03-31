@@ -39,15 +39,15 @@ timeTrackerApp.config(['$routeProvider',
 
       when('/auth', {
         templateUrl: 'partials/auth.html',
-        controller: 'authCtrl' /*,
+        controller: 'authCtrl',
         resolve: {
           //controller will not be loaded until $waitForAuth resolves
           //Auth refers to $firebaseAuth wrapper in authCtrl?
 
           "currentAuth": ["Auth", function(Auth){
             return Auth.$waitForAuth();
-          }];
-        }*/
+          }]
+        }
       }).
       // redirects all other url:s to '/add'
       otherwise({
