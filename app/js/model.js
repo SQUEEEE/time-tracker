@@ -4,6 +4,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	var testCategories = ["KTH", "Work", "Other"];
 
+
 	var testData = [			//a list of events imported from the api
 	{
 	   "kind": "calendar#event",
@@ -223,9 +224,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	this.calcDuration = function(start, end) {		// TODO: Funkar inte just nu!
 		duration = 0;
 		duration += end.dateTime - start.dateTime;
-		console.log(end.dateTime);
+		/*console.log(end.dateTime);
 		console.log(start.dateTime);
-		console.log(duration);
+		console.log(duration);*/
 
 		return 2;
 	}
@@ -233,7 +234,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	this.calcTimeCategory = function(category) {
 		sum = 0;
 		for (index in data) {
-			console.log(data[index])
 			if (category == data[index].category) {
 				if (data[index].logged == true) {
 					sum += this.calcDuration(data[index].start, data[index].end);
@@ -252,6 +252,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return sum;
 	}
 
+	// returns a list of objects with categories and amount of time spent per category
 	this.statPieObjects = function() {
 		objList = [];
 		for (index in testCategories) {
@@ -262,12 +263,26 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return objList;
 	}
 
+	this.isEarlier = function(myDate, comparedTo) {
+		if (myDate < comparedTo) {
+			return true;
+		}
+		return false;
+	}
+
+	this.isLater = function(myDate, comparedTo) {
+		if (myDate >= comparedTo) {
+			return true;
+		}
+		return false;
+	}
+
 	this.getTestCategories = function() {
 		return testCategories;
 	}
 
 	this.iterateData();
-	this.calcTimeCategory("KTH");
+	//this.calcTimeCategory("KTH");
 
 
 	return this;
