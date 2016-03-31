@@ -176,15 +176,15 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	var EventClass = function(current, category, logged){
 	//creates objects with the attributes we want, current is a object we want to copy most from
 
-		//this.id=current.id;
-		//this.created=current.created;
-		//this.updated=current.updated;
+		this.id=current.id;
+		this.created=current.created;
+		this.updated=current.updated;
 		this.title=current.summary;
-		//this.creator=current.creator.email;
-		//this.organizer=current.organizer.email;
+		this.creator=current.creator.email;
+		this.organizer=current.organizer.email;
 		this.start=current.start.dateTime;
 		this.end=current.end.dateTime;
-		//this.iCalUID=current.iCalUID;
+		this.iCalUID=current.iCalUID;
 		this.category=category;
 		this.logged=logged;
 
