@@ -251,6 +251,16 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return sum;
 	}
 
+	this.statPieObjects = function() {
+		objList = [];
+		for (index in testCategories) {
+			obj = {name: testCategories[index], y: this.calcTimeCategory(testCategories[index])};
+			objList.push(obj);
+		}
+
+		return objList;
+	}
+
 	this.getTestCategories = function() {
 		return testCategories;
 	}
