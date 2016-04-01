@@ -188,7 +188,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		this.iCalUID=current.iCalUID;		//what is it and do we need it?
 		this.category=category;				//a category grouping some events together, should have a unique color
 		this.logged=logged;					//true/false depending on if the event is logged or not
-
+		this.color='light';
+		this.textColor='black';
 		return this
 	};
 
