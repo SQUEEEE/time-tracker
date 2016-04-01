@@ -10,7 +10,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         console.log(TimeTracker.isEarlier());
     }*/
 
-    $scope.statChoices = ["Total", "Category"]
+    $scope.statChoices = ["Total", "Category", "Week"]
 
     $scope.selectStat = function(selected) {
         for (index in $scope.statChoices) {
@@ -19,6 +19,9 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             }
             else if (selected == "Category") {
                 $scope.showCategories();
+            }
+            else if (selected == "Week") {
+                $scope.showWeek();
             }
         }
     };
@@ -46,7 +49,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         },
         series: [{
             name: " ",
-            data: TimeTracker.statBarObjects()
+            data: TimeTracker.statBarList()
         }]
         });
     }
@@ -87,5 +90,35 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         });
     }
 
+
+    $scope.showWeek = function() {
+        $('#stat').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Time spent during one week'
+            },
+            xAxis: {
+                categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Hours'
+                }
+            },
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal'
+                }
+            },
+            series: TimeTracker.statWeekSeries()
+        });
+    };
 
 });

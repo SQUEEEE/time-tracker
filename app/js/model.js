@@ -264,12 +264,22 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return objList;
 	}
 
-	this.statBarObjects = function() {
+	// returns a list of spent time in category order
+	this.statBarList = function() {
 		valueList = [];
 		for (index in testCategories) {
 			valueList.push(this.calcTimeCategory(testCategories[index]));
 		}
 		return valueList;
+	}
+
+	this.statWeekSeries = function() {
+		weekList = [];
+		for (index in testCategories) {
+			obj = {name: testCategories[index], data: [2,2,2,2,2,2,2]};
+			weekList.push(obj);
+		}
+		return weekList;
 	}
 
 	this.isEarlier = function(myDate, comparedTo) {
@@ -286,12 +296,12 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return false;
 	}
 
+	// returns test categories
 	this.getTestCategories = function() {
 		return testCategories;
 	}
 
 	this.iterateData();
-	//this.calcTimeCategory("KTH");
 
 
 	return this;
