@@ -205,7 +205,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		var iteratedData = [];
 		for(index in testData){
 			var current = testData[index];
-			var eventObject = new EventClass(current, "KTH", true);
+			randNum = Math.floor((Math.random() * testCategories.length));
+			var eventObject = new EventClass(current, testCategories[randNum], true);
 			iteratedData.push(eventObject);
 		}
 		data = iteratedData
@@ -261,6 +262,14 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		}
 
 		return objList;
+	}
+
+	this.statBarObjects = function() {
+		valueList = [];
+		for (index in testCategories) {
+			valueList.push(this.calcTimeCategory(testCategories[index]));
+		}
+		return valueList;
 	}
 
 	this.isEarlier = function(myDate, comparedTo) {

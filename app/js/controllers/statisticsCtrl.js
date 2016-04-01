@@ -8,8 +8,6 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
    /* $scope.testingTime = function () {
 
         console.log(TimeTracker.isEarlier());
-
-
     }*/
 
     $scope.statChoices = ["Total", "Category"]
@@ -48,7 +46,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         },
         series: [{
             name: " ",
-            data: [$scope.totalSum, 2, 4]
+            data: TimeTracker.statBarObjects()
         }]
         });
     }
