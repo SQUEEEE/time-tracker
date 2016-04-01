@@ -15,7 +15,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
             defaultView: 'agendaWeek',          
             firstDay: 1,
 
-            dayClick: function(){ 			//pop up at a click, maybe we can use?
+            eventClick: function(){ 			//pop up at a click, maybe we can use?
         		alert('a day has been clicked!');
     		},
             events: $scope.testData  		//the events in the calendar
