@@ -275,12 +275,20 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	this.statWeekSeries = function() {
 		weekList = [];
+		now = new Date();
+		now1 = now.getTime();
+		now2 = now.setHours(0);
+		//now3 = now2.setMinutes(0);
+		//now = now.setSeconds(0);
+		//now = now.setMilliseconds(0)
 		for (index in testCategories) {
-			obj = {name: testCategories[index], data: [2,2,2,2,2,2,2]};
+			obj = {name: testCategories[index], data: [2,2,2,2,2,2,2], pointInterval: 24 * 3600 * 1000, pointStart: now2};
 			weekList.push(obj);
 		}
 		return weekList;
 	}
+
+	
 
 	this.isEarlier = function(myDate, comparedTo) {
 		if (myDate < comparedTo) {

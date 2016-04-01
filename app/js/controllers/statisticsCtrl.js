@@ -33,6 +33,9 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         chart: {
             type: 'bar'
         },
+        credits: {
+            enabled: false
+        },
         title: {
             text: 'Total amount of logged hours per categories'
         },
@@ -44,11 +47,15 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                 text: 'Time'
             }
         },
+        legend: {
+            enabled: false
+        },
         tooltip: {
-            valueSuffix: ' hours'
+            valueSuffix: ' hours',
+            pointFormat: '<b>{point.y}</b><br/>'
         },
         series: [{
-            name: " ",
+            colorByPoint: true,
             data: TimeTracker.statBarList()
         }]
         });
@@ -66,8 +73,11 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             title: {
                 text: 'Percentage per category'
             },
+            credits: {
+                enabled: false
+            },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                pointFormat: '<b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {
                 pie: {
@@ -83,7 +93,6 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                 }
             },
             series: [{
-                name: 'Categories',
                 colorByPoint: true,
                 data: TimeTracker.statPieObjects()
             }]
@@ -99,8 +108,16 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             title: {
                 text: 'Time spent during one week'
             },
+            credits: {
+                enabled: false
+            },
             xAxis: {
-                categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                type: 'datetime',
+                labels: {
+                    formatter: function () {
+                        return Highcharts.dateFormat('%a %e %b', this.value);
+                    },
+                }
             },
             yAxis: {
                 min: 0,
@@ -110,7 +127,9 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             },
             tooltip: {
                 pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-                shared: true
+                shared: true,
+                valueSuffix: ' hours',
+                xDateFormat: '%A %e %b',
             },
             plotOptions: {
                 column: {
