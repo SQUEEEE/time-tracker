@@ -3,6 +3,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	var data = []; // a list of events with the right attributes
 
 	var testCategories = ["KTH", "Work", "Other"];
+	var testColors = ['light', 'green', 'pink'];
 
 
 	var testData = [			//a list of events imported from the api
@@ -28,10 +29,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-03-30T08:00:00+01:00"
+	    "dateTime": "2016-04-07T08:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-03-30T10:00:00+01:00"
+	    "dateTime": "2016-04-07T10:00:00+01:00"
 	   },
 	   "iCalUID": "080045b8ce6d8543b8945ad1212b349e1a9c3c0f",
 	   "sequence": 0,
@@ -61,10 +62,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-03-30T10:00:00+01:00"
+	    "dateTime": "2016-04-06T10:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-03-30T12:00:00+01:00"
+	    "dateTime": "2016-04-06T12:00:00+01:00"
 	   },
 	   "iCalUID": "1b3527e85a8dc67ad7bc9b948d9d4f73bbee8354",
 	   "sequence": 0,
@@ -95,10 +96,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-03-30T08:00:00+01:00"
+	    "dateTime": "2016-04-06T08:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-03-30T10:00:00+01:00"
+	    "dateTime": "2016-04-06T10:00:00+01:00"
 	   },
 	   "iCalUID": "1cb6047381d01f23bc96475f8b0b9cfc8d21beec",
 	   "sequence": 0,
@@ -128,10 +129,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-03-31T08:00:00+01:00"
+	    "dateTime": "2016-04-05T08:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-03-31T10:00:00+01:00"
+	    "dateTime": "2016-04-05T10:00:00+01:00"
 	   },
 	   "iCalUID": "1ef55637f212b3ce20fd17e2c97d57ef0bac2325",
 	   "sequence": 0,
@@ -161,10 +162,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-04-01T11:00:00+01:00"
+	    "dateTime": "2016-04-04T11:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-04-01T15:00:00+01:00"
+	    "dateTime": "2016-04-04T15:00:00+01:00"
 	   },
 	   "iCalUID": "0646191c57dad5a4ebc4e10f112ec9a042b001eb",
 	   "sequence": 0,
@@ -174,7 +175,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	}
 	];
 
-	var EventClass = function(current, category, logged){
+	var EventClass = function(current, category, color, logged){
 	//creates objects with the attributes we want, current is a object we want to copy most from
 
 		this.id=current.id;
@@ -188,7 +189,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		this.iCalUID=current.iCalUID;		//what is it and do we need it?
 		this.category=category;				//a category grouping some events together, should have a unique color
 		this.logged=logged;					//true/false depending on if the event is logged or not
-		this.color='light';
+		this.color=color;
 		this.textColor='black';
 		return this
 	};
@@ -207,7 +208,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		for(index in testData){
 			var current = testData[index];
 			randNum = Math.floor((Math.random() * testCategories.length));
-			var eventObject = new EventClass(current, testCategories[randNum], true);
+			var eventObject = new EventClass(current, testCategories[randNum], testColors[randNum], true);
 			iteratedData.push(eventObject);
 		}
 		data = iteratedData
