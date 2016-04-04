@@ -276,14 +276,19 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	this.statWeekSeries = function() {
 		weekList = [];
-		now = new Date();
+		/*now = new Date();
 		now1 = now.getTime();
-		now2 = now.setHours(0);
-		//now3 = now2.setMinutes(0);
-		//now = now.setSeconds(0);
-		//now = now.setMilliseconds(0)
+		now2 = now.setUTCHours(2);
+		now3 = now.setUTCMinutes(0);
+		now4 = now.setUTCSeconds(0);
+		now5 = now.setUTCMilliseconds(0);
+		now6 = now.getTime();
+		console.log("0", now);
+		console.log("5", now5);
+		console.log("6", now6);*/
+
 		for (index in testCategories) {
-			obj = {name: testCategories[index], data: [2,2,2,2,2,2,2], pointInterval: 24 * 3600 * 1000, pointStart: now2};
+			obj = {name: testCategories[index], data: [2,2,2,2,2,2,2]};	//, pointInterval: 24 * 3600 * 1000, pointStart: now5
 			weekList.push(obj);
 		}
 		return weekList;

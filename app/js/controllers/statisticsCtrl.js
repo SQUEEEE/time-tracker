@@ -101,6 +101,14 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
 
 
     $scope.showWeek = function() {
+
+        Highcharts.setOptions({
+        global: {
+            useUTC: false
+        }
+        });
+
+
         $('#stat').highcharts({
             chart: {
                 type: 'column'
@@ -113,7 +121,12 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             },
             xAxis: {
                 type: 'datetime',
+
+                minTickInterval: 24 * 3600 * 1000,
+                //pointInterval: 24 * 3600 * 1000
+                pointStart: Date.UTC(2015, 4, 31, 0, 0, 0),
                 labels: {
+                    overflow: 'justify',
                     formatter: function () {
                         return Highcharts.dateFormat('%a %e %b', this.value);
                     },
@@ -123,6 +136,12 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                 min: 0,
                 title: {
                     text: 'Hours'
+                }
+            },
+            plotOptions: {
+                series: {
+                    pointStart: Date.UTC(2015, 4, 31, 0, 0, 0),
+                    pointInterval: 24 * 3600 * 1000
                 }
             },
             tooltip: {
