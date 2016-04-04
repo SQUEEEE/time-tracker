@@ -3,7 +3,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	var data = []; // a list of events with the right attributes
 
 	var testCategories = ["KTH", "Work", "Other"];
-	var testColors = ['light', 'green', 'pink'];
+	var testColors = ['lightblue', 'green', 'pink'];
 
 
 	var testData = [			//a list of events imported from the api
@@ -236,10 +236,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	// calculate total amount of logged time for a category
 	this.calcTimeCategory = function(category) {
 		sum = 0;
-		for (index in data) {
-			if (category == data[index].category) {
-				if (data[index].logged == true) {
-					sum += this.calcDuration(data[index].start, data[index].end);
+		for (i in data) {
+			if (category == data[i].category) {
+				if (data[i].logged == true) {
+					sum += this.calcDuration(data[i].start, data[i].end);
 				}
 			}
 		}
@@ -248,8 +248,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	// calculate total amount of logged time
 	this.calcTimeAllCategories = function() {
 		sum = 0;
-		for (index in testCategories) {
-			sum += this.calcTimeCategory(testCategories[index]);
+		for (j in testCategories) {
+			sum += this.calcTimeCategory(testCategories[j]);
 		}
 
 		return sum;
@@ -258,19 +258,21 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	// returns a list of objects with categories and amount of time spent per category
 	this.statPieObjects = function() {
 		objList = [];
-		for (index in testCategories) {
-			obj = {name: testCategories[index], y: this.calcTimeCategory(testCategories[index])};
+		for (index = 0; index < testCategories.length; index++) {
+			obj = {name: testCategories[index], y: this.calcTimeCategory(testCategories[index]), color: testColors[index]}; // 
 			objList.push(obj);
+			
 		}
-
+		//console.log(testColors[index]);
+		console.log(objList);
 		return objList;
 	}
 
 	// returns a list of spent time in category order
 	this.statBarList = function() {
 		valueList = [];
-		for (index in testCategories) {
-			valueList.push(this.calcTimeCategory(testCategories[index]));
+		for (k in testCategories) {
+			valueList.push({y: this.calcTimeCategory(testCategories[k]), color: testColors[k]});
 		}
 		return valueList;
 	}
@@ -289,7 +291,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		console.log("6", now6);*/
 
 		for (index in testCategories) {
-			obj = {name: testCategories[index], data: [2,2,2,2,2,2,2]};	//, pointInterval: 24 * 3600 * 1000, pointStart: now5
+			obj = {name: testCategories[index], data: [2,2,2,2,2,2,2], color: testColors[index]};	//, pointInterval: 24 * 3600 * 1000, pointStart: now5
 			weekList.push(obj);
 		}
 		return weekList;
