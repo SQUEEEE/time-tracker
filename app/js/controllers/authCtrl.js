@@ -3,6 +3,7 @@
 timeTrackerApp.controller("authCtrl", function($scope, Auth){
 
 	$scope.auth = Auth;
+	console.log("authCtrl loaded");
 
 	$scope.login = function(){
 		Auth.$authWithOAuthPopup("google").then(function(authData){
