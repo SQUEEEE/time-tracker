@@ -6,12 +6,16 @@ timeTrackerApp.controller("authCtrl", function($scope, Auth){
 	console.log("authCtrl loaded");
 
 	$scope.login = function(){
-		Auth.$authWithOAuthPopup("google").then(function(authData){
-			console.log("Logged in as:", authData.uid);
-
-		}).catch(function(error){
-			console.log("Authentication failed:", error);
-		});
+		Auth.$authWithOAuthPopup("google", function(error, authData){
+			if(error){
+				console.log(error);
+			}
+			else{
+				console.log("Logged in as ", authData.uid);
+			}
+		}, {
+			scope: "calendar.readonly"
+		})
 	}
 
 	$scope.auth.$onAuth(function(authData){

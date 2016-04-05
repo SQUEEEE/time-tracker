@@ -24,7 +24,7 @@ timeTrackerApp.config(['$routeProvider',
           //controller will not be loaded until $waitForAuth resolves
           //Auth refers to $firebaseAuth wrapper in authCtrl?
 
-          "currentAuth": ["Auth", function(Auth){
+          currentAuth: ["Auth", function(Auth){
             return Auth.$requireAuth();
           }]
         }
@@ -35,7 +35,7 @@ timeTrackerApp.config(['$routeProvider',
           //controller will not be loaded until $waitForAuth resolves
           //Auth refers to $firebaseAuth wrapper in authCtrl?
 
-          "currentAuth": ["Auth", function(Auth){
+          currentAuth: ["Auth", function(Auth){
             return Auth.$requireAuth();
           }]
         }
@@ -46,7 +46,7 @@ timeTrackerApp.config(['$routeProvider',
           //controller will not be loaded until $waitForAuth resolves
           //Auth refers to $firebaseAuth wrapper in authCtrl?
 
-          "currentAuth": ["Auth", function(Auth){
+          currentAuth: ["Auth", function(Auth){
             return Auth.$requireAuth();
           }]
         }
@@ -58,7 +58,7 @@ timeTrackerApp.config(['$routeProvider',
           //controller will not be loaded until $waitForAuth resolves
           //Auth refers to $firebaseAuth wrapper in authCtrl?
 
-          "currentAuth": ["Auth", function(Auth){
+          currentAuth: ["Auth", function(Auth){
             return Auth.$requireAuth();
           }]
         }
