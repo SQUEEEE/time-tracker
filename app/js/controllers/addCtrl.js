@@ -1,7 +1,12 @@
-timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker) {
+timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) {
 
 	$scope.timerRunning = false;
 	var timeStarted = false;
+
+	console.log(currentAuth);
+
+	$scope.user = currentAuth.google.displayName;
+
 
 	$scope.startTimer = function() {
 		if (!($scope.timerRunning) && !timeStarted) {
