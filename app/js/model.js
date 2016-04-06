@@ -220,7 +220,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return data;
 	};
 
-
 	/******* Statistics *******/
 
 	// calculate duration between two datetimes
@@ -312,6 +311,12 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	this.getTestCategories = function() {
 		return testCategories;
 	}
+
+
+	this.getTestColors = function(){
+		return testColors;
+	} 
+
 
 	this.iterateData();
 
