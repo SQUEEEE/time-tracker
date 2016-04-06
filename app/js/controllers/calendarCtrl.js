@@ -29,7 +29,8 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
         		//$(this).css('background-color', 'grey');	// change the border color if we want
 
         		$('#modalTitle').html(calEvent.title);
-                $('#modalBody').html("Category: "+ calEvent.category + " Logged: " + calEvent.logged);
+                $('#category').html("Category: " + calEvent.category);
+               	$('#logged').html('Logged: ' + calEvent.logged);
                 $('#eventUrl').attr('href', calEvent.url);
                 $('#fullCalModal').modal();
                 return false;
