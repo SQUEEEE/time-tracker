@@ -3,6 +3,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
 	$scope.testData = TimeTracker.getTestData();		//a list of data
 
     $scope.testCategories = TimeTracker.getTestCategories();
+    $scope.testColors = TimeTracker.getTestColors();
 
 	$scope.logOrNotLog = function(calEvent) {		//changes the status of logged or not logged
 		console.log("före,: ", calEvent.logged);
@@ -18,7 +19,8 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
     $scope.selectCat = function(selected) {
         for (index in $scope.testCategories) {
             if (selected == $scope.testCategories[index]) { 
-              //  console.log("val: ", selected);
+                console.log("val: ", selected);
+                console.log($scope.testColors[index]);		//tillhörande färg
             }
         }
     };
