@@ -21,7 +21,5 @@ timeTrackerApp.controller("authCtrl", function($scope, Auth){
 	$scope.auth.$onAuth(function(authData){
 		$scope.authData = authData;
 	})
-
-
 	
 })
