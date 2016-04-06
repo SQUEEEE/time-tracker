@@ -32,21 +32,23 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
             handleWindowResize: true, 		//for resizing
             selectable:true,				//its possible to select/highlight several time slots
 
-            eventClick: eventClickFunction = function(calEvent, jsEvent, view){ 	//when click on an event
+            eventClick: function(calEvent, jsEvent, view){ 	//when click on an event
         		
         		//$(this).css('background-color', 'grey');	// change the border color if we want
 
         		$('#modalTitle').html(calEvent.title);
                 $('#category').html("Category: " + calEvent.category);
                	$('#logged').html('Logged: ' + calEvent.logged);
+               	$('#eventUrl').attr('href', calEvent.url);		//links to the url if you press button
+                $('#fullCalModal').modal();						//starts the modal box
 
                	$("#loggedButton").click(function(){		//when click on the change if logged button
                		$scope.logOrNotLog(calEvent);			//changes logged status
-               		$('#calendar').fullCalendar('updateEvent', calEvent);
+               		calEvent.color="black";
+               		$('#calendar').fullCalendar('refetchEvents');		//updates all the events
+               		//eventClickFunction(calEvent, jsEvent, view);
                	});
 
-                $('#eventUrl').attr('href', calEvent.url);		//links to the url if you press button
-                $('#fullCalModal').modal();
                 return false;
     		},
 
