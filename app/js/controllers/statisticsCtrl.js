@@ -11,26 +11,25 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         console.log(TimeTracker.isEarlier());
     }*/
 
-    $scope.statChoices = ["Total", "Category", "Week"]
+    $scope.statChoices = ["Total time", "Category percentage", "Weekly status"]
 
     $scope.selectStat = function(selected) {
         for (index in $scope.statChoices) {
-            if (selected == "Total") {      // $scope.statChoices[index]
+            if (selected == "Total time") {      // $scope.statChoices[index]
                 $scope.showTotal();
             }
-            else if (selected == "Category") {
+            else if (selected == "Category percentage") {
                 $scope.showCategories();
             }
-            else if (selected == "Week") {
+            else if (selected == "Weekly status") {
                 $scope.showWeek();
             }
         }
+        return selected;
     };
         
-
-
     $scope.showTotal = function() {
-        $('#stat').highcharts({
+        return Highcharts.chart('stat', {
         chart: {
             type: 'bar'
         },
@@ -60,11 +59,12 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             data: TimeTracker.statBarList()
         }]
         });
-    }
+    };
+
 
 	
     $scope.showCategories = function() {
-        $('#stat').highcharts({
+        return Highcharts.chart('stat', {
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -108,8 +108,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             useUTC: false
         }
         });
-
-        $('#stat').highcharts({
+        return Highcharts.chart('stat', {
             chart: {
                 type: 'column'
             },
