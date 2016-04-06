@@ -31,6 +31,7 @@ timeTrackerApp.config(['$routeProvider',
       }).
       when('/statistics', {
         templateUrl: 'partials/statistics.html',
+        controller: 'StatisticsCtrl',
         resolve: {
           //controller will not be loaded until $waitForAuth resolves
           //Auth refers to $firebaseAuth wrapper in authCtrl?
@@ -42,6 +43,7 @@ timeTrackerApp.config(['$routeProvider',
       }).
       when('/calendar', {
         templateUrl: 'partials/calendar.html',
+        controller: 'CalendarCtrl',
         resolve: {
           //controller will not be loaded until $waitForAuth resolves
           //Auth refers to $firebaseAuth wrapper in authCtrl?
@@ -50,6 +52,7 @@ timeTrackerApp.config(['$routeProvider',
             return Auth.$requireAuth();
           }]
         }
+
       }).
       when('/settings', {
         templateUrl: 'partials/settings.html',

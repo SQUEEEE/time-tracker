@@ -13,6 +13,7 @@
 
  	<!-- jQuery -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src='bower_components/jquery/dist/jquery.min.js'></script>
 
 	<!-- Bootstrap javascript -->
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -25,6 +26,19 @@
 	<script src="bower_components/momentjs/min/locales.min.js"></script>
 	<script src="bower_components/humanize-duration/humanize-duration.js"></script>
 	<script src="bower_components/angular-timer/dist/angular-timer.js"></script>
+
+	<!-- Statistics -->
+	<script src="bower_components/highcharts/highcharts.js"></script>
+
+	<!-- Calendar -->
+	<script src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+	<link src="bower_components/fullcalendar/dist/fullcalendar.min.css"></link>
+	<link src="bower_components/fullcalendar/dist/fullcalendar.print.css"></link>
+	<script src='bower_components/fullcalendar/dist/fullcalendar.js'></script>
+	<link rel='stylesheet' href='bower_components/fullcalendar/dist/fullcalendar.css' />
+	<script src='bower_components/moment/min/moment.min.js'></script>
+	<link rel="shortcut icon" href=""></link>		<!-- behövs för annars får vi favicon.ico fel -->
+
 
 	<!-- cookies if we want it -->
 	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -39,6 +53,9 @@
     <script src="js/controllers/menuCtrl.js"></script>
     <script src="js/controllers/settingsCtrl.js"></script>
 	<script src="js/controllers/addCtrl.js"></script>
+	<script src="js/controllers/calendarCtrl.js"></script>
+	<script src="js/controllers/statisticsCtrl.js"></script>
+	
 
 	<script src="js/controllers/authCtrl.js"></script>
 	 <script src="js/auth.js"></script>
@@ -49,6 +66,7 @@
 	<div ng-view>
 
     </div>
+
 
 </body>
 

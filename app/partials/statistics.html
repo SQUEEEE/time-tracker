@@ -3,7 +3,27 @@
 	<div class="col-md-12">
 		<span class="mediumTitle">Statistics</span><hr>
 	</div>
+
+
+	<label for="statSelector"> Select which statistics you want to see: </label><br>
+    <select class='form-control' id="statSelector" ng-model="selected" ng-change="selectStat(selected)">
+    	<option ng-repeat="choice in statChoices" value="{{choice}}">{{choice}}</option>
+    </select>
+
+
+
+	<!-- Statistics -->
+	<br><br>
+	<div id="stat"></div>
+	<br><br><br><br><br><br><br><br>
+	
+	
+
+
+
+
 </div>
+
 
 <!-- We include the menu as it is shared across several screens. -->
 <ng-include src="'partials/menu.html'" ng-controller="MenuCtrl"></ng-include>
