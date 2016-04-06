@@ -59,6 +59,11 @@
 	min-width: 100%;
 }
 
+#categorySelector {
+	width:150px;
+	display: inline-block;
+}
+
 /*********** HOME ************/
 
 #home {

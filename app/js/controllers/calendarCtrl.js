@@ -2,14 +2,27 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
 
 	$scope.testData = TimeTracker.getTestData();		//a list of data
 
+    $scope.testCategories = TimeTracker.getTestCategories();
+
 	$scope.logOrNotLog = function(calEvent) {		//changes the status of logged or not logged
-		if (calEvent.logged == false){
+		console.log("före,: ", calEvent.logged);
+        if (calEvent.logged == false){
 			calEvent.logged = true;
 		}
-		else
+		else {
 			calEvent.logged = false;
-		console.log(calEvent.logged);
+        }
+		console.log("efter: ", calEvent.logged);
 	}
+
+
+    $scope.selectCat = function(selected) {
+        for (index in $scope.testCategories) {
+            if (selected == $scope.testCategories[index]) { 
+                console.log("val: ", selected);
+            }
+        }
+    };
 
 // initializes the calendar
 	$(document).ready(function() {
@@ -42,11 +55,10 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
                	$('#eventUrl').attr('href', calEvent.url);		//links to the url if you press button
                 $('#fullCalModal').modal();						//starts the modal box
 
-               	$("#loggedButton").click(function(){		//when click on the change if logged button
-               		$scope.logOrNotLog(calEvent);			//changes logged status
-               		calEvent.color="black";
-               		$('#calendar').fullCalendar('refetchEvents');		//updates all the events
-               		//eventClickFunction(calEvent, jsEvent, view);
+               	$("#loggedButton").unbind().click(function(){		//when click on the change if logged button
+               		$scope.logOrNotLog(calEvent);			       //changes logged status    
+                    $("#logged").html('Logged: ' + calEvent.logged);
+                    $('#calendar').fullCalendar('refetchEvents');       // rerenders all the objects in the calender
                	});
 
                 return false;
