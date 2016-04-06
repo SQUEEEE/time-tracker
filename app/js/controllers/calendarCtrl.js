@@ -2,6 +2,14 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
 
 	$scope.testData = TimeTracker.getTestData();		//a list of data
 
+	$scope.logOrNotLog = function(calEvent) {		//changes the status of logged or not logged
+		if (calEvent.logged == false){
+			calEvent.logged = true;
+		}
+		else
+			calEvent.logged = false;
+		console.log(calEvent.logged);
+	}
 
 // initializes the calendar
 	$(document).ready(function() {
@@ -24,14 +32,20 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
             handleWindowResize: true, 		//for resizing
             selectable:true,				//its possible to select/highlight several time slots
 
-            eventClick: function(calEvent, jsEvent, view){ 	//when click on an event
+            eventClick: eventClickFunction = function(calEvent, jsEvent, view){ 	//when click on an event
         		
         		//$(this).css('background-color', 'grey');	// change the border color if we want
 
         		$('#modalTitle').html(calEvent.title);
                 $('#category').html("Category: " + calEvent.category);
                	$('#logged').html('Logged: ' + calEvent.logged);
-                $('#eventUrl').attr('href', calEvent.url);
+
+               	$("#loggedButton").click(function(){		//when click on the change if logged button
+               		$scope.logOrNotLog(calEvent);			//changes logged status
+               		$('#calendar').fullCalendar('updateEvent', calEvent);
+               	});
+
+                $('#eventUrl').attr('href', calEvent.url);		//links to the url if you press button
                 $('#fullCalModal').modal();
                 return false;
     		},
