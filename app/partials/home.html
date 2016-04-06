@@ -1,18 +1,13 @@
 <div class="container" id="home">
-	home.html
-
+	<br>
 	 <div ng-show="authData">
  		<p> Hello, {{authData.google.displayName}} </p>
- 		<button ng-click="auth.$unauth()">Logout</button>
- 		<a ng-href="#/add"><button>Go to add.html</button></a>
 
  	</div>
  	<div ng-hide="authData">
  		<p>Welcome, please log in.</p>
     	<button ng-click="login()">Click to login</button>
  	</div>
-
-
 </div>
 
 <!-- We include the menu as it is shared across several screens. -->

@@ -4,6 +4,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
 
 	$scope.totalSum = TimeTracker.calcTimeAllCategories();
 
+    $scope.weekData = TimeTracker.statWeekSeries();
 
    /* $scope.testingTime = function () {
 
@@ -108,7 +109,6 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         }
         });
 
-
         $('#stat').highcharts({
             chart: {
                 type: 'column'
@@ -121,10 +121,6 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             },
             xAxis: {
                 type: 'datetime',
-
-                minTickInterval: 24 * 3600 * 1000,
-                //pointInterval: 24 * 3600 * 1000
-                pointStart: Date.UTC(2015, 4, 31, 0, 0, 0),
                 labels: {
                     overflow: 'justify',
                     formatter: function () {
@@ -138,12 +134,6 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                     text: 'Hours'
                 }
             },
-            plotOptions: {
-                series: {
-                    pointStart: Date.UTC(2015, 4, 31, 0, 0, 0),
-                    pointInterval: 24 * 3600 * 1000
-                }
-            },
             tooltip: {
                 pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
                 shared: true,
@@ -155,7 +145,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                     stacking: 'normal'
                 }
             },
-            series: TimeTracker.statWeekSeries()
+            series: $scope.weekData
         });
     };
 
