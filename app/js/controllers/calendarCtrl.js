@@ -24,8 +24,15 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
             handleWindowResize: true, 		//for resizing
             selectable:true,				//its possible to select/highlight several time slots
 
-            eventClick: function(event, jsEvent, view){ 			//pop up at a click, maybe we can use?
-        		alert(event.title + ' has been clicked!');
+            eventClick: function(calEvent, jsEvent, view){ 	//when click on an event
+        		
+        		//$(this).css('background-color', 'grey');	// change the border color if we want
+
+        		$('#modalTitle').html(calEvent.title);
+                $('#modalBody').html("Category: "+ calEvent.category + " Logged: " + calEvent.logged);
+                $('#eventUrl').attr('href', calEvent.url);
+                $('#fullCalModal').modal();
+                return false;
     		},
 
     		select: function(start, end, jsEvent, view, [ resource ]){	//should be activated when several slots are selected??

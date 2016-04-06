@@ -177,11 +177,12 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	var EventClass = function(current, category, color, logged){
 	//creates objects with the attributes we want, current is a object we want to copy most from
-
 		this.id=current.id;
+		this.url=current.htmlLink;
 		this.created=current.created;
 		this.updated=current.updated;
 		this.title=current.summary;
+		this.description=current.description;
 		this.creator=current.creator.email;
 		this.organizer=current.organizer.email;		//do we want organizer or creator? Which is what?
 		this.start=current.start.dateTime;
