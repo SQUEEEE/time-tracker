@@ -6,6 +6,11 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
 
     $scope.weekData = TimeTracker.statWeekSeries();
 
+    $scope.startValue = function() {
+        $scope.showTotal();
+        return "Total time";
+    };
+    
    /* $scope.testingTime = function () {
 
         console.log(TimeTracker.isEarlier());

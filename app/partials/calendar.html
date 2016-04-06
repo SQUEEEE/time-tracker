@@ -23,10 +23,8 @@
                 </div>
                 <div class="modal-footer">
 
-                    <select class='form-control' id="categorySelector" ng-model="selected" ng-change="selectCat(selected)">
-                    <option ng-repeat="choice in testCategories" value="{{choice}}">{{choice}}</option>
+                    <select class='form-control' id="categorySelector" ng-model="selected" ng-change="selectCat(selected)" ng-init="selected = currentCategory" ng-options="choice for choice in testCategories">
                     </select>
-
 
                 	<button type="button" id="loggedButton" class="btn btn-default"> Change logged status </button>
                     <a class="btn btn-primary" id="eventUrl" target="_blank">Event Page</a>

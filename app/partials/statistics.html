@@ -6,8 +6,7 @@
 
 
 	<label for="statSelector"> Select which statistics you want to see: </label><br>
-    <select class='form-control' id="statSelector" ng-model="selected" ng-change="selectStat(selected)">
-    	<option ng-repeat="choice in statChoices" value="{{choice}}">{{choice}}</option>
+    <select class='form-control' id="statSelector" ng-model="selected" ng-change="selectStat(selected)" ng-init="selected = startValue()" ng-options="choice for choice in statChoices">
     </select>
 
 
@@ -16,9 +15,6 @@
 	<br><br>
 	<div id="stat"></div>
 
-	<!--{{testF()}}
-	<div id="cont"></div>-->
-	<!--<div ng-show="selectStat() == 'Total'"> {{showTotal()}}</div>-->
 	<br><br><br><br><br><br><br><br>
 	
 	

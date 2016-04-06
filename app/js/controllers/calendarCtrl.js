@@ -15,11 +15,20 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
 		console.log("efter: ", calEvent.logged);
 	}
 
+    $scope.setValues = function(calEvent) {
+        //console.log("in setValues");
+        $scope.currentCategory = calEvent.category;
+        console.log("in setValues, ", $scope.currentCategory);
+    }
+
+    $scope.getCurrCat = function () {
+        return $scope.currentCategory;
+    }
 
     $scope.selectCat = function(selected) {
         for (index in $scope.testCategories) {
             if (selected == $scope.testCategories[index]) { 
-                console.log("val: ", selected);
+              //  console.log("val: ", selected);
             }
         }
     };
@@ -48,7 +57,8 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
             eventClick: function(calEvent, jsEvent, view){ 	//when click on an event
         		
         		//$(this).css('background-color', 'grey');	// change the border color if we want
-
+                $scope.setValues(calEvent);
+                console.log("ilog", $scope.currentCategory);
         		$('#modalTitle').html(calEvent.title);
                 $('#category').html("Category: " + calEvent.category);
                	$('#logged').html('Logged: ' + calEvent.logged);
