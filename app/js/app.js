@@ -8,7 +8,7 @@ $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
   // We can catch the error thrown when the $requireAuth promise is rejected
   // and redirect the user back to the home page
   if (error === "AUTH_REQUIRED") {
-    $location.path("/auth");
+    $location.path("/home");
   }
 });
 }]);
@@ -65,6 +65,7 @@ timeTrackerApp.config(['$routeProvider',
       }).
       when('/home', {
         templateUrl: 'partials/home.html',
+        controller: 'authCtrl'
       }).
 
       //testing authorization with firebase
