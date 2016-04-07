@@ -26,7 +26,9 @@
         <span class="formTitle">Duration:</span> <span ng-show="durationSet">{{duration}}</span>
         <br>
 
-        <span class="formTitle">Category:</span> <select class='form-control' id="categorySelector" ng-model="selected" ng-change="selectCat(selected)" ng-options="choice for choice in testCategories"></select><br>
+        <span class="formTitle">Category:</span>
+            <select class='form-control' id="categorySelector" ng-model="selected" ng-change="selectCat(selected)" ng-options="choice for choice in testCategories">
+            <option value="">Select Category</option></select><br>
 
 
         </div><div class="col-md-4"></div>

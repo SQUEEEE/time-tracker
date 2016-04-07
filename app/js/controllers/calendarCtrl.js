@@ -5,25 +5,32 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
     $scope.testCategories = TimeTracker.getTestCategories();
     $scope.testColors = TimeTracker.getTestColors();
 
+    $scope.currentCat = "";
+
 	$scope.logOrNotLog = function(calEvent) {		//changes the status of logged or not logged
-		console.log("före,: ", calEvent.logged);
+		//console.log("före,: ", calEvent.logged);
         if (calEvent.logged == false){
 			calEvent.logged = true;
 		}
 		else {
 			calEvent.logged = false;
         }
-		console.log("efter: ", calEvent.logged);
+		//console.log("efter: ", calEvent.logged);
 	}
 
-    $scope.selectCat = function(selected) {
-        for (index in $scope.testCategories) {
-            if (selected == $scope.testCategories[index]) { 
-                console.log("val: ", selected);
-                console.log($scope.testColors[index]);		//tillhörande färg
-            }
-        }
+    $scope.currentSelCat = function(selected) {
+        $scope.currentCat = selected;
     };
+
+    $scope.changeCategory = function(calEvent) {       //changes the status of logged or not logged
+        //console.log("före,: ", calEvent.category);
+        console.log($scope.currentCat);
+        if ($scope.currentCat != ""){
+            calEvent.category = $scope.currentCat;
+        }
+        //console.log("efter: ", calEvent.category);
+    }
+
 
 // initializes the calendar
 	$(document).ready(function() {
@@ -60,6 +67,13 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
                     $("#logged").html('Logged: ' + calEvent.logged);
                     $('#calendar').fullCalendar('refetchEvents');       // rerenders all the objects in the calender
                	});
+
+                $("#categoryButton").unbind().click(function(){
+                    $scope.changeCategory(calEvent);
+                    $('#category').html("Category: " + calEvent.category);
+                    $('#calendar').fullCalendar('refetchEvents');
+                });
+
 
                 return false;
     		},
