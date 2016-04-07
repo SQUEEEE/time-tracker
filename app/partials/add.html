@@ -3,25 +3,34 @@
 	<div class="col-md-12">
 		<span class="mediumTitle">Add</span><hr><br>
 
+
+		<!--     Timer and timer buttons      -->
 		<center>
-		<span class="timer"><timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}</timer></span><br>
+		<span class="timer"><timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}<br></span>
 
 		
 		<button class="btn btn-default" ng-show="!timerRunning" ng-click="startTimer()" ng-disabled="timerRunning"><span class="glyphicon glyphicon-play timerIcons"></span></button>
         <button class="btn btn-default" ng-show="timerRunning" ng-click="pauseTimer()" ng-disabled="!timerRunning"><span class="glyphicon glyphicon-pause timerIcons"></span></button>
-        <button class="btn btn-default" ng-disabled="timerRunning" ng-click="resetTimer()"><span class="glyphicon glyphicon-stop timerIcons"></span></button><br><br>
+        <button class="btn btn-default" ng-disabled="timerRunning" ng-click="resetTimer()"><span class="glyphicon glyphicon-stop timerIcons"></span></button>
+
+        <button class="btn btn-default" ng-disabled="timerRunning || (!timeStarted)" ng-click="setDuration(hhours, mminutes, sseconds)">Set as duration</button>
+       	</timer></center>
+        <br><br>
         
+        <div class="col-md-4"></div><div class="col-md-4">
     
-        Date:<br>
+        <span class="formTitle">Date:</span><br>
         
-        Start:<br>
+        <span class="formTitle">Start time:</span><br>
 
-        Duration:<br>
+        <span class="formTitle">Duration:</span> <span ng-show="durationSet">{{duration}}</span>
+        <br>
 
-        Category:<br>
+        <span class="formTitle">Category:</span> <select class='form-control' id="categorySelector" ng-model="selected" ng-change="selectCat(selected)" ng-options="choice for choice in testCategories"></select><br>
 
 
-        </center>
+        </div><div class="col-md-4"></div>
+
 	</div>
 </div>
 <!-- We include the menu as it is shared across several screens.  -->
