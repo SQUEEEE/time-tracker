@@ -1,21 +1,30 @@
-<div class="container" id="home">
-	
-	<div class="col-md-12">
-		<br>
-		<div ng-show="authData">
-	 		<span class="mediumTitle"> Hello, {{authData.google.displayName}} </span><hr>
+
+		<div ng-show="authData" class="container">
+			<div class="col-md-12">
+	 			<span class="mediumTitle"> Hello, {{authData.google.displayName}} </span><hr>
+	 		</div>
+
+	 		<!-- We include the menu as it is shared across several screens. -->
+			<ng-include src="'partials/menu.html'" ng-controller="MenuCtrl"></ng-include>
 	 	</div>
 	 	
-	 	<div ng-hide="authData">
-	 		<p>Welcome, please log in.</p>
-	    	<button class="btn btn-default" ng-click="login()">Click to login</button>
-	 	</div>
-	 </div>
-</div>
+	 	<div ng-hide="authData" class="container" id="unauthorized">
+	 		<div class="col-md-12">
 
-<!-- We include the menu as it is shared across several screens. -->
-<ng-include src="'partials/menu.html'" ng-controller="MenuCtrl"></ng-include>
+	 			<center><span class="jumboTitle">Welcome to Time Tracker</span></center>
+
+	 			<div class="centerBox">
+			 		<br>
+			 		Time tracker is a web page where..<br>.......<br>.......<br>......<br>.......<br>
+
+			 		<br><br>
+				 	<p>Welcome, please log in.</p>
+				    <button class="btn btn-default" ng-click="login()">Click to login</button>
+				</div>
+			</div>
+	 	</div>
+	 
+
+
+
 	
-    
-	
-</div>
