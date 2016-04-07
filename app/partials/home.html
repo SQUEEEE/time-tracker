@@ -1,14 +1,21 @@
 <div class="container" id="home">
-	<br>
-	 <div ng-show="authData">
- 		<p> Hello, {{authData.google.displayName}} </p>
-
- 	</div>
- 	<div ng-hide="authData">
- 		<p>Welcome, please log in.</p>
-    	<button ng-click="login()">Click to login</button>
- 	</div>
+	
+	<div class="col-md-12">
+		<br>
+		<div ng-show="authData">
+	 		<span class="mediumTitle"> Hello, {{authData.google.displayName}} </span><hr>
+	 	</div>
+	 	
+	 	<div ng-hide="authData">
+	 		<p>Welcome, please log in.</p>
+	    	<button class="btn btn-default" ng-click="login()">Click to login</button>
+	 	</div>
+	 </div>
 </div>
 
 <!-- We include the menu as it is shared across several screens. -->
 <ng-include src="'partials/menu.html'" ng-controller="MenuCtrl"></ng-include>
+	
+    
+	
+</div>

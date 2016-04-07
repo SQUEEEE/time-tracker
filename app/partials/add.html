@@ -3,21 +3,21 @@
 	<div class="col-md-12">
 		<span class="mediumTitle">Add</span><hr><br>
 
+        <div class="col-md-5"></div><div class="col-md-4">
 
 		<!--     Timer and timer buttons      -->
-		<center>
+		
 		<span class="timer"><timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}<br></span>
 
 		
 		<button class="btn btn-default" ng-show="!timerRunning" ng-click="startTimer()" ng-disabled="timerRunning"><span class="glyphicon glyphicon-play timerIcons"></span></button>
         <button class="btn btn-default" ng-show="timerRunning" ng-click="pauseTimer()" ng-disabled="!timerRunning"><span class="glyphicon glyphicon-pause timerIcons"></span></button>
         <button class="btn btn-default" ng-disabled="timerRunning" ng-click="resetTimer()"><span class="glyphicon glyphicon-stop timerIcons"></span></button>
-
-        <button class="btn btn-default" ng-disabled="timerRunning || (!timeStarted)" ng-click="setDuration(hhours, mminutes, sseconds)">Set as duration</button>
-       	</timer></center>
-        <br><br>
+       
+        <button class="btn btn-default" ng-hide="timerRunning || (!timeStarted)" ng-click="setDuration(hhours, mminutes, sseconds)">Set as duration</button>
+       	</timer><br><br>
         
-        <div class="col-md-4"></div><div class="col-md-4">
+        
     
         <span class="formTitle">Date:</span><br>
         
@@ -31,7 +31,7 @@
             <option value="">Select Category</option></select><br>
 
 
-        </div><div class="col-md-4"></div>
+        </div><div class="col-md-3"></div>
 
 	</div>
 </div>
