@@ -8,6 +8,10 @@
 	font-size: 25px;
 }
 
+.smallTitle{
+	font-size: 20px;
+}
+
 
 /*********** MENUBAR ************/
 .menuBar {
@@ -31,6 +35,11 @@
 
 #settings {
 	min-width: 100%;
+}
+
+#listSettings{
+	width: 70%;
+	text-align: left;
 }
 
 /*********** ADD ************/

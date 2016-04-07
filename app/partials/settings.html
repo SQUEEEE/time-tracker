@@ -4,12 +4,27 @@
 	<div class="col-md-6">
 		<span class="mediumTitle">Calendars</span>
 		<hr>
+
+		<div class="list-group">
+			<div ng-repeat='calendar in calendarArray'>
+  				<button type="button" id="listSettings" class="list-group-item">{{calendar}}</button>
+  			</div>
+		</div>
 	</div>
 
 	<div class="col-md-6">
 		<span class="mediumTitle">Categories</span>
 		<hr>
-		<div id='selectCategories'>{{categories()}}</div>
+		<button type="button" class='list-group-item'>New category</button>
+		<hr>
+		<span class="smallTitle">Your categories</span>
+		<div class="list-group">
+			
+			<div ng-repeat='category in categoryArray'>
+				<li id="listSettings" class='list-group-item'>{{category}}</li>
+			</div>
+
+		</div>
 	</div>
 
 </div>

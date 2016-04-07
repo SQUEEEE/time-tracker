@@ -317,6 +317,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return testColors;
 	} 
 
+	this.getTestCalendars = function(){
+		return ["KTH calendar", "Work calendar", "Potatoes", "Standard calendar"]
+	}
 
 	this.iterateData();
 
