@@ -4,11 +4,13 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 	$scope.colorArray = TimeTracker.getTestColors();
 
 	$scope.categories = function(){
-		var returnValue = "";
+		var returnValue = '<ul class="list-group">';
 		for (index in $scope.categoryArray){
- 			returnValue = returnValue + $scope.categoryArray[index] + " " + $scope.colorArray[index] + " ";
+ 			returnValue = returnValue + "<li class='list-group-item'>" +
+ 			 $scope.categoryArray[index] + " " + $scope.colorArray[index] + "</li>";
 		}
-		return returnValue; 
+		returnValue = returnValue + '</ul>'; 
+		//return $sce.trustAsHtml(returnValue)
 	}
 
 });
