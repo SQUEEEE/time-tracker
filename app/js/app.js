@@ -5,8 +5,7 @@ var timeTrackerApp = angular.module('timeTracker', ['ngRoute', 'ngResource', 'ti
 //auth routing
 timeTrackerApp.run(["$rootScope", "$location", function($rootScope, $location) {
 $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
-  // We can catch the error thrown when the $requireAuth promise is rejected
-  // and redirect the user back to the home page
+  // redirects to home when requireAuth fails
   if (error === "AUTH_REQUIRED") {
     $location.path("/home");
   }
@@ -21,8 +20,7 @@ timeTrackerApp.config(['$routeProvider',
         templateUrl: 'partials/add.html',
         controller: 'AddCtrl',
         resolve: {
-          //controller will not be loaded until $waitForAuth resolves
-          //Auth refers to $firebaseAuth wrapper in authCtrl?
+          //redirect to home if not authenticated
 
           currentAuth: ["Auth", function(Auth){
             return Auth.$requireAuth();
@@ -33,8 +31,7 @@ timeTrackerApp.config(['$routeProvider',
         templateUrl: 'partials/statistics.html',
         controller: 'StatisticsCtrl',
         resolve: {
-          //controller will not be loaded until $waitForAuth resolves
-          //Auth refers to $firebaseAuth wrapper in authCtrl?
+          //redirect to home if not authenticated
 
           currentAuth: ["Auth", function(Auth){
             return Auth.$requireAuth();
@@ -45,8 +42,8 @@ timeTrackerApp.config(['$routeProvider',
         templateUrl: 'partials/calendar.html',
         controller: 'CalendarCtrl',
         resolve: {
-          //controller will not be loaded until $waitForAuth resolves
-          //Auth refers to $firebaseAuth wrapper in authCtrl?
+           //redirect to home if not authenticated
+
 
           currentAuth: ["Auth", function(Auth){
             return Auth.$requireAuth();
@@ -58,8 +55,8 @@ timeTrackerApp.config(['$routeProvider',
         templateUrl: 'partials/settings.html',
         controller: 'SettingsCtrl',
         resolve: {
-          //controller will not be loaded until $waitForAuth resolves
-          //Auth refers to $firebaseAuth wrapper in authCtrl?
+           //redirect to home if not authenticated
+
 
           currentAuth: ["Auth", function(Auth){
             return Auth.$requireAuth();
@@ -71,12 +68,6 @@ timeTrackerApp.config(['$routeProvider',
         controller: 'authCtrl'
       }).
 
-      //testing authorization with firebase
-
-      when('/auth', {
-        templateUrl: 'partials/auth.html',
-        controller: 'authCtrl'
-      }).
       // redirects all other url:s to '/add'
       otherwise({
         redirectTo: '/add'
