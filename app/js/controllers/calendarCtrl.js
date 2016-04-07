@@ -5,7 +5,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
     $scope.testCategories = TimeTracker.getTestCategories();
     $scope.testColors = TimeTracker.getTestColors();
 
-    $scope.currentCat = "";
+    $scope.currentCat = null;
 
 	$scope.logOrNotLog = function(calEvent) {		//changes the status of logged or not logged
 		//console.log("före,: ", calEvent.logged);
@@ -25,7 +25,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
     $scope.changeCategory = function(calEvent) {       //changes the status of logged or not logged
         //console.log("före,: ", calEvent.category);
         console.log($scope.currentCat);
-        if ($scope.currentCat != ""){
+        if ($scope.currentCat != null){
             calEvent.category = $scope.currentCat;
         }
         //console.log("efter: ", calEvent.category);
