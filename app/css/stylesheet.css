@@ -42,6 +42,9 @@
 	text-align: left;
 }
 
+#confirm{
+	float: right;
+}
 /*********** ADD ************/
 
 #add {
@@ -72,6 +75,11 @@
 	width:150px;
 	display: inline-block;
 }
+
+.ui-state-highlight.fc-today{
+     color:red;
+     background:;
+  } 
 
 /*********** HOME ************/
 
