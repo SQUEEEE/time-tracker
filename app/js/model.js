@@ -4,8 +4,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	var testCategories = ["KTH", "Work", "Other"];		//take away and use categoryArray
 
-	
-
 	var colors = ['lightblue', 'green', 'pink', 'AntiqueWhite', 'Aquamarine', 'CadetBlue', 'Chartreuse', 'Coral',
 					'CornflowerBlue', 'Crimson', 'DarkCyan', 'DarkGoldenRod', 'DarkGreen', 'DarkSalmon', 'GoldenRod',
 					'GreenYellow', 'IndianRed', 'Khaki', 'LightCoral', 'LightCyan', 'LightGray', 'LightGreen',
@@ -14,6 +12,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 					'PapayaWhip', 'PeachPuff', 'Peru', 'Plum', 'PowderBlue', 'RosyBrown', 'Salmon', 'SeaGreen', 
 					'Silver', 'SpringGreen', 'SteelBlue', 'Tan', 'Teal', 'Thistle', 'Tomato', 'Wheat', 'Violet',
 					'YellowGreen'];		//all available colors for categories
+
 
 	var testColors = [colors[Math.floor(Math.random() * colors.length)], colors[Math.floor(Math.random() * colors.length)]
 					, colors[Math.floor(Math.random() * colors.length)]]; //take away and use categoryArray
