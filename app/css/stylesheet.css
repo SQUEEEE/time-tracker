@@ -79,9 +79,8 @@
 	display: inline-block;
 }
 
-.ui-state-highlight.fc-today{
-     color:red;
-     background:;
+.fc-today{
+     background:MistyRose!important;
   } 
 
 /*********** HOME ************/
