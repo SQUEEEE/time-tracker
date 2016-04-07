@@ -27,12 +27,18 @@
 		
 		<hr>
 		<span class="smallTitle">Your categories</span>
+		<span style="position:absolute; left:300px;">Change color</span>
+		<span style="position:absolute; left:400px;">Delete category</span>
 		<div class="list-group">
 			
 			<div ng-repeat='category in categoryArray'>
 				<li id="listSettings" class='list-group-item'>
 					{{category.name}}
-					<button class="btn btn-custom" ng-click="changeColor(category)" ng-attr-id="{{category.color}}" style="position: absolute; top: 50%; right: 15px; margin-top: -15px;"><span class="glyphicon glyphicon-refresh"></span></button>
+					
+
+					<button class="btn btn-custom" ng-click="changeColor(category)" ng-attr-id="{{category.color}}" style="position: absolute; top: 45%; right: 80px; margin-top: -15px;"><span class="glyphicon glyphicon-refresh"></span></button>
+
+					<button class="btn btn-danger remove_fields" style="position:absolute; top: 45%; margin-top:-15px; right:15px;" ><span class="glyphicon glyphicon-remove"></span></button>
 					
 				</li>
 			</div>
