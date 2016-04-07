@@ -30,7 +30,11 @@
 		<div class="list-group">
 			
 			<div ng-repeat='category in categoryArray'>
-				<li id="listSettings" class='list-group-item'>{{category}}</li>
+				<li id="listSettings" class='list-group-item'>
+					{{category.name}}
+					<button class="btn btn-primary" color="red" style="position: absolute; top: 50%; right: 15px; margin-top: -15px;"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
+					
+				</li>
 			</div>
 
 		</div>

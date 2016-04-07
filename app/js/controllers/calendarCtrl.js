@@ -2,8 +2,9 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
 
 	$scope.testData = TimeTracker.getTestData();		//a list of data
 
-    $scope.testCategories = TimeTracker.getTestCategories();
-    $scope.testColors = TimeTracker.getTestColors();
+    $scope.testCategories = TimeTracker.getTestCategories();        //throw away
+    $scope.categoryArray = TimeTracker.getCategories();     //the real one
+    $scope.testColors = TimeTracker.getTestColors();        //throw away 
 
 	$scope.logOrNotLog = function(calEvent) {		//changes the status of logged or not logged
 		console.log("före,: ", calEvent.logged);

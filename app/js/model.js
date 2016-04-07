@@ -2,7 +2,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	var data = []; // a list of events with the right attributes
 
-	var testCategories = ["KTH", "Work", "Other"];
+	var testCategories = ["KTH", "Work", "Other"];		//take away and use categoryArray
+
 	
 
 	var colors = ['lightblue', 'green', 'pink', 'AntiqueWhite', 'Aquamarine', 'CadetBlue', 'Chartreuse', 'Coral',
@@ -12,11 +13,12 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 					'MediumAquaMarine', 'MediumSeaGreen', 'Orchid', 'PaleGoldenRod', 'PaleGreen', 'PaleVioletRed', 
 					'PapayaWhip', 'PeachPuff', 'Peru', 'Plum', 'PowderBlue', 'RosyBrown', 'Salmon', 'SeaGreen', 
 					'Silver', 'SpringGreen', 'SteelBlue', 'Tan', 'Teal', 'Thistle', 'Tomato', 'Wheat', 'Violet',
-					'YellowGreen'];
+					'YellowGreen'];		//all available colors for categories
 
 	var testColors = [colors[Math.floor(Math.random() * colors.length)], colors[Math.floor(Math.random() * colors.length)]
-					, colors[Math.floor(Math.random() * colors.length)]];
+					, colors[Math.floor(Math.random() * colors.length)]]; //take away and use categoryArray
 
+	
 	var testData = [			//a list of events imported from the api
 	{
 	   "kind": "calendar#event",
@@ -186,7 +188,22 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	}
 	];
 
-	var EventClass = function(current, category, color, logged){
+	/******* Categories *****/
+	var CategoryClass = function(name){		//represents a category with name and color
+		this.name = name;
+		this.color = colors[Math.floor(Math.random() * colors.length)];
+		return this;
+	}
+
+	this.createCategory = function(name){		//creates a new category
+		return new CategoryClass(name);
+	}
+
+	var categoryArray = [new CategoryClass("KTH"), new CategoryClass("Work"), new CategoryClass("Other")];	//the real list of categories
+
+
+	/*****Eventclass **/
+	var EventClass = function(current, category, logged){
 	//creates objects with the attributes we want, current is a object we want to copy most from
 		this.id=current.id;
 		this.url=current.htmlLink;
@@ -199,19 +216,12 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		this.start=current.start.dateTime;
 		this.end=current.end.dateTime;
 		this.iCalUID=current.iCalUID;		//what is it and do we need it?
-		this.category=category;				//a category grouping some events together, should have a unique color
+		this.category=category.name;				//a category grouping some events together, should have a unique color
 		this.logged=logged;					//true/false depending on if the event is logged or not
-		this.color=color;
+		this.color=category.color;
 		this.textColor='black';
-		return this
+		return this;
 	};
-
-	/*this.addEvent = function(category, logged) {
-		// TODO skapa object
-		var eventObject = new EventClass(object, category, logged);
-		data.push(eventObject)
-		return eventObject
-	}*/
 
 	//creates "our" objects of all objects in the imported list
 	//can be used for automatic logging when a whole calendar should have the same category
@@ -220,17 +230,28 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		for(index in testData){
 			var current = testData[index];
 			randNum = Math.floor((Math.random() * testCategories.length));
-			var eventObject = new EventClass(current, testCategories[randNum], testColors[randNum], true);
+			var eventObject = new EventClass(current, categoryArray[randNum], true);
 			iteratedData.push(eventObject);
 		}
 		data = iteratedData
 		return data;
 	};
+
+	/***Returns**/
 	
 	//returns the data
 	this.getTestData = function() {
 		return data;
 	};
+
+	//returns the possible colors
+	this.getAllColors = function(){
+		return colors;
+	}
+
+	this.getCategories = function(){
+		return categoryArray;
+	}
 
 	/******* Statistics *******/
 
@@ -320,12 +341,12 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	}
 
 	// returns test categories
-	this.getTestCategories = function() {
+	this.getTestCategories = function() {		//take away
 		return testCategories;
 	}
 
 
-	this.getTestColors = function(){
+	this.getTestColors = function(){		//take away
 		return testColors;
 	} 
 
@@ -333,9 +354,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return ["KTH calendar", "Work calendar", "Potatoes", "Standard calendar"]
 	}
 
-	this.getAllColors = function(){
-		return colors;
-	}
+	
 
 	this.iterateData();
 
