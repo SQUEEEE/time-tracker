@@ -3,7 +3,19 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	var data = []; // a list of events with the right attributes
 
 	var testCategories = ["KTH", "Work", "Other"];
-	var testColors = ['lightblue', 'green', 'pink'];
+	
+
+	var colors = ['lightblue', 'green', 'pink', 'AntiqueWhite', 'Aquamarine', 'CadetBlue', 'Chartreuse', 'Coral',
+					'CornflowerBlue', 'Crimson', 'DarkCyan', 'DarkGoldenRod', 'DarkGreen', 'DarkSalmon', 'GoldenRod',
+					'GreenYellow', 'IndianRed', 'Khaki', 'LightCoral', 'LightCyan', 'LightGray', 'LightGreen',
+					'LightPink', 'LightSalmon', 'LightSeaGreen', 'LightSkyBlue', 'LightSteelBlue', 'LimeGreen',
+					'MediumAquaMarine', 'MediumSeaGreen', 'Orchid', 'PaleGoldenRod', 'PaleGreen', 'PaleVioletRed', 
+					'PapayaWhip', 'PeachPuff', 'Peru', 'Plum', 'PowderBlue', 'RosyBrown', 'Salmon', 'SeaGreen', 
+					'Silver', 'SpringGreen', 'SteelBlue', 'Tan', 'Teal', 'Thistle', 'Tomato', 'Wheat', 'Violet',
+					'YellowGreen'];
+
+	var testColors = [colors[Math.floor(Math.random() * colors.length)], colors[Math.floor(Math.random() * colors.length)]
+					, colors[Math.floor(Math.random() * colors.length)]];
 
 	var testData = [			//a list of events imported from the api
 	{
@@ -319,6 +331,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	this.getTestCalendars = function(){
 		return ["KTH calendar", "Work calendar", "Potatoes", "Standard calendar"]
+	}
+
+	this.getAllColors = function(){
+		return colors;
 	}
 
 	this.iterateData();
