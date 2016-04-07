@@ -11,4 +11,16 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 		console.log($scope.categoryArray)
 	}
 
+	$scope.changeColor = function(category){
+		while (true){
+			color = category.color;
+			newColor = $scope.colors[Math.floor(Math.random() * $scope.colors.length)]
+			if (color != newColor){
+				category.color = newColor;
+				return
+			}
+		}
+		
+	}
+
 });
