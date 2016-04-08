@@ -252,6 +252,14 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return categoryArray;
 	}
 
+	this.getCategoriesNames = function(){
+		nameList = []
+		for (num in categoryArray) {
+			nameList.push(categoryArray[num].name);
+		}
+		return nameList;
+	}
+
 	/******* Statistics *******/
 
 	// calculate duration between two datetimes
@@ -279,8 +287,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	// calculate total amount of logged time
 	this.calcTimeAllCategories = function() {
 		sum = 0;
-		for (j in testCategories) {
-			sum += this.calcTimeCategory(testCategories[j]);
+		for (j in categoryArray) {
+			sum += this.calcTimeCategory(categoryArray[j].name);
 		}
 
 		return sum;
@@ -289,8 +297,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	// returns a list of objects with categories and amount of time spent per category
 	this.statPieObjects = function() {
 		objList = [];
-		for (index = 0; index < testCategories.length; index++) {
-			obj = {name: testCategories[index], y: this.calcTimeCategory(testCategories[index]), color: testColors[index]}; // 
+		for (index = 0; index < categoryArray.length; index++) {
+			obj = {name: categoryArray[index].name, y: this.calcTimeCategory(categoryArray[index].name), color: categoryArray[index].color}; // 
 			objList.push(obj);		
 		}
 		return objList;
@@ -299,8 +307,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	// returns a list of spent time in category order
 	this.statBarList = function() {
 		valueList = [];
-		for (k in testCategories) {
-			valueList.push({y: this.calcTimeCategory(testCategories[k]), color: testColors[k]});
+		for (k in categoryArray) {
+			valueList.push({name: categoryArray[k].name, y: this.calcTimeCategory(categoryArray[k].name), color: categoryArray[k].color});
 		}
 		return valueList;
 	}
@@ -315,8 +323,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 		startWeek = new Date (year, month, day-weekday+1, 0, 0, 0, 0);
 
-		for (index in testCategories) {
-			obj = {name: testCategories[index], data: [2,2,2,2,2,2,2], color: testColors[index], pointInterval: 24 * 3600 * 1000, pointStart: startWeek.getTime()};
+		for (index in categoryArray) {
+			obj = {name: categoryArray[index].name, data: [2,2,2,2,2,2,2], color: categoryArray[index].color, pointInterval: 24 * 3600 * 1000, pointStart: startWeek.getTime()};
 			weekList.push(obj);
 		}
 		//console.log(weekList);

@@ -1,6 +1,6 @@
 timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
 
-	$scope.testCategories = TimeTracker.getTestCategories();
+    $scope.categoriesNames = TimeTracker.getCategoriesNames();
 
 	$scope.totalSum = TimeTracker.calcTimeAllCategories();
 
@@ -45,11 +45,11 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             text: 'Total amount of logged hours per categories'
         },
         xAxis: {
-            categories: $scope.testCategories
+            categories: $scope.categoriesNames,
         },
         yAxis: {
             title: {
-                text: 'Time'
+                text: 'Time in hours'
             }
         },
         legend: {
@@ -60,7 +60,6 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             pointFormat: '<b>{point.y}</b><br/>'
         },
         series: [{
-            colorByPoint: true,
             data: TimeTracker.statBarList()
         }]
         });
@@ -99,7 +98,6 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                 }
             },
             series: [{
-                colorByPoint: true,
                 data: TimeTracker.statPieObjects()
             }]
         });

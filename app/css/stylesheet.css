@@ -22,7 +22,7 @@
 .jumboTitle {
   font-size: 80px;
   font-family: century gothic;
-  color: rgba(127,255,212,0.7);
+  color: rgba(127,255,212,1);
 }
 
 /*********** MENUBAR ************/
@@ -98,13 +98,18 @@
 }
 
 #unauthorized {
-  background-color: rgba(0,0,0,0.95);
+  /*background-color: rgba(0,0,0,0.95);*/
+  background-color: white;
+  border: 5px solid;
+  border-color: rgba(127,255,212,1);
+
   min-width: 100%;
   min-height:100vh;
 }
 
 .centerBox {
   background-color: rgba(255,255,255,1);
+
   color: black;
 
   position: fixed;
@@ -117,10 +122,10 @@
   margin-left: -300px;
 
   padding: 20px;
-  border-radius: 25px;
-  border-width: 4px;
+  border-radius: 15px 50px;
+  border-width: 25px;
   border-style: solid;
-  border-color: rgba(127,255,212,0.7);
+  border-color: rgba(127,255,212,1);
 }
 
 /***** COLORS  ****/
