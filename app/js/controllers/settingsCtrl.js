@@ -22,4 +22,10 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 		}
 	}
 
+
+	$scope.removeCategory = function(category) {
+		console.log("Hej", category);
+		TimeTracker.removeCategory(category);
+	}
+
 });

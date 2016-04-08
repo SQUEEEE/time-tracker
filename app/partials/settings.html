@@ -38,7 +38,7 @@
 
 					<button class="btn btn-custom" ng-click="changeColor(category)" ng-attr-id="{{category.color}}" style="position: absolute; top: 45%; right: 80px; margin-top: -15px;"><span class="glyphicon glyphicon-refresh"></span></button>
 
-					<button class="btn btn-danger remove_fields" style="position:absolute; top: 45%; margin-top:-15px; right:15px;" ><span class="glyphicon glyphicon-remove"></span></button>
+					<span ng-hide="category.name == 'Undefined'"><button class="btn btn-danger remove_fields" ng-click="removeCategory(category.name)" style="position:absolute; top: 45%; margin-top:-15px; right:15px;" ><span class="glyphicon glyphicon-remove"></span></button>
 					
 				</li>
 			</div>

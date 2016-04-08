@@ -198,7 +198,31 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return new CategoryClass(name);
 	}
 
-	var categoryArray = [new CategoryClass("KTH"), new CategoryClass("Work"), new CategoryClass("Other")];	//the real list of categories
+	this.removeCategory = function(category) {
+		console.log(categoryArray);
+		console.log(category);
+		if (category != "Undefined") {
+			for (index in categoryArray) {
+				if (categoryArray[index].name == category) {
+					categoryArray.splice(index, 1);
+					this.changeCategoryToUndefined(category);
+				}
+			}
+		}
+		console.log(categoryArray);
+	}
+
+	this.changeCategoryToUndefined = function(category) {
+		for (i in data) {
+			if (data[i].category == category) {
+				data[i].category = categoryArray[0].name;
+				data[i].color = categoryArray[0].color;
+			}
+		}
+
+	}
+
+	var categoryArray = [new CategoryClass("Undefined"), new CategoryClass("KTH"), new CategoryClass("Work"), new CategoryClass("Other")];	//the real list of categories
 
 
 	/*****Eventclass **/
@@ -247,17 +271,25 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	this.getAllColors = function(){
 		return colors;
 	}
-
+	// returns all categories
 	this.getCategories = function(){
 		return categoryArray;
 	}
-
-	this.getCategoriesNames = function(){
+	// returns all category names in a list
+	this.getCategoryNames = function(){
 		nameList = []
 		for (num in categoryArray) {
 			nameList.push(categoryArray[num].name);
 		}
 		return nameList;
+	}
+
+	this.getColorByCategory = function(category) {
+		for (index in categoryArray) {
+			if (categoryArray[index].name == category) {
+				return categoryArray[index].color
+			}
+		}
 	}
 
 	/******* Statistics *******/

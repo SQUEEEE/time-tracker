@@ -2,9 +2,9 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
 
 	$scope.testData = TimeTracker.getTestData();		//a list of data
 
-    $scope.testCategories = TimeTracker.getTestCategories();        //throw away
+    $scope.categoryNames = TimeTracker.getCategoryNames();
+
     $scope.categoryArray = TimeTracker.getCategories();     //the real one
-    $scope.testColors = TimeTracker.getTestColors();        //throw away 
 
     $scope.currentCat = null;
 
@@ -23,11 +23,12 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
         $scope.currentCat = selected;
     };
 
-    $scope.changeCategory = function(calEvent) {       //changes the status of logged or not logged
+    $scope.changeCategory = function(calEvent) {       //changes the category
         //console.log("före,: ", calEvent.category);
         console.log($scope.currentCat);
         if ($scope.currentCat != null){
             calEvent.category = $scope.currentCat;
+            calEvent.color = TimeTracker.getColorByCategory(calEvent.category);
         }
         //console.log("efter: ", calEvent.category);
     }
@@ -65,15 +66,21 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
 
                	$("#loggedButton").unbind().click(function(){		//when click on the change if logged button
                		$scope.logOrNotLog(calEvent);			       //changes logged status    
-                    $("#logged").html('Logged: ' + calEvent.logged);
-                    $('#calendar').fullCalendar('refetchEvents');       // rerenders all the objects in the calender
+                    $("#logged").html('Logged: ' + calEvent.logged);       
+                    $('#calendar').fullCalendar('updateEvent', calEvent); // update the event
                	});
 
                 $("#categoryButton").unbind().click(function(){
                     $scope.changeCategory(calEvent);
                     $('#category').html("Category: " + calEvent.category);
-                    $('#calendar').fullCalendar('refetchEvents');
+                    $('#calendar').fullCalendar('updateEvent', calEvent);   // update the event
+                    //$('#calendar').fullCalendar('refetchEvents');
+                    console.log(calEvent);
+                    console.log($scope.testData);
+
                 });
+                console.log(calEvent);
+                console.log($scope.testData);
 
 
                 return false;
