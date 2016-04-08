@@ -27,7 +27,7 @@
         <br>
 
         <span class="formTitle">Category:</span>
-            <select class='form-control' id="categorySelector" ng-model="selected" ng-change="selectCat(selected)" ng-options="choice for choice in testCategories">
+            <select class='form-control' id="categorySelector" ng-model="selected" ng-change="selectCategory(selected)" ng-options="choice.name for choice in categories">
             <option value="">Select Category</option></select><br>
 
 

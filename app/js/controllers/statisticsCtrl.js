@@ -1,11 +1,15 @@
 timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
 
+    // names of all the categories
     $scope.categoryNames = TimeTracker.getCategoryNames();
 
+    // total logged time
 	$scope.totalSum = TimeTracker.calcTimeAllCategories();
 
+    // info for week Statistics
     $scope.weekData = TimeTracker.statWeekSeries();
 
+    // initial value for statistics page
     $scope.startValue = function() {
         $scope.showTotal();
         return "Total time";
@@ -16,11 +20,13 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         console.log(TimeTracker.isEarlier());
     }*/
 
+    // The different statistics choices
     $scope.statChoices = ["Total time", "Category percentage", "Weekly status"]
 
+    // showing the right statistics depending on users choice
     $scope.selectStat = function(selected) {
         for (index in $scope.statChoices) {
-            if (selected == "Total time") {      // $scope.statChoices[index]
+            if (selected == "Total time") { 
                 $scope.showTotal();
             }
             else if (selected == "Category percentage") {
@@ -32,7 +38,8 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         }
         return selected;
     };
-        
+      
+    // stats for total logged time  
     $scope.showTotal = function() {
         return Highcharts.chart('stat', {
         chart: {
@@ -66,7 +73,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
     };
 
 
-	
+	// stats for categories percentage 
     $scope.showCategories = function() {
         return Highcharts.chart('stat', {
             chart: {
@@ -103,7 +110,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         });
     }
 
-
+    // stats for current week
     $scope.showWeek = function() {
 
         Highcharts.setOptions({

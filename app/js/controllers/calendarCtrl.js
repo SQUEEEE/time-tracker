@@ -2,35 +2,32 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
 
 	$scope.testData = TimeTracker.getTestData();		//a list of data
 
-    $scope.categoryNames = TimeTracker.getCategoryNames();
+    $scope.categoryNames = TimeTracker.getCategoryNames(); // names of the categories
 
-    $scope.categoryArray = TimeTracker.getCategories();     //the real one
+    $scope.categoryArray = TimeTracker.getCategories();     //list of categories
 
     $scope.currentCat = null;
 
 	$scope.logOrNotLog = function(calEvent) {		//changes the status of logged or not logged
-		//console.log("före,: ", calEvent.logged);
         if (calEvent.logged == false){
 			calEvent.logged = true;
 		}
 		else {
 			calEvent.logged = false;
         }
-		//console.log("efter: ", calEvent.logged);
 	}
 
+    // currently chosen category in list
     $scope.currentSelCat = function(selected) {
         $scope.currentCat = selected;
     };
 
     $scope.changeCategory = function(calEvent) {       //changes the category
-        //console.log("före,: ", calEvent.category);
         console.log($scope.currentCat);
         if ($scope.currentCat != null){
             calEvent.category = $scope.currentCat;
             calEvent.color = TimeTracker.getColorByCategory(calEvent.category);
         }
-        //console.log("efter: ", calEvent.category);
     }
 
 

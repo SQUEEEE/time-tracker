@@ -1,16 +1,17 @@
 timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 
-	$scope.categoryArray = TimeTracker.getCategories();
-	$scope.colorArray = TimeTracker.getTestColors();
-	$scope.calendarArray = TimeTracker.getTestCalendars();
-	$scope.colors = TimeTracker.getAllColors();
+	$scope.categoryArray = TimeTracker.getCategories();		// list of categories
+	$scope.calendarArray = TimeTracker.getTestCalendars();	// list of names of the categories
+	$scope.colors = TimeTracker.getAllColors();				// all colors available
 
+	// creates a new category
 	$scope.newCategory = function(){
 		var name = document.getElementById("nameCategoryInput").value;
 		$scope.categoryArray.push(TimeTracker.createCategory(name));
 		console.log($scope.categoryArray)
 	}
 
+	// changes the color of a category
 	$scope.changeColor = function(category){
 		while (true){
 			color = category.color;
@@ -22,9 +23,8 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 		}
 	}
 
-
+	// removes a category
 	$scope.removeCategory = function(category) {
-		console.log("Hej", category);
 		TimeTracker.removeCategory(category);
 	}
 

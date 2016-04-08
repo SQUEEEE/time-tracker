@@ -2,8 +2,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	var data = []; // a list of events with the right attributes
 
-	var testCategories = ["KTH", "Work", "Other"];		//take away and use categoryArray
-
 	var colors = ['lightblue', 'green', 'pink', 'AntiqueWhite', 'Aquamarine', 'CadetBlue', 'Chartreuse', 'Coral',
 					'CornflowerBlue', 'Crimson', 'DarkCyan', 'DarkGoldenRod', 'DarkGreen', 'DarkSalmon', 'GoldenRod',
 					'GreenYellow', 'IndianRed', 'Khaki', 'LightCoral', 'LightCyan', 'LightGray', 'LightGreen',
@@ -12,10 +10,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 					'PapayaWhip', 'PeachPuff', 'Peru', 'Plum', 'PowderBlue', 'RosyBrown', 'Salmon', 'SeaGreen', 
 					'Silver', 'SpringGreen', 'SteelBlue', 'Tan', 'Teal', 'Thistle', 'Tomato', 'Wheat', 'Violet',
 					'YellowGreen'];		//all available colors for categories
-
-
-	var testColors = [colors[Math.floor(Math.random() * colors.length)], colors[Math.floor(Math.random() * colors.length)]
-					, colors[Math.floor(Math.random() * colors.length)]]; //take away and use categoryArray
 
 	
 	var testData = [			//a list of events imported from the api
@@ -198,6 +192,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return new CategoryClass(name);
 	}
 
+	// removes a category
 	this.removeCategory = function(category) {
 		console.log(categoryArray);
 		console.log(category);
@@ -212,6 +207,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		console.log(categoryArray);
 	}
 
+	// changes all the events of one category to undefined
 	this.changeCategoryToUndefined = function(category) {
 		for (i in data) {
 			if (data[i].category == category) {
@@ -219,8 +215,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 				data[i].color = categoryArray[0].color;
 			}
 		}
-
 	}
+
 
 	var categoryArray = [new CategoryClass("Undefined"), new CategoryClass("KTH"), new CategoryClass("Work"), new CategoryClass("Other")];	//the real list of categories
 
@@ -252,7 +248,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		var iteratedData = [];
 		for(index in testData){
 			var current = testData[index];
-			randNum = Math.floor((Math.random() * testCategories.length));
+			randNum = Math.floor((Math.random() * categoryArray.length));
 			var eventObject = new EventClass(current, categoryArray[randNum], true);
 			iteratedData.push(eventObject);
 		}
@@ -283,7 +279,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		}
 		return nameList;
 	}
-
+	// returns the color of a category
 	this.getColorByCategory = function(category) {
 		for (index in categoryArray) {
 			if (categoryArray[index].name == category) {
@@ -345,6 +341,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return valueList;
 	}
 
+	// returns a list with logged time the current week
 	this.statWeekSeries = function() {
 		weekList = [];
 		now = new Date();
@@ -378,17 +375,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		}
 		return false;
 	}
-
-	// returns test categories
-	this.getTestCategories = function() {		//take away
-		return testCategories;
-	}
-
-
-	this.getTestColors = function(){		//take away
-		return testColors;
-	} 
-
+	
 	this.getTestCalendars = function(){
 		return ["KTH calendar", "Work calendar", "Potatoes", "Standard calendar"]
 	}
