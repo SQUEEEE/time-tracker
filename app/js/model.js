@@ -168,10 +168,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-04-04T11:00:00+01:00"
+	    "dateTime": "2016-04-09T11:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-04-04T15:00:00+01:00"
+	    "dateTime": "2016-04-09T15:00:00+01:00"
 	   },
 	   "iCalUID": "0646191c57dad5a4ebc4e10f112ec9a042b001eb",
 	   "sequence": 0,
@@ -185,6 +185,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	var CategoryClass = function(name){		//represents a category with name and color
 		this.name = name;
 		this.color = colors[Math.floor(Math.random() * colors.length)];
+		this.autoreport = true;
 		return this;
 	}
 
@@ -236,7 +237,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		this.end=current.end.dateTime;
 		this.iCalUID=current.iCalUID;		//what is it and do we need it?
 		this.category=category.name;				//a category grouping some events together, should have a unique color
-		this.logged=logged;					//true/false depending on if the event is logged or not
+		this.logged=logged;				//true/false depending on if the event is logged or not
+		this.autoreport = category.autoreport;		// bool depending on if the event shoudl be auto reported
 		this.color=category.color;
 		this.textColor='black';
 		return this;
@@ -249,11 +251,28 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		for(index in testData){
 			var current = testData[index];
 			randNum = Math.floor((Math.random() * categoryArray.length));
-			var eventObject = new EventClass(current, categoryArray[randNum], true);
+			var eventObject = new EventClass(current, categoryArray[randNum], false);
 			iteratedData.push(eventObject);
 		}
 		data = iteratedData
 		return data;
+	};
+
+	// autoreports events that has already happen if autoreport is set to true
+	this.autoreportAll = function() {
+		currentTime = Date.now();
+		console.log(data);
+		//console.log("2", currentTime);
+		for (index in data) {
+			eventEndTime = Date.parse(data[index].end);
+			//console.log("eventtime: ", data[index].end);
+			//console.log("in ms: ", eventEndTime);
+			
+			if (currentTime > eventEndTime && data[index].autoreport == true) {
+				data[index].logged = true;
+			}
+		}
+		console.log(data);
 	};
 
 	/***Returns**/
@@ -375,7 +394,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		}
 		return false;
 	}
-	
+
 	this.getTestCalendars = function(){
 		return ["KTH calendar", "Work calendar", "Potatoes", "Standard calendar"]
 	}
@@ -383,7 +402,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	
 
 	this.iterateData();
-
+	this.autoreportAll();
 
 	return this;
 
