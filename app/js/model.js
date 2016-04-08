@@ -309,17 +309,16 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	/******* Statistics *******/
 
-	// calculate duration between two datetimes
-	this.calcDuration = function(start, end) {		// TODO: Funkar inte just nu!
-		duration = 0;
-		duration += end.dateTime - start.dateTime;
-		/*console.log(end.dateTime);
-		console.log(start.dateTime);
-		console.log(duration);*/
+	// calculate duration between two datetimes, returns milliseconds
+	this.calcDuration = function(start, end) {
 
-		return 2;
+		endTime = Date.parse(end);
+		startTime = Date.parse(start);
+		duration = endTime-startTime;
+
+		return duration;
 	}
-	// calculate total amount of logged time for a category
+	// calculate total amount of logged time for a category, returns hours
 	this.calcTimeCategory = function(category) {
 		sum = 0;
 		for (i in data) {
@@ -329,15 +328,16 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 				}
 			}
 		}
-		return sum;
+		result = sum /(1000 * 60 * 60);
+
+		return result;
 	}
-	// calculate total amount of logged time
+	// calculate total amount of logged time, returns hours 
 	this.calcTimeAllCategories = function() {
 		sum = 0;
 		for (j in categoryArray) {
 			sum += this.calcTimeCategory(categoryArray[j].name);
 		}
-
 		return sum;
 	}
 
@@ -360,6 +360,42 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return valueList;
 	}
 
+	// returns current week logged time
+	this.createWeekList = function(startDate, category) {
+		dataList = [];
+		num = [1,2,3,4,5,6]
+
+		dateList = [];
+		start = startDate.toDateString();
+		dateList.push(start);
+
+		startMs = startDate.getTime();
+
+		for (k in num) {
+			n = parseInt(k)+1;
+			ms = n * 86400000;
+			date = new Date(startMs + ms);
+			dateList.push(date.toDateString());
+
+		}
+
+		for (i in dateList) {
+			sum = 0;
+			for (j in data) {			// for every event
+				if (data[j].logged == true && data[j].category == category) {	// if logged and right category
+
+					compareDate = Date.parse(data[j].start);
+					compareDate = new Date(compareDate);
+					if (dateList[i] == compareDate.toDateString()) {
+						sum += (this.calcDuration(data[j].start, data[j].end)) /(1000 * 60 * 60);	// change to hours instead of milliseconds
+					}
+				}
+			}
+			dataList.push(sum);
+		}
+		return dataList;
+	}
+
 	// returns a list with logged time the current week
 	this.statWeekSeries = function() {
 		weekList = [];
@@ -371,29 +407,16 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 		startWeek = new Date (year, month, day-weekday+1, 0, 0, 0, 0);
 
-		for (index in categoryArray) {
-			obj = {name: categoryArray[index].name, data: [2,2,2,2,2,2,2], color: categoryArray[index].color, pointInterval: 24 * 3600 * 1000, pointStart: startWeek.getTime()};
+		for (index in categoryArray) {	// for every category
+			
+			list = this.createWeekList(startWeek, categoryArray[index].name);
+
+			obj = {name: categoryArray[index].name, data: list, color: categoryArray[index].color, pointInterval: 24 * 3600 * 1000, pointStart: startWeek.getTime()};
 			weekList.push(obj);
 		}
-		//console.log(weekList);
 		return weekList;
 	}
 
-	
-
-	this.isEarlier = function(myDate, comparedTo) {
-		if (myDate < comparedTo) {
-			return true;
-		}
-		return false;
-	}
-
-	this.isLater = function(myDate, comparedTo) {
-		if (myDate >= comparedTo) {
-			return true;
-		}
-		return false;
-	}
 
 	this.getTestCalendars = function(){
 		return ["KTH calendar", "Work calendar", "Potatoes", "Standard calendar"]

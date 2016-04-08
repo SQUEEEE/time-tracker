@@ -14,11 +14,6 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         $scope.showTotal();
         return "Total time";
     };
-    
-   /* $scope.testingTime = function () {
-
-        console.log(TimeTracker.isEarlier());
-    }*/
 
     // The different statistics choices
     $scope.statChoices = ["Total time", "Category percentage", "Weekly status"]
