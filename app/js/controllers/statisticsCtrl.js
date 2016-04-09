@@ -9,6 +9,8 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
     // info for week Statistics
     $scope.weekData = TimeTracker.statWeekSeries();
 
+    $scope.monthData = TimeTracker.statMonthSeries();
+
     // initial value for statistics page
     $scope.startValue = function() {
         $scope.showTotal();
@@ -16,7 +18,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
     };
 
     // The different statistics choices
-    $scope.statChoices = ["Total time", "Category percentage", "Weekly status"]
+    $scope.statChoices = ["Total time", "Category percentage", "Weekly status", "Monthly status"]
 
     // showing the right statistics depending on users choice
     $scope.selectStat = function(selected) {
@@ -29,6 +31,9 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             }
             else if (selected == "Weekly status") {
                 $scope.showWeek();
+            }
+            else if (selected == "Monthly status") {
+                $scope.showMonth();
             }
         }
         return selected;
@@ -152,5 +157,56 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             series: $scope.weekData
         });
     };
+
+    // stats for current week
+    $scope.showMonth = function() {
+
+        Highcharts.setOptions({
+        global: {
+            useUTC: false
+        }
+        });
+        return Highcharts.chart('stat', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Time spent during this month'
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                type: 'datetime',
+                labels: {
+                    overflow: 'justify',
+                    formatter: function () {
+                        return Highcharts.dateFormat('%a %e %b', this.value);
+                    },
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Hours'
+                }
+            },
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                shared: true,
+                valueSuffix: ' hours',
+                xDateFormat: '%A %e %b',
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal'
+                }
+            },
+            series: $scope.monthData
+        });
+    };
+
+
+
 
 });

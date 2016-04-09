@@ -393,6 +393,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 			}
 			dataList.push(sum);
 		}
+
 		return dataList;
 	}
 
@@ -416,6 +417,67 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		}
 		return weekList;
 	}
+
+
+	// returns a list with logged time the current month
+	this.statMonthSeries = function() {
+		monthList = [];
+		now = new Date();
+		year = now.getFullYear();
+		month = now.getMonth();
+
+		startDate = new Date (year, month, 1, 0, 0, 0, 0);
+
+		for (index in categoryArray) {	// for every category
+			
+			list = this.createMonthList(startDate, categoryArray[index].name, month);
+
+			obj = {name: categoryArray[index].name, data: list, color: categoryArray[index].color, pointInterval: 24 * 3600 * 1000, pointStart: startDate.getTime()};
+			monthList.push(obj);
+		}
+		return monthList;
+	}
+
+	// returns current month logged time
+	this.createMonthList = function(startDate, category, month) {
+		daysInMonth=[31,28,31,30,31,30,31,31,30,31,30,31];
+		dataList = [];
+		dateList = [];
+		num = [];
+
+		for (i = 0; i < daysInMonth[month]; i++) {
+			num.push(0);
+		}
+
+		start = startDate.toDateString();
+		dateList.push(start);
+
+		startMs = startDate.getTime();
+
+		for (k in num) {
+			n = parseInt(k)+1;
+			ms = n * 86400000;
+			date = new Date(startMs + ms);
+			dateList.push(date.toDateString());
+		}
+
+		for (i in dateList) {
+			sum = 0;
+			for (j in data) {			// for every event
+				if (data[j].logged == true && data[j].category == category) {	// if logged and right category
+
+					compareDate = Date.parse(data[j].start);
+					compareDate = new Date(compareDate);
+					if (dateList[i] == compareDate.toDateString()) {
+						sum += (this.calcDuration(data[j].start, data[j].end)) /(1000 * 60 * 60);	// change to hours instead of milliseconds
+					}
+				}
+			}
+			dataList.push(sum);
+		}
+		return dataList;
+	}
+
 
 
 	this.getTestCalendars = function(){
