@@ -4,6 +4,9 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 	$scope.calendarArray = TimeTracker.getTestCalendars();	// list of names of the categories
 	$scope.colors = TimeTracker.getAllColors();				// all colors available
 
+
+	$scope.showAutoreportInfo = true;
+
 	// creates a new category
 	$scope.newCategory = function(){
 		var name = document.getElementById("nameCategoryInput").value;
