@@ -27,14 +27,20 @@
 		
 		<hr>
 		<span class="smallTitle">Your categories</span>
-		<span style="position:absolute; left:300px;">Change color</span>
-		<span style="position:absolute; left:400px;">Delete category</span>
+		<span style="position:absolute; left:280px;">Auto report</span>
+		<span style="position:absolute; left:370px;">Color</span>
+		<span style="position:absolute; left:430px;">Delete</span>
 		<div class="list-group">
 			
 			<div ng-repeat='category in categoryArray'>
 				<li id="listSettings" class='list-group-item'>
 					{{category.name}}
 					
+					<!-- ng-init="obj={checked:category.autoreport}" ng-model="obj.checked" -->
+
+					<div class="checkbox-inline">
+  						<label><input type="checkbox" value="" ng-model="category.autoreport" ng-change="changeAutoreport(category)" style="right: 160px; top: 45%; position: absolute; margin-top: -5px;"></label>
+					</div>
 
 					<button class="btn btn-custom" ng-click="changeColor(category)" ng-attr-id="{{category.color}}" style="position: absolute; top: 45%; right: 80px; margin-top: -15px;"><span class="glyphicon glyphicon-refresh"></span></button>
 

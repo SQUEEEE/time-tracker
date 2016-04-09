@@ -8,7 +8,7 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 	$scope.newCategory = function(){
 		var name = document.getElementById("nameCategoryInput").value;
 		$scope.categoryArray.push(TimeTracker.createCategory(name));
-		console.log($scope.categoryArray)
+		//console.log($scope.categoryArray)
 	}
 
 	// changes the color of a category
@@ -26,6 +26,13 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 	// removes a category
 	$scope.removeCategory = function(category) {
 		TimeTracker.removeCategory(category);
+	}
+
+
+	$scope.changeAutoreport = function(category) {
+		console.log(category.autoreport);
+		TimeTracker.changeAutoreport(category);
+		
 	}
 
 });

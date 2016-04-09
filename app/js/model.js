@@ -185,7 +185,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	var CategoryClass = function(name){		//represents a category with name and color
 		this.name = name;
 		this.color = colors[Math.floor(Math.random() * colors.length)];
-		this.autoreport = true;
+		this.autoreport = false;
 		return this;
 	}
 
@@ -238,7 +238,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		this.iCalUID=current.iCalUID;		//what is it and do we need it?
 		this.category=category.name;				//a category grouping some events together, should have a unique color
 		this.logged=logged;				//true/false depending on if the event is logged or not
-		this.autoreport = category.autoreport;		// bool depending on if the event shoudl be auto reported
+		this.autoreport = category.autoreport;		// bool depending on if the event should be auto reported
 		this.color=category.color;
 		this.textColor='black';
 		return this;
@@ -274,6 +274,28 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		}
 		console.log(data);
 	};
+
+	// changes autoreport for a category and its events
+	this.changeAutoreport = function(category) {	
+		for (index in categoryArray){					// change autoreport for category
+			if (categoryArray[index].name == category.name) {	
+				categoryArray[index].autoreport == category.autoreport;
+			}
+		}
+
+		for (i in data) {								// change on the events
+			if (data[i].category == category.name) {
+				data[i].autoreport = category.autoreport;
+			}
+		}
+
+		if (category.autoreport == true) {			// if change to true, autoreport unlogged events directly
+			this.autoreportAll();
+		}
+
+		console.log(data);
+		console.log(categoryArray);
+	}
 
 	/***Returns**/
 	

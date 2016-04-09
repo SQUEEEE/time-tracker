@@ -20,7 +20,7 @@
 }
 
 .jumboTitle {
-  font-size: 80px;
+  font-size: 70px;
   font-family: century gothic;
   color: rgba(127,255,212,1);
 }
@@ -113,13 +113,13 @@
   color: black;
 
   position: fixed;
-  height: 400px;
-  width: 600px;
+  height: 500px;
+  width: 700px;
 
   top: 50%;
   left: 50%;
-  margin-top: -200px;
-  margin-left: -300px;
+  margin-top: -250px;
+  margin-left: -350px;
 
   padding: 20px;
   border-radius: 15px 50px;
