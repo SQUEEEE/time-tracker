@@ -40,10 +40,13 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             enabled: false
         },
         title: {
-            text: 'Total amount of logged hours per category'
+            text: 'Total amount of logged hours'
         },
         xAxis: {
-            categories: $scope.categoryNames
+            categories: $scope.categoryNames,
+            title: {
+                text: 'Categories'
+            }
         },
         yAxis: {
             title: {

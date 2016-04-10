@@ -62,7 +62,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
         		$('#modalTitle').html(calEvent.title);
                 $('#category').html("Category: " + calEvent.category);
                	$('#logged').html('Logged: ' + calEvent.logged);
-               	$('#eventUrl').attr('href', calEvent.url);		//links to the url if you press button
+               	//$('#eventUrl').attr('href', calEvent.url);		//links to the url if you press button
                 $('#fullCalModal').modal();						//starts the modal box
 
                	$("#loggedButton").unbind().click(function(){		//when click on the change if logged button
