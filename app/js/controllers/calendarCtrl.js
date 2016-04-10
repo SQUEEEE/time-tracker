@@ -45,12 +45,15 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
    				next: 'right-single-arrow'
             },
             allDaySlot: false,    			//no all day events    
-            defaultView: 'agendaWeek',      //a week with squares for the time slots    
+            defaultView: 'agendaWeek',      //a week with squares for the time slots
+            nowIndicator: true,             // shows current time  
             firstDay: 1,					//starts on monday
             scrollTime: '07:30:00',			//the time which shows up at the top
             height: 650,					//a constant height for scrolltime to work
             handleWindowResize: true, 		//for resizing
             selectable:true,				//its possible to select/highlight several time slots
+            axisFormat: 'HH(:mm)',
+            timeFormat: 'HH:mm',
 
             eventClick: function(calEvent, jsEvent, view){ 	//when click on an event
         		
@@ -72,12 +75,12 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
                     $('#category').html("Category: " + calEvent.category);
                     $('#calendar').fullCalendar('updateEvent', calEvent);   // update the event
                     //$('#calendar').fullCalendar('refetchEvents');
-                    console.log(calEvent);
-                    console.log($scope.testData);
+                    //console.log(calEvent);
+                    //console.log($scope.testData);
 
                 });
-                console.log(calEvent);
-                console.log($scope.testData);
+                //console.log(calEvent);
+                //console.log($scope.testData);
 
 
                 return false;

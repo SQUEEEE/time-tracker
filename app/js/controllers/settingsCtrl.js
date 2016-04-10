@@ -9,6 +9,13 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 
 	// creates a new category
 	$scope.newCategory = function(name, autoreport){
+
+		for (index in $scope.categoryArray) {
+			if ($scope.categoryArray[index].name == name) {
+				return;					 // do not create category with same name as another
+			}
+		}
+
 		$scope.categoryArray.push(TimeTracker.createCategory(name, autoreport));
 		console.log($scope.categoryArray)
 	}

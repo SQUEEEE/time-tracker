@@ -18,14 +18,17 @@
 
 		<form class="form-inline" role="form">
             <div class="form-group">
-                <input class="form-control" ng-model="name" type="text" placeholder="Name of new category" />
-            	Auto report: <input type="checkbox" ng-model="autoreport">
-            	<button class="btn btn-default" ng-click="newCategory(name, autoreport)">Add</button>
+            	<div class="input-group">
+	                <input class="form-control" ng-model="name" type="text" placeholder="Name of new category" />
+	            	<span class="input-group-addon">Auto report: <input type="checkbox" ng-model="autoreport"></span>
+	            
+            		<span class="input-group-btn">
+            		<button class="btn btn-default" ng-click="newCategory(name, autoreport)">Add</button></span>
+            	</div>
+            	
         	</div>
-
-
         </form>
-		
+		<br>
 		<hr>
 		<span class="smallTitle">Your categories</span>
 
