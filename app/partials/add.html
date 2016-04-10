@@ -21,10 +21,28 @@
     
         <span class="formTitle">Date:</span><br>
         
-        <span class="formTitle">Start time:</span><br>
+        <span class="formTitle">Start time:</span><br><br>
 
-        <span class="formTitle">Duration:</span> <span ng-show="durationSet">{{duration}}</span>
+        <span class="formTitle">Duration:</span> 
+		<div class ="form-Group">
+			<div class="col-xs-2">
+			<label for="hour">Hour:</label>
+			<input type="text" class="form-control" id="hour">
+			</div>
+			<div class="col-xs-2">
+			<label for="minute">Minute:</label>
+			<input type="text" class="form-control" id="minute">
+			</div>
+			<div class="col-xs-2">
+			<label for="second">Sec:</label>
+			<input type="text" class="form-control" id="second">
+			</div>
+		</div>
+		<span ng-show="durationSet">{{duration}}</span>
         <br>
+		<br>
+		<br>
+		<br>
 
         <span class="formTitle">Category:</span>
             <select class='form-control' id="categorySelector" ng-model="selected" ng-change="selectCategory(selected)" ng-options="choice.name for choice in categories">
