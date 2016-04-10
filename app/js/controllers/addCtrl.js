@@ -11,18 +11,31 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.user = currentAuth.google.displayName;
 
 	$scope.durationSet = false;		// bool if duration is taken from timer
-	$scope.duration = 0;			// value of duration
-
+	$scope.duration = 0;	
+	// value of duration
+	$scope.setTimer = function(_hour,_minute,_second){
+		console.log($scope.hours);
+		console.log($scope.min);
+		console.log($scope.sec);
+		
+		$scope.hour = $scope.hours;
+		$scope.minute = $scope.min;
+		$scope.second = $scope.sec;
+		
+		
+		lastInput = [$scope.hours,$scope.min,$scope.sec];
+	}
+	
 	// sets the duration in form with timer
 	$scope.setDuration = function() {
-
+		
 		$scope.durationSet = true;
 		//console.log($scope.hours);
 		//console.log($scope.min);
 		//console.log($scope.sec);
 		//console.log($scope.millis);
 
-		time = new Date(2016,1,1, $scope.hours, $scope.min, $scope.sec, 0);
+		time = new Date(2016,1,1, $scope.hour, $scope.minute, $scope.second, 0);
 		//console.log(time);
 		//console.log(time.toLocaleTimeString());
 
@@ -39,7 +52,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		else {
 			$scope.hour = lastInput[0];
 		}
-		
+		$scope.setDuration();
 	}
 	$scope.minuteChange = function(minute){
 	
@@ -51,6 +64,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		else {	
 			$scope.minute = lastInput[1];
 		}
+		$scope.setDuration();
 	}
 	$scope.secondChange = function(second){
 	
@@ -61,6 +75,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		else {
 			$scope.second = lastInput[2];
 		}
+		$scope.setDuration();
 		
 		
 	}
