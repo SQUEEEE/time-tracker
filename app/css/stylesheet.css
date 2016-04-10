@@ -22,7 +22,8 @@
 .jumboTitle {
   font-size: 70px;
   font-family: century gothic;
-  color: rgba(127,255,212,1);
+  /*color: rgba(127,255,212,1);*/
+  color: black;
 }
 
 /*********** MENUBAR ************/
@@ -117,8 +118,8 @@
 #unauthorized {
   /*background-color: rgba(0,0,0,0.95);*/
   background-color: white;
-  border: 5px solid;
-  border-color: rgba(127,255,212,1);
+  /*border: 5px solid;*/
+  /*border-color: rgba(127,255,212,1);*/
 
   min-width: 100%;
   min-height:100vh;
