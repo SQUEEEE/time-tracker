@@ -1,7 +1,7 @@
 timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 
 	$scope.categoryArray = TimeTracker.getCategories();		// list of categories
-	$scope.calendarArray = TimeTracker.getTestCalendars();	// list of names of the categories
+	$scope.calendarArray = TimeTracker.getTestCalendars();	// list of names of the calendars
 	$scope.colors = TimeTracker.getAllColors();				// all colors available
 
 

@@ -54,6 +54,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, TimeTracker) {
             selectable:true,				//its possible to select/highlight several time slots
             axisFormat: 'HH(:mm)',
             timeFormat: 'HH:mm',
+            columnFormat: 'ddd D/M',
 
             eventClick: function(calEvent, jsEvent, view){ 	//when click on an event
         		

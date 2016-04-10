@@ -11,6 +11,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 					'Silver', 'SpringGreen', 'SteelBlue', 'Tan', 'Teal', 'Thistle', 'Tomato', 'Wheat', 'Violet',
 					'YellowGreen'];		//all available colors for categories
 
+
+	var calendarArray = [];
 	
 	var testData = [			//a list of events imported from the api
 	{
@@ -180,6 +182,27 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	   }
 	}
 	];
+
+	/*********** Calendar class *************/
+	var CalendarClass = function(name, category) {
+		this.name = name;
+		this.category = category;
+	}
+
+	this.createCalendar = function(name, category) {
+		return new CalendarClass(name, category);
+	}
+
+	this.createTestCalendarArray = function() {
+		calendarArray.push(this.createCalendar("KTH calendar", categoryArray[1]));
+		calendarArray.push(this.createCalendar("Work calendar", categoryArray[2]));
+		calendarArray.push(this.createCalendar("Other calendar", categoryArray[3]));
+	}
+
+	this.getTestCalendars = function(){
+		return calendarArray;
+	}
+
 
 	/******* Categories *****/
 	var CategoryClass = function(name, autoreport){		//represents a category with name and color
@@ -488,14 +511,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	}
 
 
-
-	this.getTestCalendars = function(){
-		return ["KTH calendar", "Work calendar", "Potatoes", "Standard calendar"]
-	}
-
 	
 
 	this.iterateData();
+	this.createTestCalendarArray();
 	this.autoreportAll();
 
 	return this;

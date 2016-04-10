@@ -4,13 +4,24 @@
 	<div class="col-md-6">
 		<span class="mediumTitle">Calendars</span>
 		<hr>
-
+		<div class="row">
+		<div class="col-md-4"><span class="smallTitle">Your calendars</span></div>
+		<div class="col-md-4">Category</div>
+	</div>
 		<div class="list-group">
 			<div ng-repeat='calendar in calendarArray'>
-  				<button type="button" id="listSettings" class="list-group-item">{{calendar}}</button>
+  				<li class="list-group-item">
+  					<div class="row">
+  					<div class="col-md-4">{{calendar.name}}</div>
+  					<div class="col-md-4"><span class="btn btn-custom" disabled ng-attr-id="{{calendar.category.color}}"></span> {{calendar.category.name}} </div>
+  					</div>
+
+  				</li>
   			</div>
 		</div>
 	</div>
+
+	<!-- <button type="button" id="listSettings" class="list-group-item">-->
 
 	<div class="col-md-6">
 		<span class="mediumTitle">Categories</span>
@@ -30,12 +41,14 @@
         </form>
 		<br>
 		<hr>
-		<span class="smallTitle">Your categories</span>
+		<div class="row">
+			<div class="col-md-4"><span class="smallTitle">Your categories</span></div>
+			<div class="col-md-2">Auto report <a href="" class="glyphicon glyphicon-info-sign infoLink" ng-click="showAutoreportInfo = !showAutoreportInfo" style="height:5px;width:5px;"></a></div>
+			<div class="col-md-1">Color</div>
+			<div class="col-md-1">Delete</div>
 
-		<span style="position:absolute; left:270px;">Auto report <a href="" class="glyphicon glyphicon-info-sign infoLink" ng-click="showAutoreportInfo = !showAutoreportInfo"></a></span>
+		</div>
 
-		<span style="position:absolute; left:370px;">Color</span>
-		<span style="position:absolute; left:430px;">Delete</span>
 
 		<div ng-hide="showAutoreportInfo">
 			<div class="well well-sm">Auto report means that events in the category will be automatically logged when the events ending time has passed.</div>
@@ -44,21 +57,29 @@
 
 		<div class="list-group">
 			
-			<div ng-repeat='category in categoryArray'>
-				<li id="listSettings" class='list-group-item'>
-					{{category.name}}
-					
+			<span ng-repeat='category in categoryArray'>
+				<div  class='list-group-item'>
+					<div class="row">
+						<div class="col-md-4">
+							{{category.name}}
+						</div>
+						
+						<div class="col-md-2">
+							<center><div class="checkbox-inline">
+		  						<label><input type="checkbox" value="" ng-model="category.autoreport" ng-change="changeAutoreport(category)"></label>
+							</div></center>
+						</div>
 
-					<div class="checkbox-inline">
-  						<label><input type="checkbox" value="" ng-model="category.autoreport" ng-change="changeAutoreport(category)" style="right: 160px; top: 45%; position: absolute; margin-top: -5px;"></label>
+						<div class="col-md-1">
+							<button class="btn btn-custom" ng-click="changeColor(category)" ng-attr-id="{{category.color}}"><span class="glyphicon glyphicon-refresh"></span></button>
+						</div>
+
+						<div class="col-md-1">
+							<span ng-hide="category.name == 'Undefined'"><button class="btn btn-danger remove_fields" ng-click="removeCategory(category.name)"><span class="glyphicon glyphicon-remove"></span></button>
+						</div>
 					</div>
-
-					<button class="btn btn-custom" ng-click="changeColor(category)" ng-attr-id="{{category.color}}" style="position: absolute; top: 45%; right: 80px; margin-top: -15px;"><span class="glyphicon glyphicon-refresh"></span></button>
-
-					<span ng-hide="category.name == 'Undefined'"><button class="btn btn-danger remove_fields" ng-click="removeCategory(category.name)" style="position:absolute; top: 45%; margin-top:-15px; right:15px;" ><span class="glyphicon glyphicon-remove"></span></button>
-					
-				</li>
-			</div>
+				</div>
+			</span>
 
 		</div>
 	</div>

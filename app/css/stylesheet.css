@@ -49,11 +49,11 @@
 	min-width: 100%;
 }
 
-
+/*
 #listSettings{
 	width: 70%;
 	text-align: left;
-}
+}*/
 
 .infoLink, .infoLink:hover, .infoLink:active {
   color:grey;
@@ -142,7 +142,8 @@
   border-radius: 15px 50px;
   border-width: 25px;
   border-style: solid;
-  border-color: rgba(127,255,212,1);
+  /*border-color: rgba(127,255,212,1);*/
+  border-color:black;
 }
 
 /***** COLORS  ****/
