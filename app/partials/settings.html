@@ -6,13 +6,26 @@
 		<hr>
 		<div class="row">
 		<div class="col-md-4"><span class="smallTitle">Your calendars</span></div>
+		<div class="col-md-2">Sync <a href="" class="glyphicon glyphicon-info-sign infoLink" ng-click="showSyncInfo = !showSyncInfo" style="height:5px;width:5px;"></a></div>
 		<div class="col-md-4">Category</div>
 	</div>
+
+	<div ng-show="showSyncInfo">
+		<div class="well well-sm">Sync means that.....</div>
+	</div>
+
 		<div class="list-group">
 			<div ng-repeat='calendar in calendarArray'>
   				<li class="list-group-item">
   					<div class="row">
   					<div class="col-md-4">{{calendar.name}}</div>
+
+  					<div class="col-md-2">
+	  					<div class="checkbox-inline">
+			  				<label><input type="checkbox" ng-model="calendar.sync"></label>
+						</div>
+					</div>
+
   					<div class="col-md-4"><span class="btn btn-custom" disabled ng-attr-id="{{calendar.category.color}}"></span> {{calendar.category.name}} </div>
   					</div>
 
@@ -34,7 +47,7 @@
 	            	<span class="input-group-addon">Auto report: <input type="checkbox" ng-model="autoreport"></span>
 	            
             		<span class="input-group-btn">
-            		<button class="btn btn-default" ng-click="newCategory(name, autoreport)">Add</button></span>
+            		<button class="btn btn-default" ng-click="newCategory(name, autoreport)">Add category</button></span>
             	</div>
             	
         	</div>
@@ -50,7 +63,7 @@
 		</div>
 
 
-		<div ng-hide="showAutoreportInfo">
+		<div ng-show="showAutoreportInfo">
 			<div class="well well-sm">Auto report means that events in the category will be automatically logged when the events ending time has passed.</div>
 		</div>
 
@@ -66,7 +79,7 @@
 						
 						<div class="col-md-2">
 							<center><div class="checkbox-inline">
-		  						<label><input type="checkbox" value="" ng-model="category.autoreport" ng-change="changeAutoreport(category)"></label>
+		  						<label><input type="checkbox" ng-model="category.autoreport" ng-change="changeAutoreport(category)"></label>
 							</div></center>
 						</div>
 

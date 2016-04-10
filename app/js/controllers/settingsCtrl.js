@@ -5,7 +5,8 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 	$scope.colors = TimeTracker.getAllColors();				// all colors available
 
 
-	$scope.showAutoreportInfo = true;		// bool to decide if info about autoreport is shown or not
+	$scope.showAutoreportInfo = false;		// bool to decide if info about autoreport is shown or not
+	$scope.showSyncInfo = false;			// bool to decide if info about sync is shown or not
 
 	// creates a new category
 	$scope.newCategory = function(name, autoreport){

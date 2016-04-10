@@ -184,19 +184,22 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	];
 
 	/*********** Calendar class *************/
-	var CalendarClass = function(name, category) {
+	var CalendarClass = function(name, category, sync) {
 		this.name = name;
+		this.sync = sync;
 		this.category = category;
 	}
 
-	this.createCalendar = function(name, category) {
-		return new CalendarClass(name, category);
+	this.createCalendar = function(name, category, sync) {
+		return new CalendarClass(name, category, sync);
 	}
 
 	this.createTestCalendarArray = function() {
-		calendarArray.push(this.createCalendar("KTH calendar", categoryArray[1]));
-		calendarArray.push(this.createCalendar("Work calendar", categoryArray[2]));
-		calendarArray.push(this.createCalendar("Other calendar", categoryArray[3]));
+		calendarArray.push(this.createCalendar("KTH calendar", categoryArray[1], true));
+		calendarArray.push(this.createCalendar("Work calendar", categoryArray[2], true));
+		calendarArray.push(this.createCalendar("Other calendar", categoryArray[3], true));
+		calendarArray.push(this.createCalendar("Private calendar", null, false));
+		console.log(calendarArray);
 	}
 
 	this.getTestCalendars = function(){
