@@ -11,33 +11,24 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
 
     $scope.monthData = TimeTracker.statMonthSeries();
 
+    $scope.active = "Total";
+
+    $scope.isActive = function(type) {
+        if (type == $scope.active) {
+            return "active";
+        }
+        return "";
+    }
+    $scope.setActive = function(selected) {
+        $scope.active = selected;
+    }
+
+
     // initial value for statistics page
     $scope.startValue = function() {
         $scope.showTotal();
-        return "Total time";
     };
-
-    // The different statistics choices
-    $scope.statChoices = ["Total time", "Category percentage", "Weekly status", "Monthly status"]
-
-    // showing the right statistics depending on users choice
-    $scope.selectStat = function(selected) {
-        for (index in $scope.statChoices) {
-            if (selected == "Total time") { 
-                $scope.showTotal();
-            }
-            else if (selected == "Category percentage") {
-                $scope.showCategories();
-            }
-            else if (selected == "Weekly status") {
-                $scope.showWeek();
-            }
-            else if (selected == "Monthly status") {
-                $scope.showMonth();
-            }
-        }
-        return selected;
-    };
+    
       
     // stats for total logged time  
     $scope.showTotal = function() {

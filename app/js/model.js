@@ -185,7 +185,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	var CategoryClass = function(name){		//represents a category with name and color
 		this.name = name;
 		this.color = colors[Math.floor(Math.random() * colors.length)];
-		this.autoreport = false;
+		this.autoreport = true;
 		return this;
 	}
 
@@ -195,8 +195,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	// removes a category
 	this.removeCategory = function(category) {
-		console.log(categoryArray);
-		console.log(category);
 		if (category != "Undefined") {
 			for (index in categoryArray) {
 				if (categoryArray[index].name == category) {
@@ -205,7 +203,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 				}
 			}
 		}
-		console.log(categoryArray);
 	}
 
 	// changes all the events of one category to undefined
@@ -258,21 +255,19 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		return data;
 	};
 
+	/************ AUTO REPORT *************/
+
 	// autoreports events that has already happen if autoreport is set to true
 	this.autoreportAll = function() {
 		currentTime = Date.now();
-		console.log(data);
-		//console.log("2", currentTime);
+
 		for (index in data) {
 			eventEndTime = Date.parse(data[index].end);
-			//console.log("eventtime: ", data[index].end);
-			//console.log("in ms: ", eventEndTime);
 			
 			if (currentTime > eventEndTime && data[index].autoreport == true) {
 				data[index].logged = true;
 			}
 		}
-		console.log(data);
 	};
 
 	// changes autoreport for a category and its events
@@ -292,9 +287,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		if (category.autoreport == true) {			// if change to true, autoreport unlogged events directly
 			this.autoreportAll();
 		}
-
-		console.log(data);
-		console.log(categoryArray);
 	}
 
 	/***Returns**/
@@ -385,20 +377,17 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	// returns current week logged time
 	this.createWeekList = function(startDate, category) {
 		dataList = [];
-		num = [1,2,3,4,5,6]
-
 		dateList = [];
 		start = startDate.toDateString();
 		dateList.push(start);
 
 		startMs = startDate.getTime();
 
-		for (k in num) {
+		for (k = 1; k < 7; k++) {
 			n = parseInt(k)+1;
 			ms = n * 86400000;
 			date = new Date(startMs + ms);
 			dateList.push(date.toDateString());
-
 		}
 
 		for (i in dateList) {
@@ -415,7 +404,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 			}
 			dataList.push(sum);
 		}
-
 		return dataList;
 	}
 
@@ -427,6 +415,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		month = now.getMonth();
 		day = now.getDate();
 		weekday = now.getDay();
+
+		if (weekday == 0) {	// since sunday returns 0 from getDay()
+			weekday = 7;
+		}
 
 		startWeek = new Date (year, month, day-weekday+1, 0, 0, 0, 0);
 
@@ -465,18 +457,13 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		daysInMonth=[31,28,31,30,31,30,31,31,30,31,30,31];
 		dataList = [];
 		dateList = [];
-		num = [];
-
-		for (i = 0; i < daysInMonth[month]; i++) {
-			num.push(0);
-		}
 
 		start = startDate.toDateString();
 		dateList.push(start);
 
 		startMs = startDate.getTime();
 
-		for (k in num) {
+		for	(k = 0; k < daysInMonth[month]; k++) {
 			n = parseInt(k)+1;
 			ms = n * 86400000;
 			date = new Date(startMs + ms);

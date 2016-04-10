@@ -2,22 +2,27 @@
 	<br>
 	<div class="col-md-12">
 		<span class="mediumTitle">Statistics</span><hr>
+
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<ul class="nav navbar-nav">
+					<li class="{{isActive('Total')}}"><a ng-href="" ng-init="startValue()" ng-click="showTotal();setActive('Total')">Total time</a></li>
+					<li class="{{isActive('Categories')}}"><a ng-href="" ng-click="showCategories();setActive('Categories')">Categories percentage</a></li>
+					<li class="{{isActive('Week')}}"><a ng-href="" ng-click="showWeek();setActive('Week')">Weekly status</a></li>
+					<li class="{{isActive('Month')}}"><a ng-href="" ng-click="showMonth();setActive('Month')">Monthly status</a></li>
+				</ul>
+			</div>
+		</nav>
+
+
+
+		<!-- Statistics shown here -->
+		<br><br>
+		<center><div id="stat"></div></center>
+
+		<br><br><br><br><br><br><br><br>
+	
 	</div>
-
-
-	<label for="statSelector"> Select which statistics you want to see: </label><br>
-    <select class='form-control' id="statSelector" ng-model="selected" ng-change="selectStat(selected)" ng-init="selected = startValue()" ng-options="choice for choice in statChoices">
-    </select>
-
-
-
-	<!-- Statistics shown here -->
-	<br><br>
-	<div id="stat"></div>
-
-	<br><br><br><br><br><br><br><br>
-	
-	
 	
 
 
