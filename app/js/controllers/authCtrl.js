@@ -1,10 +1,9 @@
 
 
-timeTrackerApp.controller("authCtrl", function($scope, Auth, Data){
+timeTrackerApp.controller("authCtrl", function($scope, Auth){
 
 	$scope.auth = Auth;
-	$scope.data = Data;
-	console.log("authCtrl loaded");
+
 
 	$scope.login = function(){
 		Auth.$authWithOAuthPopup("google", function(error, authData){
@@ -22,10 +21,6 @@ timeTrackerApp.controller("authCtrl", function($scope, Auth, Data){
 	$scope.auth.$onAuth(function(authData){
 		$scope.authData = authData;
 	})
-
-	$scope.get = function(){
-		return Data.getThings();
-	}
 
 
 /*
