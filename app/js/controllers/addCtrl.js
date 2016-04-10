@@ -2,7 +2,10 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 
 	$scope.timerRunning = false;	// bool if timer is running
 	$scope.timeStarted = false;		// bool if timer has ever been started/only paused not cleared
-
+	$scope.hour = 0;
+	$scope.minute = 0;
+	$scope.second = 0;
+	lastInput = [0,0,0];
 	console.log(currentAuth);
 
 	$scope.user = currentAuth.google.displayName;
@@ -25,7 +28,42 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 
 		$scope.duration = time.toLocaleTimeString();
 	}
-
+	
+	$scope.hourChange = function(hour){
+		
+		
+		if(hour.match(/^[0-9]+$/) != null)
+		{
+			lastInput[0] = hour;
+		}
+		else {
+			$scope.hour = lastInput[0];
+		}
+		
+	}
+	$scope.minuteChange = function(minute){
+	
+			
+		if(minute.match(/^[0-9]+$/) != null)
+		{
+			lastInput[1] = minute;
+		}	
+		else {	
+			$scope.minute = lastInput[1];
+		}
+	}
+	$scope.secondChange = function(second){
+	
+		if(second.match(/^[0-9]+$/) != null)
+		{
+			lastInput[2] = second;
+		}
+		else {
+			$scope.second = lastInput[2];
+		}
+		
+		
+	}
 	// saves the timers time when it stops
 	$scope.$on('timer-stopped', function (event, data){
 		$scope.hours = data.hours;
