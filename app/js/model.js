@@ -182,15 +182,15 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	];
 
 	/******* Categories *****/
-	var CategoryClass = function(name){		//represents a category with name and color
+	var CategoryClass = function(name, autoreport){		//represents a category with name and color
 		this.name = name;
 		this.color = colors[Math.floor(Math.random() * colors.length)];
-		this.autoreport = true;
+		this.autoreport = autoreport;
 		return this;
 	}
 
-	this.createCategory = function(name){		//creates a new category
-		return new CategoryClass(name);
+	this.createCategory = function(name, autoreport){		//creates a new category
+		return new CategoryClass(name, autoreport);
 	}
 
 	// removes a category
@@ -216,7 +216,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	}
 
 
-	var categoryArray = [new CategoryClass("Undefined"), new CategoryClass("KTH"), new CategoryClass("Work"), new CategoryClass("Other")];	//the real list of categories
+	var categoryArray = [new CategoryClass("Undefined", false), new CategoryClass("KTH", true), new CategoryClass("Work", true), new CategoryClass("Other", false)];	//the real list of categories
 
 
 	/*****Eventclass **/

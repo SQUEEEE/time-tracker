@@ -55,6 +55,11 @@
 	text-align: left;
 }
 
+.infoLink, .infoLink:hover, .infoLink:active {
+  color:grey;
+  text-decoration: none;
+}
+
 /*********** ADD ************/
 
 #add {
@@ -91,6 +96,11 @@
 #categorySelector {
 	width:150px;
 	display: inline-block;
+}
+
+#calendar {
+  width: 85%;
+  height:85%;
 }
 
 .fc-today{

@@ -5,13 +5,12 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 	$scope.colors = TimeTracker.getAllColors();				// all colors available
 
 
-	$scope.showAutoreportInfo = true;
+	$scope.showAutoreportInfo = true;		// bool to decide if info about autoreport is shown or not
 
 	// creates a new category
-	$scope.newCategory = function(){
-		var name = document.getElementById("nameCategoryInput").value;
-		$scope.categoryArray.push(TimeTracker.createCategory(name));
-		//console.log($scope.categoryArray)
+	$scope.newCategory = function(name, autoreport){
+		$scope.categoryArray.push(TimeTracker.createCategory(name, autoreport));
+		console.log($scope.categoryArray)
 	}
 
 	// changes the color of a category
@@ -31,11 +30,9 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 		TimeTracker.removeCategory(category);
 	}
 
-
+	// change if a category should be autoreported or not
 	$scope.changeAutoreport = function(category) {
-		console.log(category.autoreport);
 		TimeTracker.changeAutoreport(category);
-		
 	}
 
 });
