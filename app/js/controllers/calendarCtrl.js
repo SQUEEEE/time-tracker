@@ -32,12 +32,10 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
 
 
     //from calendar angular walk through
-
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-    var currentView = "week";
      
      
     /*event source that pulls from google.com
@@ -185,6 +183,10 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
             columnFormat: 'ddd D/M',
 
         eventClick: $scope.eventClick,
+        //dayClick: $scope.dayClick,
+        //eventDrop: $scope.alertOnDrop,
+        //eventResize: $scope.alertOnResize,
+        //viewRender: $scope.renderView
 
       }    
     };
