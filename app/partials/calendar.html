@@ -4,8 +4,11 @@
 		<span class="mediumTitle">Calendar</span><hr> <!-- the title -->
 	</div>
 
-    <center><div id='calendar'></center> <!-- the calendar inserts here -->
-    </div> 
+    <html lang="en" ng-app="myCalendarApp" id="top">
+
+    <div class="calendar" ng-model="eventSources" calendar="myCalendar" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+    <!--<center><div id='calendar'></center> the calendar inserts here -->
+    <!--</div>--> 
 	
 </div>
 
