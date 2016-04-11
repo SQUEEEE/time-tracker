@@ -37,10 +37,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-04-07T08:00:00+01:00"
+	    "dateTime": "2016-04-13T08:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-04-07T10:00:00+01:00"
+	    "dateTime": "2016-04-13T10:00:00+01:00"
 	   },
 	   "iCalUID": "080045b8ce6d8543b8945ad1212b349e1a9c3c0f",
 	   "sequence": 0,
@@ -70,10 +70,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-04-06T10:00:00+01:00"
+	    "dateTime": "2016-04-15T10:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-04-06T12:00:00+01:00"
+	    "dateTime": "2016-04-15T12:00:00+01:00"
 	   },
 	   "iCalUID": "1b3527e85a8dc67ad7bc9b948d9d4f73bbee8354",
 	   "sequence": 0,
@@ -104,10 +104,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-04-06T08:00:00+01:00"
+	    "dateTime": "2016-04-14T08:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-04-06T10:00:00+01:00"
+	    "dateTime": "2016-04-14T10:00:00+01:00"
 	   },
 	   "iCalUID": "1cb6047381d01f23bc96475f8b0b9cfc8d21beec",
 	   "sequence": 0,
@@ -137,10 +137,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-04-05T08:00:00+01:00"
+	    "dateTime": "2016-04-11T08:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-04-05T10:00:00+01:00"
+	    "dateTime": "2016-04-11T10:00:00+01:00"
 	   },
 	   "iCalUID": "1ef55637f212b3ce20fd17e2c97d57ef0bac2325",
 	   "sequence": 0,
@@ -170,10 +170,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-04-09T11:00:00+01:00"
+	    "dateTime": "2016-04-13T11:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-04-09T15:00:00+01:00"
+	    "dateTime": "2016-04-13T15:00:00+01:00"
 	   },
 	   "iCalUID": "0646191c57dad5a4ebc4e10f112ec9a042b001eb",
 	   "sequence": 0,
@@ -189,7 +189,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		this.sync = sync;
 		this.category = category;
 	}
-
+	
+	// creates a new calendar object
 	this.createCalendar = function(name, category, sync) {
 		return new CalendarClass(name, category, sync);
 	}
@@ -204,6 +205,15 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	this.getTestCalendars = function(){
 		return calendarArray;
+	}
+
+	// changes sync for a calendar
+	this.changeSync = function(calendar) {
+		for (index in calendarArray) {
+			if (calendarArray[index].name == calendar.name) {
+				calendarArray[index].sync == calendar.sync;
+			}
+		}
 	}
 
 

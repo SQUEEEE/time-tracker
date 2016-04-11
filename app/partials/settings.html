@@ -11,7 +11,7 @@
 	</div>
 
 	<div ng-show="showSyncInfo">
-		<div class="well well-sm">Sync means that.....</div>
+		<div class="well well-sm">Sync means that the calendar will be synced into the Time Tracker application.</div>
 	</div>
 
 		<div class="list-group">
@@ -22,7 +22,7 @@
 
   					<div class="col-md-2">
 	  					<div class="checkbox-inline">
-			  				<label><input type="checkbox" ng-model="calendar.sync"></label>
+			  				<label><input type="checkbox" ng-model="calendar.sync" ng-change="changeSync(calendar)"></label>
 						</div>
 					</div>
 
