@@ -1,4 +1,4 @@
-timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) {
+timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker) {
 
 	$scope.timerRunning = false;	// bool if timer is running
 	$scope.timeStarted = false;		// bool if timer has ever been started/only paused not cleared
@@ -6,9 +6,9 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.minute = 0;
 	$scope.second = 0;
 	lastInput = [0,0,0];
-	console.log(currentAuth);
+	//console.log(currentAuth);
 
-	$scope.user = currentAuth.google.displayName;
+	//$scope.user = currentAuth.google.displayName;
 
 	$scope.durationSet = false;		// bool if duration is taken from timer
 	$scope.duration = 0;	

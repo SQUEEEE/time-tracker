@@ -1,6 +1,6 @@
-timeTrackerApp.controller('MenuCtrl', function($scope, $location, TimeTracker, Auth) {
+timeTrackerApp.controller('MenuCtrl', function($scope, $location, TimeTracker) {
 
-	$scope.auth = Auth;
+	//$scope.auth = Auth;
 
     $scope.isActive = function (viewLocation) { 
         if (viewLocation === $location.path()) {
