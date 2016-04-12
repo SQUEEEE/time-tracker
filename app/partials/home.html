@@ -4,6 +4,31 @@
 			<div class="col-md-12">
 	 			<span class="mediumTitle"> Hello, {{authData.google.displayName}} </span><hr>
 	 		</div>
+	 		<div class="col-md-12">
+
+	 			<div class="col-md-4">
+	 				<hr class="vr">
+	 			</div>
+
+	 			<div class="col-md-4">
+	 				Time tracker is a web page where 
+			 		you can keep track on how much 
+			 		time you spend on different kind of events by logging the events you actually went to.
+			 		<br><br>
+			 		Navigate with the menu down below.
+			 		<br><br>
+			 		Use add to manually add events or to use the stopwatch.
+			 		<br><br>
+			 		In statistics can you see your progress.
+			 		<br><br>
+			 		In calendar can you look at all your events and choose if you want to log them or not.
+			 		<br><br>
+			 		In settings you can choose what calendars you wish to sync from google calendar and what categories they are connected to. You can also create new categories and change the old ones. 
+	 			</div>
+	 			<hr class="vr">
+	 		</div>
+
+				 		
 
 	 		<!-- We include the menu as it is shared across several screens. -->
 			<ng-include src="'partials/menu.html'" ng-controller="MenuCtrl"></ng-include>
@@ -17,11 +42,16 @@
 
 	 				<center><span class="jumboTitle">Welcome to Time Tracker</span></center>
 
-			 		<br>
-			 		Time tracker is a web page where..<br>.......<br>.......<br>......<br>.......<br>
-
-			 		<br><br>
-				 	<center><p>Log in with google here:</p>
+	 				<div class="col-md-12">
+	 					<div class="col-md-5">
+			 			<br>
+			 			Time tracker is a web page where 
+			 			you can keep track on how much 
+			 			time you spend on different kind of events.
+			 			</div>
+			 		</div>
+			 		<br><br><br>
+				 	<center><p>Log in with google here</p>
 				    <button class="btn btn-default" ng-click="login()">Sign in</button></center>
 				</div>
 			</div>
