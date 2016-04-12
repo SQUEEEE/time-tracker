@@ -217,15 +217,42 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 
 	/******* Categories *****/
-	var CategoryClass = function(name, autoreport){		//represents a category with name and color
+	var colorsTaken = [];
+
+	this.colorsWithoutDublett = function(category){
+		var loop = true;
+		while(loop==true){
+			var inList = false;
+			var color = colors[Math.floor(Math.random() * colors.length)];
+			for(index in colorsTaken){
+				if(color==colorsTaken[index]){
+					inList = true;
+				}
+			}
+			if(inList == false){
+				if (category){
+					for (i in colorsTaken){
+						if(colorsTaken[i]==category.color){
+							colorsTaken.splice(i, 1);
+						}
+					}
+				}
+				loop = false;
+				colorsTaken.push(color);
+			}
+		}
+		return color;
+	}
+
+	var CategoryClass = function(name, autoreport, color){		//represents a category with name and color
 		this.name = name;
-		this.color = colors[Math.floor(Math.random() * colors.length)];
+		this.color = color;
 		this.autoreport = autoreport;
 		return this;
 	}
 
 	this.createCategory = function(name, autoreport){		//creates a new category
-		return new CategoryClass(name, autoreport);
+		return new CategoryClass(name, autoreport, this.colorsWithoutDublett(null));
 	}
 
 	// removes a category
@@ -259,7 +286,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	}
 
 
-	var categoryArray = [new CategoryClass("Undefined", false), new CategoryClass("KTH", true), new CategoryClass("Work", true), new CategoryClass("Other", false)];	//the real list of categories
+	var categoryArray = [new CategoryClass("Undefined", false, this.colorsWithoutDublett(null)), new CategoryClass("KTH", true, this.colorsWithoutDublett(null)), new CategoryClass("Work", true, this.colorsWithoutDublett(null)), new CategoryClass("Other", false, this.colorsWithoutDublett(null))];	//the real list of categories
 
 
 	/*****Eventclass **/

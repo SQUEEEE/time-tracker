@@ -24,15 +24,11 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 
 	// changes the color of a category
 	$scope.changeColor = function(category){
-		while (true){
-			color = category.color;
-			newColor = $scope.colors[Math.floor(Math.random() * $scope.colors.length)]
-			if (color != newColor){
-				category.color = newColor;
-				TimeTracker.changeColor(category);
-				return
-			}
-		}
+			newColor = TimeTracker.colorsWithoutDublett(category);
+			category.color = newColor;
+			TimeTracker.changeColor(category);
+			
+		
 	}
 
 	// removes a category
