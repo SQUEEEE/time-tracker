@@ -219,7 +219,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	/******* Categories *****/
 	var colorsTaken = [];
 
-	this.colorsWithoutDublett = function(category){
+	//returns a color for a specific category (if the category is not yet created, input null) which has not the same as another category
+	this.colorsWithoutDublett = function(category = null){
 		var loop = true;
 		while(loop==true){
 			var inList = false;
