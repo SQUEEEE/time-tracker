@@ -200,7 +200,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		calendarArray.push(this.createCalendar("Work calendar", categoryArray[2], true));
 		calendarArray.push(this.createCalendar("Other calendar", categoryArray[3], true));
 		calendarArray.push(this.createCalendar("Private calendar", null, false));
-		console.log(calendarArray);
 	}
 
 	this.getTestCalendars = function(){
@@ -251,6 +250,14 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		}
 	}
 
+	this.changeColor = function(category) {
+		for (i in data) {
+			if (data[i].category == category.name) {
+				data[i].color = category.color;
+			}
+		}
+	}
+
 
 	var categoryArray = [new CategoryClass("Undefined", false), new CategoryClass("KTH", true), new CategoryClass("Work", true), new CategoryClass("Other", false)];	//the real list of categories
 
@@ -276,6 +283,25 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 		this.textColor='black';
 		return this;
 	};
+	// changes category and color according to calenderEvent (and ID)
+	this.changeCategory = function(calEvent) {
+		for (index in data) {
+			if (data[index].id == calEvent.id) {
+				data[index].category = calEvent.category;
+				data[index].color = calEvent.color;
+				return;
+			}
+		}
+	}
+	// changes logged status according to calenderEvent (and ID)
+	this.changeLoggedStatus = function(calEvent) {
+		for (index in data) {
+			if (data[index].id == calEvent.id) {
+				data[index].logged = calEvent.logged;
+				return;
+			}
+		}
+	}
 
 	//creates "our" objects of all objects in the imported list
 	//can be used for automatic logging when a whole calendar should have the same category

@@ -1,12 +1,15 @@
 timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
 
-	$scope.testData = TimeTracker.getTestData();		//a list of data
+	//$scope.testData = TimeTracker.getTestData();		//a list of data
 
     $scope.categoryNames = TimeTracker.getCategoryNames(); // names of the categories
 
     $scope.categoryArray = TimeTracker.getCategories();     //list of categories
 
     $scope.currentCat = null;
+
+    $scope.showModal = false;
+
 
 	$scope.logOrNotLog = function(calEvent) {		//changes the status of logged or not logged
         if (calEvent.logged == false){
@@ -15,6 +18,9 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
 		else {
 			calEvent.logged = false;
         }
+        $scope.modalEvent = calEvent;
+        TimeTracker.changeLoggedStatus(calEvent);
+        $('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
 	}
 
     // currently chosen category in list
@@ -23,10 +29,12 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
     };
 
     $scope.changeCategory = function(calEvent) {       //changes the category
-        console.log($scope.currentCat);
         if ($scope.currentCat != null){
             calEvent.category = $scope.currentCat;
             calEvent.color = TimeTracker.getColorByCategory(calEvent.category);
+            $scope.modalEvent = calEvent;
+            TimeTracker.changeCategory(calEvent);
+            $('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
         }
     }
 
@@ -107,32 +115,10 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
      
     //with this you can handle the click on the events
     $scope.eventClick = function(calEvent, jsEvent, view){  //when click on an event
-                
         //$(this).css('background-color', 'grey');  // change the border color if we want
-        $('#modalTitle').html(calEvent.title);
-        $('#category').html("Category: " + calEvent.category);
-        $('#logged').html('Logged: ' + calEvent.logged);
-        //$('#eventUrl').attr('href', calEvent.url);        //links to the url if you press button
+        $scope.modalEvent = calEvent;
+
         $('#fullCalModal').modal();                     //starts the modal box
-
-        $("#loggedButton").unbind().click(function(){       //when click on the change if logged button
-            $scope.logOrNotLog(calEvent);                  //changes logged status    
-            $("#logged").html('Logged: ' + calEvent.logged);       
-            $('#calendar').fullCalendar('updateEvent', calEvent); // update the event
-        });
-
-        $("#categoryButton").unbind().click(function(){
-            $scope.changeCategory(calEvent);
-            $('#category').html("Category: " + calEvent.category);
-            $('#calendar').fullCalendar('updateEvent', calEvent);   // update the event
-                    //$('#calendar').fullCalendar('refetchEvents');
-                    //console.log(calEvent);
-                    //console.log($scope.testData);
-
-        });
-                //console.log(calEvent);
-                //console.log($scope.testData);
-
 
         return false;
     };
@@ -192,7 +178,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
     };
      
     /* event sources array*/
-    $scope.eventSources = [$scope.testData];
+    $scope.eventSources = [TimeTracker.getTestData()];
 
 
 

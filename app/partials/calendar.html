@@ -5,8 +5,9 @@
 	</div>
 
     <html lang="en" ng-app="myCalendarApp" id="top">
-
-    <div class="calendar" ng-model="eventSources" calendar="myCalendar" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+    <center>
+    <div class="calendar" id="calendar" ng-model="eventSources" ng-change="uiConfig.calendar" calendar="myCalendar" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+    </center>
     <!--<center><div id='calendar'></center> the calendar inserts here -->
     <!--</div>--> 
 	
@@ -18,21 +19,21 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 id="modalTitle" class="modal-title"></h4>
+                    <h4 id="modalTitle" class="modal-title">{{modalEvent.title}}</h4>
                 </div>
                 <div id="modalBody" class="modal-body">
-                	<div id="category"> <hr></div>
-                	<div id="logged"> </div>
+                	Category: {{modalEvent.category}}<br>
+                	Logged: {{modalEvent.logged}}
                 </div>
                 <div class="modal-footer">
 
                     <select class='form-control' id="categorySelector" ng-model="selected" ng-change="currentSelCat(selected)" ng-options="choice for choice in categoryNames">
                         <option value="">Select Category</option>
                     </select>
-                    <button type="button" id="categoryButton" class="btn btn-default"> Change category</button>
+                    <button type="button" id="categoryButton" ng-click="changeCategory(modalEvent)" class="btn btn-default"> Change category</button>
                     
 
-                	<button type="button" id="loggedButton" class="btn btn-default"> Change logged status </button>
+                	<button type="button" id="loggedButton" ng-click="logOrNotLog(modalEvent)" class="btn btn-default"> Change logged status </button>
                     <!--<a class="btn btn-primary" id="eventUrl" target="_blank">Event Page</a>-->
                 </div>
             </div>
