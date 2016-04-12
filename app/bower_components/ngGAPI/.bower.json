@@ -1,0 +1,24 @@
+{
+  "name": "ngGAPI",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "devDependencies": {
+    "angular": "~1.0.7",
+    "angular-mocks": "~1.0.7",
+    "angular-mocks-unstable": "~1.1.5",
+    "angular-unstable": "1.1.5"
+  },
+  "homepage": "https://github.com/Yeti-Media/ngGAPI",
+  "_release": "9487f70c20",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "9487f70c20ec68a9e465848065a8ee689014bebb"
+  },
+  "_source": "https://github.com/Yeti-Media/ngGAPI.git",
+  "_target": "*",
+  "_originalSource": "ngGAPI"
+}
