@@ -34,7 +34,7 @@
 			<ng-include src="'partials/menu.html'" ng-controller="MenuCtrl"></ng-include>
 	 	</div>
 	 	
-	 	<div ng-hide="authData" class="container" id="unauthorized">
+	 	<div ng-hide="authData" class="container" id="authorize-div">
 	 		<div class="col-md-12">
 	 			<br>
 	 			
@@ -52,7 +52,7 @@
 			 		</div>
 			 		<br><br><br>
 				 	<center><p>Log in with google here</p>
-				    <button class="btn btn-default" ng-click="login()">Sign in</button></center>
+				    <button id="authorize-button" class="btn btn-default" ng-click="handleAuthClick(event)">Sign in</button></center>
 				</div>
 			</div>
 	 	</div>

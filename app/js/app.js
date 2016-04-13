@@ -68,7 +68,7 @@ timeTrackerApp.config(['$routeProvider',
       }).
       when('/home', {
         templateUrl: 'partials/home.html',
-        controller: 'authCtrl'
+        controller: 'googleApiCtrl'
       }).
 
       //testing authorization with firebase
