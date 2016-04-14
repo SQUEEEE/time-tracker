@@ -5,9 +5,15 @@ timeTrackerApp.controller("googleApiCtrl", function($scope){
 	  var CLIENT_ID = '122923477419-e3s0kltaumck69gqfn8d0he948lhpd8q.apps.googleusercontent.com';
       var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 
+      this.authorized = false;
+
+     // var authorizeDiv = document.getElementById('authorize-div');
+      //var authorizedDiv = document.getElementById('authorized-div');
+
       /**
        * Check if current user has authorized this application.
        */
+
       this.checkAuth = function () {
         gapi.auth.authorize(
           {
@@ -23,15 +29,18 @@ timeTrackerApp.controller("googleApiCtrl", function($scope){
        * @param {Object} authResult Authorization result.
        */
       $scope.handleAuthResult = function (authResult) {
-        var authorizeDiv = document.getElementById('authorize-div');
+        
         if (authResult && !authResult.error) {
           // Hide auth UI, then load Calendar client library.
-          authorizeDiv.style.display = 'none';
+         // authorizeDiv.style.display = 'none';
+          //authorizedDiv.style.display = 'inline';
+          $scope.authorized = true;
           $scope.loadCalendarApi();
         } else {
           // Show auth UI, allowing the user to initiate authorization by
           // clicking authorize button.
-          authorizeDiv.style.display = 'inline';
+        //  authorizeDiv.style.display = 'none';
+          //authorizedDiv.style.display = 'inline';
         }
       }
 

@@ -1,5 +1,5 @@
 
-		<div ng-show="authData" class="container">
+		<div ng-show="authorized"  class="container" id="authorized">
 			<br>
 			<div class="col-md-12">
 	 			<span class="mediumTitle"> Hello, {{authData.google.displayName}} </span><hr>
@@ -34,7 +34,7 @@
 			<ng-include src="'partials/menu.html'" ng-controller="MenuCtrl"></ng-include>
 	 	</div>
 	 	
-	 	<div ng-hide="authData" class="container" id="authorize-div">
+	 	<div ng-hide="authorized" class="container" id="authorize-div">
 	 		<div class="col-md-12">
 	 			<br>
 	 			
