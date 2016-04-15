@@ -46,4 +46,15 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 		TimeTracker.changeSync(calendar);
 	}
 
+	$scope.autoreportNow = function() {
+		TimeTracker.autoreportAll();
+	}
+
+	$scope.updateCalendars = function() {
+
+		TimeTracker.checkAuth();
+		TimeTracker.handleAuthClick();
+	}
+
+
 });

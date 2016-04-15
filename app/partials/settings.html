@@ -32,7 +32,12 @@
   				</li>
   			</div>
 		</div>
+
+	<button ng-click="updateCalendars()">Click me to update calendars</button>
+	<button ng-click="autoreportNow()">Autoreport now</button>
+
 	</div>
+
 
 	<!-- <button type="button" id="listSettings" class="list-group-item">-->
 
@@ -52,6 +57,8 @@
             	
         	</div>
         </form>
+
+
 		<br>
 		<hr>
 		<div class="row">
@@ -66,6 +73,7 @@
 		<div ng-show="showAutoreportInfo">
 			<div class="well well-sm">Auto report means that events in the category will be automatically logged when the events ending time has passed.</div>
 		</div>
+
 
 
 		<div class="list-group">
@@ -95,6 +103,9 @@
 			</span>
 
 		</div>
+
+
+		
 	</div>
 
 </div>

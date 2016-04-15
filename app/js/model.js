@@ -1,6 +1,8 @@
-timeTrackerApp.factory('TimeTracker', function ($resource) {
+timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	var data = []; // a list of events with the right attributes
+
+	var testData = [];
 
 	var colors = ['lightblue', 'green', 'pink', 'AntiqueWhite', 'Aquamarine', 'CadetBlue', 'Chartreuse', 'Coral',
 					'CornflowerBlue', 'Crimson', 'DarkCyan', 'DarkGoldenRod', 'DarkGreen', 'DarkSalmon', 'GoldenRod',
@@ -14,7 +16,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	var calendarArray = [];
 	
-	var testData = [			//a list of events imported from the api
+	/*var testData = [			//a list of events imported from the api
 	{
 	   "kind": "calendar#event",
 	   "etag": "\"2756392697640000\"",
@@ -181,7 +183,89 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	    "useDefault": true
 	   }
 	}
-	];
+	];*/
+
+
+	var CLIENT_ID = '122923477419-e3s0kltaumck69gqfn8d0he948lhpd8q.apps.googleusercontent.com';
+
+    var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
+
+      /**
+       * Check if current user has authorized this application.
+       */
+    this.checkAuth = function () {
+        gapi.auth.authorize(
+          {
+            'client_id': CLIENT_ID,
+            'scope': SCOPES.join(' '),
+            'immediate': true
+          }, handleAuthResult);
+    }
+
+       /**
+       * Load Google Calendar client library. List upcoming events
+       * once client library is loaded.
+       */
+    var loadCalendarApi = function() {
+        gapi.client.load('calendar', 'v3', listUpcomingEvents);
+    }
+
+      /**
+       * Handle response from authorization server.
+       *
+       * @param {Object} authResult Authorization result.
+       */
+      var handleAuthResult = function (authResult) {
+      	console.log(authResult);
+        //var authorizeDiv = document.getElementById('authorize-div');
+        if (authResult && !authResult.error) {
+          // Hide auth UI, then load client library.
+         	console.log("works");
+          	loadCalendarApi();
+        } else {
+          // Show auth UI, allowing the user to initiate authorization by
+          // clicking authorize button.
+         console.log("didn't work");
+        }
+      }
+
+      /**
+       * Initiate auth flow in response to user clicking authorize button.
+       *
+       * @param {Event} event Button click event.
+       */
+      this.handleAuthClick = function(event) {
+        gapi.auth.authorize(
+          {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
+          handleAuthResult());
+        return false;
+      }
+
+
+      /**
+       * Print the summary and start datetime/date of the next ten events in
+       * the authorized user's calendar. If no events are found an
+       * appropriate message is printed.
+       */
+      var listUpcomingEvents = function() {
+        var request = gapi.client.calendar.events.list({
+          'calendarId': 'primary',
+          //'timeMin': (new Date()).toISOString(),
+          'timeMin': (new Date(2015,1,1)).toISOString(),
+          'showDeleted': false,
+          'singleEvents': true,
+          //'maxResults': 10,
+          'orderBy': 'startTime'
+        });
+
+        request.execute(function(resp) {
+          var events = resp.items;
+          console.log(events)
+
+          testData = events;
+          iterateData();
+        });
+      }
 
 	/*********** Calendar class *************/
 	var CalendarClass = function(name, category, sync) {
@@ -220,7 +304,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	var colorsTaken = [];
 
 	//returns a color for a specific category (if the category is not yet created, input null) which has not the same as another category
-	this.colorsWithoutDublett = function(category = null){
+	this.colorsWithoutDublett = function(category){
 		var loop = true;
 		while(loop==true){
 			var inList = false;
@@ -287,7 +371,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 	}
 
 
-	var categoryArray = [new CategoryClass("Undefined", false, this.colorsWithoutDublett(null)), new CategoryClass("KTH", true, this.colorsWithoutDublett(null)), new CategoryClass("Work", true, this.colorsWithoutDublett(null)), new CategoryClass("Other", false, this.colorsWithoutDublett(null))];	//the real list of categories
+	var categoryArray = [new CategoryClass("Undefined", true, this.colorsWithoutDublett(null)), new CategoryClass("KTH", true, this.colorsWithoutDublett(null)), new CategoryClass("Work", true, this.colorsWithoutDublett(null)), new CategoryClass("Other", true, this.colorsWithoutDublett(null))];	//the real list of categories
 
 
 	/*****Eventclass **/
@@ -333,7 +417,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	//creates "our" objects of all objects in the imported list
 	//can be used for automatic logging when a whole calendar should have the same category
-	this.iterateData = function(){
+	var iterateData = this.iterateData = function(){
 		var iteratedData = [];
 		for(index in testData){
 			var current = testData[index];
@@ -342,13 +426,16 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 			iteratedData.push(eventObject);
 		}
 		data = iteratedData
+		console.log("data:", data);
+		autoReportAll();
 		return data;
 	};
 
 	/************ AUTO REPORT *************/
 
 	// autoreports events that has already happen if autoreport is set to true
-	this.autoreportAll = function() {
+	var autoReportAll = this.autoreportAll = function() {
+		console.log("In autoreport");
 		currentTime = Date.now();
 
 		for (index in data) {
@@ -580,9 +667,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource) {
 
 	
 
-	this.iterateData();
+	//this.iterateData();
 	this.createTestCalendarArray();
-	this.autoreportAll();
+	//this.autoreportAll();
 
 	return this;
 
