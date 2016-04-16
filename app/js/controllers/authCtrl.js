@@ -1,6 +1,6 @@
 
 
-timeTrackerApp.controller("authCtrl", function($scope, Auth, DataLoader){
+timeTrackerApp.controller("authCtrl", function($scope, Auth, DataLoader, DataHandler){
 
 	$scope.auth = Auth;
 	console.log("authCtrl loaded");
@@ -19,6 +19,7 @@ timeTrackerApp.controller("authCtrl", function($scope, Auth, DataLoader){
 
 		DataLoader.checkAuth();
 		DataLoader.handleAuthClick();
+		
 	}
 
 	$scope.auth.$onAuth(function(authData){

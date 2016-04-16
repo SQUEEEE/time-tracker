@@ -1,5 +1,5 @@
 //model for auth
-timeTrackerApp.factory("DataLoader", ["$http", function($http){
+timeTrackerApp.factory("DataLoader", function($http, DataHandler){
 	/*var ref = new Firebase("https://time-trackertest.firebaseio.com/data");
 	return $firebaseAuth(ref);*/
 
@@ -79,11 +79,13 @@ timeTrackerApp.factory("DataLoader", ["$http", function($http){
           var events = resp.items;
           console.log(events)
 
+          DataHandler.$add(events);
+
           testData = events;
           //iterateData();
         });
       }
 
       return this;
-}]);
+});
 
