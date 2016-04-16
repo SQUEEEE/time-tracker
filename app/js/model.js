@@ -186,86 +186,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	];*/
 
 
-	var CLIENT_ID = '122923477419-e3s0kltaumck69gqfn8d0he948lhpd8q.apps.googleusercontent.com';
-
-    var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
-
-      /**
-       * Check if current user has authorized this application.
-       */
-    this.checkAuth = function () {
-        gapi.auth.authorize(
-          {
-            'client_id': CLIENT_ID,
-            'scope': SCOPES.join(' '),
-            'immediate': true
-          }, handleAuthResult);
-    }
-
-       /**
-       * Load Google Calendar client library. List upcoming events
-       * once client library is loaded.
-       */
-    var loadCalendarApi = function() {
-        gapi.client.load('calendar', 'v3', listUpcomingEvents);
-    }
-
-      /**
-       * Handle response from authorization server.
-       *
-       * @param {Object} authResult Authorization result.
-       */
-      var handleAuthResult = function (authResult) {
-      	console.log(authResult);
-        //var authorizeDiv = document.getElementById('authorize-div');
-        if (authResult && !authResult.error) {
-          // Hide auth UI, then load client library.
-         	console.log("works");
-          	loadCalendarApi();
-        } else {
-          // Show auth UI, allowing the user to initiate authorization by
-          // clicking authorize button.
-         console.log("didn't work");
-        }
-      }
-
-      /**
-       * Initiate auth flow in response to user clicking authorize button.
-       *
-       * @param {Event} event Button click event.
-       */
-      this.handleAuthClick = function(event) {
-        gapi.auth.authorize(
-          {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
-          handleAuthResult());
-        return false;
-      }
-
-
-      /**
-       * Print the summary and start datetime/date of the next ten events in
-       * the authorized user's calendar. If no events are found an
-       * appropriate message is printed.
-       */
-      var listUpcomingEvents = function() {
-        var request = gapi.client.calendar.events.list({
-          'calendarId': 'primary',
-          //'timeMin': (new Date()).toISOString(),
-          'timeMin': (new Date(2015,1,1)).toISOString(),
-          'showDeleted': false,
-          'singleEvents': true,
-          //'maxResults': 10,
-          'orderBy': 'startTime'
-        });
-
-        request.execute(function(resp) {
-          var events = resp.items;
-          console.log(events)
-
-          testData = events;
-          iterateData();
-        });
-      }
+	
 
 	/*********** Calendar class *************/
 	var CalendarClass = function(name, category, sync) {
@@ -329,15 +250,15 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		return color;
 	}
 
-	var CategoryClass = function(name, autoreport, color){		//represents a category with name and color
+	var CategoryClass = function(name, autoReport, color){		//represents a category with name and color
 		this.name = name;
 		this.color = color;
-		this.autoreport = autoreport;
+		this.autoReport = autoReport;
 		return this;
 	}
 
-	this.createCategory = function(name, autoreport){		//creates a new category
-		return new CategoryClass(name, autoreport, this.colorsWithoutDublett(null));
+	this.createCategory = function(name, autoReport){		//creates a new category
+		return new CategoryClass(name, autoReport, this.colorsWithoutDublett(null));
 	}
 
 	// removes a category
@@ -390,7 +311,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		this.iCalUID=current.iCalUID;		//what is it and do we need it?
 		this.category=category.name;				//a category grouping some events together, should have a unique color
 		this.logged=logged;				//true/false depending on if the event is logged or not
-		this.autoreport = category.autoreport;		// bool depending on if the event should be auto reported
+		this.autoReport = category.autoReport;		// bool depending on if the event should be auto reported
 		this.color=category.color;
 		this.textColor='black';
 		return this;
@@ -433,36 +354,36 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	/************ AUTO REPORT *************/
 
-	// autoreports events that has already happen if autoreport is set to true
-	var autoReportAll = this.autoreportAll = function() {
-		console.log("In autoreport");
+	// auto reports events that has already happen if auto report is set to true
+	var autoReportAll = this.autoReportAll = function() {
+		console.log("In auto report");
 		currentTime = Date.now();
 
 		for (index in data) {
 			eventEndTime = Date.parse(data[index].end);
 			
-			if (currentTime > eventEndTime && data[index].autoreport == true) {
+			if (currentTime > eventEndTime && data[index].autoReport == true) {
 				data[index].logged = true;
 			}
 		}
 	};
 
-	// changes autoreport for a category and its events
-	this.changeAutoreport = function(category) {	
-		for (index in categoryArray){					// change autoreport for category
+	// changes auto report for a category and its events
+	this.changeAutoReport = function(category) {	
+		for (index in categoryArray){					// change auto report for category
 			if (categoryArray[index].name == category.name) {	
-				categoryArray[index].autoreport == category.autoreport;
+				categoryArray[index].autoReport == category.autoReport;
 			}
 		}
 
 		for (i in data) {								// change on the events
 			if (data[i].category == category.name) {
-				data[i].autoreport = category.autoreport;
+				data[i].autoReport = category.autoReport;
 			}
 		}
 
-		if (category.autoreport == true) {			// if change to true, autoreport unlogged events directly
-			this.autoreportAll();
+		if (category.autoReport == true) {			// if change to true, auto report unlogged events directly
+			this.autoReportAll();
 		}
 	}
 
@@ -669,7 +590,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	//this.iterateData();
 	this.createTestCalendarArray();
-	//this.autoreportAll();
+	//this.autoReportAll();
 
 	return this;
 

@@ -1,4 +1,4 @@
-timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
+timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoader) {
 
 	$scope.categoryArray = TimeTracker.getCategories();		// list of categories
 	$scope.calendarArray = TimeTracker.getTestCalendars();	// list of names of the calendars
@@ -52,8 +52,8 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker) {
 
 	$scope.updateCalendars = function() {
 
-		TimeTracker.checkAuth();
-		TimeTracker.handleAuthClick();
+		DataLoader.checkAuth();
+		DataLoader.handleAuthClick();
 	}
 
 
