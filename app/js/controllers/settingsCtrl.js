@@ -5,11 +5,11 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 	$scope.colors = TimeTracker.getAllColors();				// all colors available
 
 
-	$scope.showAutoreportInfo = false;		// bool to decide if info about autoreport is shown or not
+	$scope.showAutoReportInfo = false;		// bool to decide if info about auto report is shown or not
 	$scope.showSyncInfo = false;			// bool to decide if info about sync is shown or not
 
 	// creates a new category
-	$scope.newCategory = function(name, autoreport){
+	$scope.newCategory = function(name, autoReport){
 		if (name != null && name != "") {
 			for (index in $scope.categoryArray) {
 				if ($scope.categoryArray[index].name == name) {
@@ -17,7 +17,7 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 				}
 			}
 
-			$scope.categoryArray.push(TimeTracker.createCategory(name, autoreport));
+			$scope.categoryArray.push(TimeTracker.createCategory(name, autoReport));
 			console.log($scope.categoryArray)
 		}
 	}
@@ -36,18 +36,18 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 		TimeTracker.removeCategory(category);
 	}
 
-	// change if a category should be autoreported or not
+	// change if a category should be auto reported or not
 	$scope.changeAutoreport = function(category) {
-		TimeTracker.changeAutoreport(category);
+		TimeTracker.changeAutoReport(category);
 	}
 
-	// change if a category should be autoreported or not
+	// change if a category should be auto reported or not
 	$scope.changeSync = function(calendar) {
 		TimeTracker.changeSync(calendar);
 	}
 
-	$scope.autoreportNow = function() {
-		TimeTracker.autoreportAll();
+	$scope.autoReportNow = function() {
+		TimeTracker.autoReportAll();
 	}
 
 	$scope.updateCalendars = function() {
