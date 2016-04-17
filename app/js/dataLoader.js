@@ -2,8 +2,8 @@
 timeTrackerApp.factory("DataLoader", function($http, DataHandler){
 	/*var ref = new Firebase("https://time-trackertest.firebaseio.com/data");
 	return $firebaseAuth(ref);*/
-
-	var CLIENT_ID = '122923477419-e3s0kltaumck69gqfn8d0he948lhpd8q.apps.googleusercontent.com';
+    
+    var CLIENT_ID = '122923477419-e3s0kltaumck69gqfn8d0he948lhpd8q.apps.googleusercontent.com';
 
     var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 
@@ -79,7 +79,7 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
           var events = resp.items;
           console.log(events)
 
-          DataHandler.$add(events);
+          DataHandler.$add(events); //hera we want to add something that specifies the user we are to save the data to
 
           testData = events;
           //iterateData();
