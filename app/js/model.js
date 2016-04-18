@@ -242,9 +242,12 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		}
 	}
 
-	this.updateEndTime = function(event, endDate){
+
+	//updates both start and end time for the event in data list
+	this.updateTime = function(event, startDate, endDate){
 		for(index in data){
 			if(data[index].id == event.id){
+				data[index].start = startDate;
 				data[index].end = endDate;
 			}
 		}
@@ -335,9 +338,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		for (i in data) {
 			if (data[i].category == category.name) {
 				data[i].color = category.color;
-				if (data[i].logged == true) {
-					data[i].borderColor = category.color;
-				}
 			}
 		}
 	}
@@ -350,16 +350,15 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	var EventClass = function(current, category, logged){
 	//creates objects with the attributes we want, current is a object we want to copy most from
 		this.id=current.id;
-		this.url=current.htmlLink;
-		this.created=current.created;
+		this.url=current.htmlLink;		//remove
+		this.created=current.created;	
 		this.updated=current.updated;
 		this.title=current.summary;
-		this.description=current.description;
-		this.creator=current.creator.email;
-		this.organizer=current.organizer.email;		//do we want organizer or creator? Which is what?
-		this.start=current.start.dateTime;
+		this.description=current.description;		//remove
+		this.creator=current.creator.email;			//remove
+		this.organizer=current.organizer.email;		//remove
 		this.end=current.end.dateTime;
-		this.iCalUID=current.iCalUID;		//what is it and do we need it?
+		this.iCalUID=current.iCalUID;		//remove
 		this.category=category.name;				//a category grouping some events together, should have a unique color
 		this.logged=logged;				//true/false depending on if the event is logged or not
 		this.autoReport = category.autoReport;		// bool depending on if the event should be auto reported
@@ -441,7 +440,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			if (data[index].id == calEvent.id) {
 				data[index].category = calEvent.category;
 				data[index].color = calEvent.color;
-				data[index].borderColor = calEvent.borderColor;
 				return;
 			}
 		}

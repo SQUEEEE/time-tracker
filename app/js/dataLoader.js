@@ -7,6 +7,9 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
 
     var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 
+
+
+
       /**
        * Check if current user has authorized this application.
        */
@@ -17,6 +20,44 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
             'scope': SCOPES.join(' '),
             'immediate': true
           }, handleAuthResult);
+    }
+
+
+    /**
+     * Initiate auth flow in response to user clicking authorize button.
+     *
+     * @param {Event} event Button click event.
+     */
+    this.handleAuthClick = function(event) {
+      gapi.auth.authorize(
+        {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
+        handleAuthResult());
+      return false;
+    }
+
+    var handleAuthResult = function (authResult) {
+      console.log(authResult);
+      //var authorizeDiv = document.getElementById('authorize-div');
+      if (authResult && !authResult.error) {
+        // Hide auth UI, then load client library.
+        console.log("works");
+
+        //load the userID and then call the function that loads the calendars
+        gapi.client.load('oauth2','v2',function(){
+          gapi.client.oauth2.userinfo.get().execute(function(resp){
+            console.log(resp.id);
+            DataHandler.userId = resp.id;
+            console.log(DataHandler.userId);
+            loadCalendarApi();
+
+          });
+        });
+          
+      } else {
+        // Show auth UI, allowing the user to initiate authorization by
+        // clicking authorize button.
+       console.log("didn't work");
+      }
     }
 
        /**
@@ -32,47 +73,13 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
        *
        * @param {Object} authResult Authorization result.
        */
-      var handleAuthResult = function (authResult) {
-      	console.log(authResult);
-        //var authorizeDiv = document.getElementById('authorize-div');
-        if (authResult && !authResult.error) {
-          // Hide auth UI, then load client library.
-         	console.log("works");
-
-          gapi.client.load('oauth2','v2',function(){
-            gapi.client.oauth2.userinfo.get().execute(function(resp){
-              console.log(resp.id);
-              DataHandler.userId = resp.id;
-              console.log(DataHandler.userId);
-              loadCalendarApi();
-
-            });
-          });
-          	
-        } else {
-          // Show auth UI, allowing the user to initiate authorization by
-          // clicking authorize button.
-         console.log("didn't work");
-        }
-      }
-
-      /**
-       * Initiate auth flow in response to user clicking authorize button.
-       *
-       * @param {Event} event Button click event.
-       */
-      this.handleAuthClick = function(event) {
-        gapi.auth.authorize(
-          {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
-          handleAuthResult());
-        return false;
-      }
 
 
-      /**
-       * Print the summary and start datetime/date of the next ten events in
-       * the authorized user's calendar. If no events are found an
-       * appropriate message is printed.
+
+      /*
+        First we want to list all of the users calendars, and check which ones are to be synced 
+        (maybe with a record in the firebase?)
+        Then we want to iterate these to load the events and save the new/updated ones to Firebase
        */
       var listUpcomingEvents = function() {
 
@@ -98,9 +105,19 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
           var calendars = resp.items;
           console.log(resp);
 
+          //firebase connection
           var ref = new Firebase("https://time-trackertest.firebaseio.com/" + DataHandler.userId);
+
+          //load the data into the DataHandler
           DataHandler.data = $firebaseArray(ref);
-          DataHandler.data.$add(calendars); //hera we want to add something that specifies the user we are to save the data to
+
+          /*
+            Add the data to firebase. This will be changed to a call to a function in the 
+            DataHandler that will only add new events and update the information with 
+            TimeTracker-specific data.
+          */
+
+          DataHandler.data.$add(calendars); 
 
           //testData = events;
           //iterateData();
