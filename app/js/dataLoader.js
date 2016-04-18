@@ -1,5 +1,5 @@
 //model for auth
-timeTrackerApp.factory("DataLoader", function($http, DataHandler){
+timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler){
 	/*var ref = new Firebase("https://time-trackertest.firebaseio.com/data");
 	return $firebaseAuth(ref);*/
     
@@ -38,7 +38,17 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
         if (authResult && !authResult.error) {
           // Hide auth UI, then load client library.
          	console.log("works");
-          	loadCalendarApi();
+
+          gapi.client.load('oauth2','v2',function(){
+            gapi.client.oauth2.userinfo.get().execute(function(resp){
+              console.log(resp.id);
+              DataHandler.userId = resp.id;
+              console.log(DataHandler.userId);
+              loadCalendarApi();
+
+            });
+          });
+          	
         } else {
           // Show auth UI, allowing the user to initiate authorization by
           // clicking authorize button.
@@ -65,21 +75,32 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
        * appropriate message is printed.
        */
       var listUpcomingEvents = function() {
-        var request = gapi.client.calendar.events.list({
+
+
+          //https://developers.google.com/apis-explorer/#p/calendar/v3/calendar.calendarList.list
+          var request = gapi.client.calendar.calendarList.list({
+            'maxResults':10
+          });
+       /* var request = gapi.client.calendar.events.list({
           'calendarId': 'primary',
           //'timeMin': (new Date()).toISOString(),
           'timeMin': (new Date(2015,1,1)).toISOString(),
           'showDeleted': false,
           'singleEvents': true,
-          //'maxResults': 10,
+          'maxResults': 10,
           'orderBy': 'startTime'
-        });
+        });*/
 
         request.execute(function(resp) {
-          var events = resp.items;
-          console.log(events)
+          /*var events = resp.items;
+          console.log(events)*/
 
-          DataHandler.$add(events); //hera we want to add something that specifies the user we are to save the data to
+          var calendars = resp.items;
+          console.log(resp);
+
+          var ref = new Firebase("https://time-trackertest.firebaseio.com/" + DataHandler.userId);
+          DataHandler.data = $firebaseArray(ref);
+          DataHandler.data.$add(calendars); //hera we want to add something that specifies the user we are to save the data to
 
           //testData = events;
           //iterateData();
