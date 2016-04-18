@@ -99,8 +99,8 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
           console.log(resp);
 
           var ref = new Firebase("https://time-trackertest.firebaseio.com/" + DataHandler.userId);
-          DataHandler = $firebaseArray(ref);
-          DataHandler.$add(calendars); //hera we want to add something that specifies the user we are to save the data to
+          DataHandler.data = $firebaseArray(ref);
+          DataHandler.data.$add(calendars); //hera we want to add something that specifies the user we are to save the data to
 
           //testData = events;
           //iterateData();
