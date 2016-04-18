@@ -34,7 +34,11 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
         if ($scope.currentCat != null){
             calEvent.category = $scope.currentCat;
             calEvent.color = TimeTracker.getColorByCategory(calEvent.category);
+            if (calEvent.logged == true) {
+                calEvent.borderColor = TimeTracker.getColorByCategory(calEvent.category);
+            }
             $scope.modalEvent = calEvent;
+
             TimeTracker.changeCategory(calEvent);
             $('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
         }

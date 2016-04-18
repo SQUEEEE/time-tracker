@@ -25,6 +25,8 @@
                     <h4 id="modalTitle" class="modal-title">{{modalEvent.title}}</h4>
                 </div>
                 <div id="modalBody" class="modal-body">
+                    Start time: {{modalEvent.start.format('DD/MM/YYYY HH:mm')}}<br>
+                    End time: {{modalEvent.end.format('DD/MM/YYYY HH:mm')}}<br>
                 	Category: {{modalEvent.category}}<br>
                 	Logged: {{modalEvent.logged}}
                 </div>
