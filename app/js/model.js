@@ -242,14 +242,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		}
 	}
 
-	this.updateEndTime = function(event, endDate){
-		for(index in data){
-			if(data[index].id == event.id){
-				data[index].end = endDate;
-			}
-		}
-	}
-
 
 	/******* Categories *****/
 	var colorsTaken = [];
@@ -335,9 +327,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		for (i in data) {
 			if (data[i].category == category.name) {
 				data[i].color = category.color;
-				if (data[i].logged == true) {
-					data[i].borderColor = category.color;
-				}
 			}
 		}
 	}
@@ -381,7 +370,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			if (data[index].id == calEvent.id) {
 				data[index].category = calEvent.category;
 				data[index].color = calEvent.color;
-				data[index].borderColor = calEvent.borderColor;
 				return;
 			}
 		}
