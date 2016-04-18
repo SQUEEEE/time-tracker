@@ -242,6 +242,14 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		}
 	}
 
+	this.updateEndTime = function(event, endDate){
+		for(index in data){
+			if(data[index].id == event.id){
+				data[index].end = endDate;
+			}
+		}
+	}
+
 
 	/******* Categories *****/
 	var colorsTaken = [];
