@@ -43,11 +43,11 @@
         	<div class ="form-group">
         		<div class="col-xs-4">
 					<label for="hour">Hour:</label>
-        			<input class="form-control" type="number" ng-model="hour" ng-init="hour" ng-change="" />
+        			<input class="form-control" type="number" ng-model="startHour" ng-init="startHour" ng-change="" />
         		</div>
         		<div class="col-xs-4">
 					<label for="minute">Minute:</label>
-        			<input class="form-control" type="number" ng-model="minute"  ng-init="minute" ng-change=""/>
+        			<input class="form-control" type="number" ng-model="startMinute"  ng-init="startMinute" ng-change=""/>
         		</div>
         	</div>
 
@@ -57,15 +57,15 @@
 			<div class ="form-group">
 				<div class="col-xs-4">
 				<label for="hour">Hour:</label>
-				<input class="form-control" ng-model="hourInput" type="text" ng-change="hourChange(hour)" placeholder="00" />
+				<input class="form-control" ng-model="hour" type="text" ng-change="hourChange(hour)" placeholder="00" />
 				</div>
 				<div class="col-xs-4">
 				<label for="minute">Minute:</label>
-				<input class="form-control" ng-model="minuteInput" type="text" ng-change="minuteChange(minute)" placeholder="00" />
+				<input class="form-control" ng-model="minute" type="text" ng-change="minuteChange(minute)" placeholder="00" />
 				</div>
 				<div class="col-xs-4">
 				<label for="second">Sec:</label>
-				<input class="form-control" ng-model="secondInput" type="text" ng-change="secondChange(second)" placeholder="00" />
+				<input class="form-control" ng-model="second" type="text" ng-change="secondChange(second)" placeholder="00" />
 				</div>
 			</div>
 			
