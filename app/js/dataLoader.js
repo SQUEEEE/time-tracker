@@ -65,7 +65,7 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
        * once client library is loaded.
        */
     var loadCalendarApi = function() {
-        gapi.client.load('calendar', 'v3', listUpcomingEvents);
+        gapi.client.load('calendar', 'v3', loadCalendars);
     }
 
       /**
@@ -77,14 +77,15 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
 
 
       /*
-        First we want to list all of the users calendars, and check which ones are to be synced 
+        First we want to list all of the user's calendars, and check which ones are to be synced 
         (maybe with a record in the firebase?)
         Then we want to iterate these to load the events and save the new/updated ones to Firebase
        */
-      var listUpcomingEvents = function() {
+      var loadCalendars = function() {
 
 
           //https://developers.google.com/apis-explorer/#p/calendar/v3/calendar.calendarList.list
+
           var request = gapi.client.calendar.calendarList.list({
             'maxResults':10
           });
@@ -99,28 +100,50 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
         });*/
 
         request.execute(function(resp) {
-          /*var events = resp.items;
-          console.log(events)*/
-
           var calendars = resp.items;
           console.log(resp);
 
           //firebase connection
-          var ref = new Firebase("https://time-trackertest.firebaseio.com/" + DataHandler.userId);
+          var ref = new Firebase("https://time-trackertest.firebaseio.com/" + DataHandler.userId + "/calendarList");
 
           //load the data into the DataHandler
-          DataHandler.data = $firebaseArray(ref);
+          DataHandler.calendarList = $firebaseArray(ref);
 
           /*
-            Add the data to firebase. This will be changed to a call to a function in the 
+            Call to a function in the 
             DataHandler that will only add new events and update the information with 
             TimeTracker-specific data.
           */
 
-          DataHandler.data.$add(calendars); 
+          DataHandler.updateCalendarList(calendars); 
 
-          //testData = events;
-          //iterateData();
+          //calendars to get events from
+          calendarsToSync = DataHandler.getSyncedCalendars;
+
+
+
+          /*
+            
+          */
+         
+        });
+
+      }
+
+      var loadEvents = function(calendarId){
+        var request = gapi.client.calendar.events.list({
+          'calendarId': calendarId,
+          //'timeMin': (new Date()).toISOString(),
+          'timeMin': (new Date(2015,1,1)).toISOString(),
+          'showDeleted': false,
+          'singleEvents': true,
+          'maxResults': 10,
+          'orderBy': 'startTime'
+        });
+
+        request.execute(function(resp) {
+          console.log(resp);
+
         });
       }
 
