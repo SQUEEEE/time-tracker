@@ -18,16 +18,16 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 			}
 
 			$scope.categoryArray.push(TimeTracker.createCategory(name, autoReport));
-			console.log($scope.categoryArray)
+			//console.log($scope.categoryArray)
 		}
 	}
 
 	// changes the color of a category
 	$scope.changeColor = function(category){
-			newColor = TimeTracker.colorsWithoutDublett(category);
-			category.color = newColor;
-			TimeTracker.changeColor(category);
-			
+		newColor = TimeTracker.colorsWithoutDublett(category);
+		category.color = newColor;
+		TimeTracker.changeColor(category);
+		
 		
 	}
 
@@ -50,11 +50,31 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 		TimeTracker.autoReportAll();
 	}
 
+
+
+	$scope.saveCalendarChanges = function(calendar, selected) {
+		if (selected != null && selected != "") {
+			TimeTracker.changeCalendarCategory(calendar, selected);
+		}
+	}
+
+	$scope.saveCategoryName = function(category, newName) {
+		console.log(category, newName);
+		if (newName != null && newName != "") {
+			TimeTracker.changeCategoryName(category, newName);
+		}
+	}
+
 	$scope.updateCalendars = function() {
 
 		DataLoader.checkAuth();
 		DataLoader.handleAuthClick();
+
+		console.log("test", TimeTracker.getTestData());
 	}
 
+	$scope.test = function() {
+		TimeTracker.testConsole();
+	}
 
 });

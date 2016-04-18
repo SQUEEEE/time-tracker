@@ -2,7 +2,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 	var data = []; // a list of events with the right attributes
 
-	var testData = DataHandler;
+	//var testData = DataHandler;
+	//console.log("test", DataHandler);
+
 	
 	var colors = ['lightblue', 'green', 'pink', 'AntiqueWhite', 'Aquamarine', 'CadetBlue', 'Chartreuse', 'Coral',
 					'CornflowerBlue', 'Crimson', 'DarkCyan', 'DarkGoldenRod', 'DarkGreen', 'DarkSalmon', 'GoldenRod',
@@ -15,8 +17,12 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 
 	var calendarArray = [];
+
+	this.testConsole = function() {
+		console.log("i funk", testData);
+	}
 	
-	/*var testData = [			//a list of events imported from the api
+	var testData = [			//a list of events imported from the api
 	{
 	   "kind": "calendar#event",
 	   "etag": "\"2756392697640000\"",
@@ -106,10 +112,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-04-14T08:00:00+01:00"
+	    "dateTime": "2016-04-19T08:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-04-14T10:00:00+01:00"
+	    "dateTime": "2016-04-19T10:00:00+01:00"
 	   },
 	   "iCalUID": "1cb6047381d01f23bc96475f8b0b9cfc8d21beec",
 	   "sequence": 0,
@@ -183,7 +189,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	    "useDefault": true
 	   }
 	}
-	];*/
+	];
 
 
 	
@@ -206,6 +212,22 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		calendarArray.push(this.createCalendar("Other calendar", categoryArray[3], true));
 		calendarArray.push(this.createCalendar("Private calendar", null, false));
 	}
+
+	this.changeCalendarCategory = function(calendar, category) {
+		for (i in calendarArray) {
+			if (calendarArray[i].name == calendar.name) {
+				for (j in categoryArray) {
+					if (categoryArray[j].name == category.name){
+						calendarArray[i].category = categoryArray[j];
+						break;
+					}
+				}	
+				break;
+			}
+		}
+
+		// TODO: Write code to change also in the events
+	}	
 
 	this.getTestCalendars = function(){
 		return calendarArray;
@@ -261,6 +283,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		return new CategoryClass(name, autoReport, this.colorsWithoutDublett(null));
 	}
 
+
 	// removes a category
 	this.removeCategory = function(category) {
 		if (category != "Undefined") {
@@ -281,6 +304,23 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 				data[i].color = categoryArray[0].color;
 			}
 		}
+	}
+
+	this.changeCategoryName = function(category, newName) {
+		oldName = category.name;
+
+		for (index in categoryArray) {
+			if (categoryArray[index].name == category.name){
+				categoryArray[index].name = newName;
+			}
+		}
+
+		for (i in data) {
+			if (data[i].category == oldName) {
+				data[i].category = newName;
+			}
+		}
+
 	}
 
 	this.changeColor = function(category) {
@@ -314,6 +354,14 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		this.autoReport = category.autoReport;		// bool depending on if the event should be auto reported
 		this.color=category.color;
 		this.textColor='black';
+
+		if (this.logged==false){	//if not logged we have a black border
+			this.borderColor='black'; 
+		}
+		else{
+			this.borderColor=this.color;
+		}
+
 		return this;
 	};
 	// changes category and color according to calenderEvent (and ID)
@@ -331,6 +379,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		for (index in data) {
 			if (data[index].id == calEvent.id) {
 				data[index].logged = calEvent.logged;
+				data[index].borderColor = calEvent.borderColor;
 				return;
 			}
 		}
@@ -364,6 +413,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			
 			if (currentTime > eventEndTime && data[index].autoReport == true) {
 				data[index].logged = true;
+				data[index].borderColor = data[index].color;
 			}
 		}
 	};
@@ -588,9 +638,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 	
 
-	//this.iterateData();
+	this.iterateData();
 	this.createTestCalendarArray();
-	//this.autoReportAll();
+	this.autoReportAll();
 
 	return this;
 
