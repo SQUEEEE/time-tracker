@@ -2,7 +2,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 	var data = []; // a list of events with the right attributes
 
-	var testData = DataHandler;
+	//var testData = DataHandler;
+	//console.log("test", DataHandler);
+
 	
 	var colors = ['lightblue', 'green', 'pink', 'AntiqueWhite', 'Aquamarine', 'CadetBlue', 'Chartreuse', 'Coral',
 					'CornflowerBlue', 'Crimson', 'DarkCyan', 'DarkGoldenRod', 'DarkGreen', 'DarkSalmon', 'GoldenRod',
@@ -15,8 +17,12 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 
 	var calendarArray = [];
+
+	this.testConsole = function() {
+		console.log("i funk", testData);
+	}
 	
-	/*var testData = [			//a list of events imported from the api
+	var testData = [			//a list of events imported from the api
 	{
 	   "kind": "calendar#event",
 	   "etag": "\"2756392697640000\"",
@@ -183,7 +189,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	    "useDefault": true
 	   }
 	}
-	];*/
+	];
 
 
 	
@@ -206,6 +212,22 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		calendarArray.push(this.createCalendar("Other calendar", categoryArray[3], true));
 		calendarArray.push(this.createCalendar("Private calendar", null, false));
 	}
+
+	this.changeCalendarCategory = function(calendar, category) {
+		for (i in calendarArray) {
+			if (calendarArray[i].name == calendar.name) {
+				for (j in categoryArray) {
+					if (categoryArray[j].name == category.name){
+						calendarArray[i].category = categoryArray[j];
+						break;
+					}
+				}	
+				break;
+			}
+		}
+
+		// TODO: Write code to change also in the events
+	}	
 
 	this.getTestCalendars = function(){
 		return calendarArray;
@@ -261,6 +283,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		return new CategoryClass(name, autoReport, this.colorsWithoutDublett(null));
 	}
 
+
 	// removes a category
 	this.removeCategory = function(category) {
 		if (category != "Undefined") {
@@ -281,6 +304,23 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 				data[i].color = categoryArray[0].color;
 			}
 		}
+	}
+
+	this.changeCategoryName = function(category, newName) {
+		oldName = category.name;
+
+		for (index in categoryArray) {
+			if (categoryArray[index].name == category.name){
+				categoryArray[index].name = newName;
+			}
+		}
+
+		for (i in data) {
+			if (data[i].category == oldName) {
+				data[i].category = newName;
+			}
+		}
+
 	}
 
 	this.changeColor = function(category) {
@@ -588,9 +628,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 	
 
-	//this.iterateData();
+	this.iterateData();
 	this.createTestCalendarArray();
-	//this.autoReportAll();
+	this.autoReportAll();
 
 	return this;
 

@@ -81,7 +81,7 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
 
           DataHandler.$add(events);
 
-          testData = events;
+          //testData = events;
           //iterateData();
         });
       }

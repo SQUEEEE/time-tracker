@@ -7,7 +7,8 @@
 		<div class="row">
 		<div class="col-md-4"><span class="smallTitle">Your calendars</span></div>
 		<div class="col-md-2">Sync <a href="" class="glyphicon glyphicon-info-sign infoLink" ng-click="showSyncInfo = !showSyncInfo" style="height:5px;width:5px;"></a></div>
-		<div class="col-md-4">Category</div>
+		<div class="col-md-3">Category</div>
+		<div class="col-md-2">Edit</div>
 	</div>
 
 	<div ng-show="showSyncInfo">
@@ -26,15 +27,30 @@
 						</div>
 					</div>
 
-  					<div class="col-md-4"><span class="btn btn-custom" disabled ng-attr-id="{{calendar.category.color}}"></span> {{calendar.category.name}} </div>
-  					</div>
+  					<div class="col-md-3"><span class="btn btn-custom" disabled ng-attr-id="{{calendar.category.color}}"></span> {{calendar.category.name}} </div>
+
+  					<div class="col-md-2">
+			  				<button class="btn btn-default" ng-init="edit = false" ng-model="edit" ng-click="edit = !edit"><span class="glyphicon glyphicon-cog"></span></button>
+					</div>
+				</div>
 
   				</li>
+  				<div ng-show="edit">
+				<div class="well well-sm">
+					Change category:
+					
+						<select class='form-control' ng-model="selected" ng-options="choice.name for choice in categoryArray">
+            			<option value="">Select Category</option></select>
+
+            			<button class="btn btn-default" ng-click="saveCalendarChanges(calendar,selected)">Save</button>
+				</div>
+				</div>
   			</div>
 		</div>
 
 	<button ng-click="updateCalendars()">Click me to update calendars</button>
 	<button ng-click="autoreportNow()">Autoreport now</button>
+	<button ng-click="test()">test</button>
 
 	</div>
 
@@ -62,11 +78,11 @@
 		<br>
 		<hr>
 		<div class="row">
-			<div class="col-md-4"><span class="smallTitle">Your categories</span></div>
+			<div class="col-md-5"><span class="smallTitle">Your categories</span></div>
 			<div class="col-md-2">Auto report <a href="" class="glyphicon glyphicon-info-sign infoLink" ng-click="showAutoreportInfo = !showAutoreportInfo" style="height:5px;width:5px;"></a></div>
 			<div class="col-md-1">Color</div>
-			<div class="col-md-1">Delete</div>
-
+			<div class="col-md-1"></div>
+			<div class="col-md-2">Edit</div>
 		</div>
 
 
@@ -79,27 +95,75 @@
 		<div class="list-group">
 			
 			<span ng-repeat='category in categoryArray'>
-				<div  class='list-group-item'>
+				<li  class='list-group-item'>
+
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-5">
 							{{category.name}}
 						</div>
 						
 						<div class="col-md-2">
 							<center><div class="checkbox-inline">
-		  						<label><input type="checkbox" ng-model="category.autoreport" ng-change="changeAutoreport(category)"></label>
+		  						<label><input type="checkbox" ng-model="category.autoReport" ng-change="changeAutoreport(category)"></label>
 							</div></center>
 						</div>
 
 						<div class="col-md-1">
-							<button class="btn btn-custom" ng-click="changeColor(category)" ng-attr-id="{{category.color}}"><span class="glyphicon glyphicon-refresh"></span></button>
+							<span class="btn btn-custom" disabled ng-attr-id="{{category.color}}"></span>
 						</div>
 
 						<div class="col-md-1">
+							
+						</div>
+						
+						<div class="col-md-2">
+			  				<button class="btn btn-default" ng-init="edit = false" ng-model="edit" ng-click="edit = !edit"><span class="glyphicon glyphicon-cog"></span></button>
+						</div>
+
+					</div>
+				</li>
+
+				<div ng-show="edit">
+				<div class="well well-sm">
+					
+					<div class="row">
+						<div class="col-md-5"><span ng-hide="category.name == 'Undefined'">Change name:</span></div>
+						<div class="col-md-2">Auto report</div>
+						<div class="col-md-2">Change color</div>
+						<span ng-hide="category.name == 'Undefined'"><div class="col-md-3">Delete category</div></span>
+					</div>
+
+
+					<div class="row">
+						<div class="col-md-5">
+							<span ng-hide="category.name == 'Undefined'">
+								<div class="input-group">
+									<input class="form-control" ng-model="newName" type="text" placeholder="New name" />
+									<span class="input-group-btn">
+	            						<button class="btn btn-default" ng-click="saveCategoryName(category, newName)">Save</button>
+	            					</span>
+            					</div>
+							</span>
+						</div>
+						
+						<div class="col-md-2">
+							<center><div class="checkbox-inline">
+		  						<label><input type="checkbox" ng-model="category.autoReport" ng-change="changeAutoreport(category)"></label>
+							</div></center>
+						</div>
+
+						<div class="col-md-2">
+							<button class="btn btn-custom" ng-click="changeColor(category)" ng-attr-id="{{category.color}}"><span class="glyphicon glyphicon-refresh"></span></button>
+						</div>
+
+						<div class="col-md-3">
 							<span ng-hide="category.name == 'Undefined'"><button class="btn btn-danger remove_fields" ng-click="removeCategory(category.name)"><span class="glyphicon glyphicon-remove"></span></button>
 						</div>
 					</div>
+
+
 				</div>
+			</div>
 			</span>
 
 		</div>
