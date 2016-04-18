@@ -20,37 +20,40 @@
         
         	<span class="formTitle">Name:</span><input class="form-control" ng-model="name" type="text"/><br>
   	  
-       		<span class="formTitle">Date:</span><input class="form-control" ng-model="date" type="date"/><br>
+       		<span class="formTitle">Date:</span><input class="form-control" ng-model="date"/><br><!--  type="date" -->
+
+       		<input type="number" ng-model="year" ng-init="year = 2016" ng-change=""/>
         
-        	<span class="formTitle">Start time:</span><input class="form-control" ng-model="time" type="time"/><br>
+        	<span class="formTitle">Start time:</span><input class="form-control" ng-model="startTime" type="time"/><br>
 
 	        <span class="formTitle">Duration:</span> 
-			<div class ="form-Group">
+			<div class ="form-group">
 				<div class="col-xs-2">
 				<label for="hour">Hour:</label>
 				<input class="form-control" ng-model="hour" type="text" ng-change="hourChange(hour)" placeholder="00" />
 				</div>
 				<div class="col-xs-2">
 				<label for="minute">Minute:</label>
-				<input class="form-control" ng-model="minute" type="text" ng-change="minuteChange(minute)"placeholder="00" />
+				<input class="form-control" ng-model="minute" type="text" ng-change="minuteChange(minute)" placeholder="00" />
 				</div>
 				<div class="col-xs-2">
 				<label for="second">Sec:</label>
-				<input class="form-control" ng-model="second" type="text" ng-change="secondChange(second)"placeholder="00" />
+				<input class="form-control" ng-model="second" type="text" ng-change="secondChange(second)" placeholder="00" />
 				</div>
-			</div>
 			
-	        <br>
-			<br>
-			<br>
-			<br>
-			<br>
+			
+		        <br>
+				<br>
+				<br>
+				<br>
+				<br>
 
-	        <span class="formTitle">Category:</span>
+		        <span class="formTitle">Category:</span>
 	            <select class='form-control' id="categorySelector" ng-model="selected" ng-change="selectCategory(selected)" ng-options="choice.name for choice in categories">
 	            <option value="">Select Category</option></select><br><br>
 			
-			<button class="btn btn-default" ng-click="newEvent(name, Date, hour,minute,second)">Create event</button></span>
+				<button class="btn btn-default" ng-click="addNewEvent(name, date, startTime, hour, minute, second, selected)">Create event</button></span>
+			</div>
 	        </div><div class="col-md-3"></div>
 
 			
