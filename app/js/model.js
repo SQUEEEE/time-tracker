@@ -242,9 +242,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		}
 	}
 
-	this.updateEndTime = function(event, endDate){
+	this.updateTime = function(event, startDate, endDate){
 		for(index in data){
 			if(data[index].id == event.id){
+				data[index].start = startDate;
 				data[index].end = endDate;
 			}
 		}
