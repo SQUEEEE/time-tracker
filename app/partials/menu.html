@@ -1,10 +1,9 @@
 <nav class="navbar navbar-inverse navbar-fixed-bottom menuBar">
   <div class="container">
-    <div class="navbar-header menuBarHeader">
-      <a class="navbar-brand" ng-href="#/home">
-        <span class="glyphicon glyphicon-info-sign menuIcon"></span><br>Time Tracker</a>
-    </div>
     <ul class="nav navbar-nav menuBarNav">
+       <li class="{{isActive('/home')}}"> <a ng-href="#/home">
+        <span class="glyphicon glyphicon-info-sign menuIcon"></span><br>Time Tracker</a>
+        </li>
       <li class="{{isActive('/add')}}"><a ng-href="#/add">
       	<span class='glyphicon glyphicon-plus-sign menuIcon'></span><br>Add</a>
       </li>
