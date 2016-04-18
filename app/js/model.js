@@ -242,6 +242,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		}
 	}
 
+	//updates both start and end time for the event in data list
 	this.updateTime = function(event, startDate, endDate){
 		for(index in data){
 			if(data[index].id == event.id){
