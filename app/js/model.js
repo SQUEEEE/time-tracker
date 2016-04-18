@@ -2,7 +2,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 	var data = []; // a list of events with the right attributes
 
-	var testData = DataHandler;
+	//var testData = DataHandler;
 	
 	var colors = ['lightblue', 'green', 'pink', 'AntiqueWhite', 'Aquamarine', 'CadetBlue', 'Chartreuse', 'Coral',
 					'CornflowerBlue', 'Crimson', 'DarkCyan', 'DarkGoldenRod', 'DarkGreen', 'DarkSalmon', 'GoldenRod',
@@ -16,7 +16,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 	var calendarArray = [];
 	
-	/*var testData = [			//a list of events imported from the api
+	var testData = [			//a list of events imported from the api
 	{
 	   "kind": "calendar#event",
 	   "etag": "\"2756392697640000\"",
@@ -106,10 +106,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-04-14T08:00:00+01:00"
+	    "dateTime": "2016-04-19T08:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-04-14T10:00:00+01:00"
+	    "dateTime": "2016-04-19T10:00:00+01:00"
 	   },
 	   "iCalUID": "1cb6047381d01f23bc96475f8b0b9cfc8d21beec",
 	   "sequence": 0,
@@ -183,7 +183,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	    "useDefault": true
 	   }
 	}
-	];*/
+	];
 
 
 	
@@ -314,6 +314,14 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		this.autoReport = category.autoReport;		// bool depending on if the event should be auto reported
 		this.color=category.color;
 		this.textColor='black';
+
+		if (this.logged==false){	//if not logged we have a black border
+			this.borderColor='black'; 
+		}
+		else{
+			this.borderColor=this.color;
+		}
+
 		return this;
 	};
 	// changes category and color according to calenderEvent (and ID)
@@ -331,6 +339,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		for (index in data) {
 			if (data[index].id == calEvent.id) {
 				data[index].logged = calEvent.logged;
+				data[index].borderColor = calEvent.borderColor;
 				return;
 			}
 		}
@@ -364,6 +373,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			
 			if (currentTime > eventEndTime && data[index].autoReport == true) {
 				data[index].logged = true;
+				data[index].borderColor = data[index].color;
 			}
 		}
 	};
@@ -588,9 +598,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 	
 
-	//this.iterateData();
+	this.iterateData();
 	this.createTestCalendarArray();
-	//this.autoReportAll();
+	this.autoReportAll();
 
 	return this;
 

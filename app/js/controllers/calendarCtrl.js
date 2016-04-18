@@ -14,9 +14,11 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
 	$scope.logOrNotLog = function(calEvent) {		//changes the status of logged or not logged
         if (calEvent.logged == false){
 			calEvent.logged = true;
+            calEvent.borderColor = calEvent.color;
 		}
 		else {
 			calEvent.logged = false;
+            calEvent.borderColor = 'black';
         }
         $scope.modalEvent = calEvent;
         TimeTracker.changeLoggedStatus(calEvent);
