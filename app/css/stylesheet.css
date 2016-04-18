@@ -1,5 +1,4 @@
 
-
 /*********** TITLES ************/
 
 .mediumTitle {
@@ -41,6 +40,13 @@
 
 .menuIcon {
 	font-size: 50px;
+}
+
+.wrapper{ 
+    overflow-y:scroll; 
+    position:relative;
+    height: 60vh;
+    align: center;
 }
 
 
