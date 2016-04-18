@@ -1,10 +1,13 @@
 <div class="container" id="settings">
 	
 <br>
+	
 	<div class="col-md-6">
 
 		<span class="mediumTitle">Calendars</span>
+		
 		<hr>
+		<div class="wrapper">
 
 		<button class="btn btn-default" ng-click="updateCalendars()">Click me to update calendars</button>
 		<button class="btn btn-default" ng-click="autoreportNow()">Autoreport now</button>
@@ -16,7 +19,7 @@
 		<div class="col-md-2">Sync <a href="" class="glyphicon glyphicon-info-sign infoLink" ng-click="showSyncInfo = !showSyncInfo" style="height:5px;width:5px;"></a></div>
 		<div class="col-md-3">Category</div>
 		<div class="col-md-2">Edit</div>
-	</div>
+		</div>
 
 	<div ng-show="showSyncInfo">
 		<div class="well well-sm">Sync means that the calendar will be synced into the Time Tracker application.</div>
@@ -53,7 +56,7 @@
 				</div>
 				</div>
   			</div>
-		</div>
+		</div></div>
 
 	</div>
 
@@ -63,6 +66,7 @@
 	<div class="col-md-6">
 		<span class="mediumTitle">Categories</span>
 		<hr>
+		<div class="wrapper">
 
 		<form class="form-inline" role="form">
             <div class="form-group">
@@ -173,8 +177,7 @@
 
 
 		
-	</div>
-
+	</div></div>
 </div>
 
 <!-- We include the menu as it is shared across several screens. -->
