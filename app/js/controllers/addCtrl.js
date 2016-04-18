@@ -8,11 +8,28 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	lastInput = [0,0,0];
 	console.log(currentAuth);
 
-	$scope.user = currentAuth.google.displayName;
 
+	//create variables for today
+	var today = new Date();	
+	$scope.day = today.getDate();
+	$scope.month = today.getMonth()+1; //January is 0!
+	$scope.year = today.getFullYear();
+	if($scope.day<10) {
+    		$scope.day='0'+$scope.day
+	} 
+	if($scope.month<10) {
+    	$scope.month='0'+ $scope.month
+	}
+
+
+
+
+	$scope.user = currentAuth.google.displayName;
 	$scope.durationSet = false;		// bool if duration is taken from timer
 	$scope.duration = 0;	
 	// value of duration
+
+	
 	$scope.setTimer = function(_hour,_minute,_second){
 		console.log($scope.hours);
 		console.log($scope.min);
@@ -35,7 +52,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		//console.log($scope.sec);
 		//console.log($scope.millis);
 
-		time = new Date(2016,1,1, $scope.hour, $scope.minute, $scope.second, 0);
+		time = new Date(yyyy, mm, dd, $scope.hour, $scope.minute, $scope.second, 0);
 		//console.log(time);
 		//console.log(time.toLocaleTimeString());
 
@@ -45,8 +62,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.hourChange = function(hour){
 		
 		
-		if(hour.match(/^[0-9]+$/) != null)
-		{
+		if(hour.match(/^[0-9]+$/) != null) {
 			lastInput[0] = hour;
 		}
 		else {
@@ -57,8 +73,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.minuteChange = function(minute){
 	
 			
-		if(minute.match(/^[0-9]+$/) != null)
-		{
+		if(minute.match(/^[0-9]+$/) != null) {
 			lastInput[1] = minute;
 		}	
 		else {	
@@ -68,8 +83,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	}
 	$scope.secondChange = function(second){
 	
-		if(second.match(/^[0-9]+$/) != null)
-		{
+		if (second.match(/^[0-9]+$/) != null) {
 			lastInput[2] = second;
 		}
 		else {
@@ -124,7 +138,21 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
                 console.log("val: ", selected);
             }
         }
-    };
+    }
+
+	$scope.addNewEvent = function(name, date, startTime, hour, minute, second, category) {
+		console.log(name);
+		console.log(date);
+		console.log(hour);
+		console.log(minute);
+		console.log(second);
+		console.log(category);
+		//start = new Date(hour, minute, second);
+
+
+		TimeTracker.addNewEvent(name, 10, 11, category);
+	}
+
 
 
 });

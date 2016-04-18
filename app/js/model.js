@@ -316,7 +316,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			}
 		}
 	}
-
+	// changes the name of a category
 	this.changeCategoryName = function(category, newName) {
 		oldName = category.name;
 
@@ -333,7 +333,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		}
 
 	}
-
+	// change color for all events in one category when the category color has been changed
 	this.changeColor = function(category) {
 		for (i in data) {
 			if (data[i].category == category.name) {
@@ -350,16 +350,15 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	var EventClass = function(current, category, logged){
 	//creates objects with the attributes we want, current is a object we want to copy most from
 		this.id=current.id;
-		this.url=current.htmlLink;
-		this.created=current.created;
+		this.url=current.htmlLink;		//remove
+		this.created=current.created;	
 		this.updated=current.updated;
 		this.title=current.summary;
-		this.description=current.description;
-		this.creator=current.creator.email;
-		this.organizer=current.organizer.email;		//do we want organizer or creator? Which is what?
-		this.start=current.start.dateTime;
+		this.description=current.description;		//remove
+		this.creator=current.creator.email;			//remove
+		this.organizer=current.organizer.email;		//remove
 		this.end=current.end.dateTime;
-		this.iCalUID=current.iCalUID;		//what is it and do we need it?
+		this.iCalUID=current.iCalUID;		//remove
 		this.category=category.name;				//a category grouping some events together, should have a unique color
 		this.logged=logged;				//true/false depending on if the event is logged or not
 		this.autoReport = category.autoReport;		// bool depending on if the event should be auto reported
@@ -375,6 +374,66 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 		return this;
 	};
+
+	this.createID = function() {	// TODO - make sure no id can be the same
+	    id = "";
+	    possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	    for (i=0; i < 30; i++) {
+	        id += possible.charAt(Math.floor(Math.random() * possible.length));
+	    }
+
+	    return id;
+	}
+
+	this.addNewEvent = function(name, start, end, category){
+		
+		current = {
+	   "kind": "calendar#event",
+	   "etag": "",
+	   "id": this.createID(),
+	   "status": "",
+	   "htmlLink": "",
+	   "created": "",	// date.now().toDateString() ?
+	   "updated": "",	// date.now() ?
+	   "summary": name,
+	   "description": "",
+	   "location": "",
+	   "creator": {
+	    "email": "",
+	    "displayName": "",
+	    "self": true
+	   },
+	   "organizer": {
+	    "email": "",
+	    "displayName": "",
+	    "self": true
+	   },
+	   "start": {
+	    "dateTime": start
+	   },
+	   "end": {
+	    "dateTime": end
+	   },
+	   "iCalUID": "",
+	   "sequence": 0,
+	   "reminders": {
+	    "useDefault": true
+	   }};
+
+		//randNum = Math.floor((Math.random() * categoryArray.length));
+		
+		eventObject = new EventClass(current, category, false);
+		console.log("data:", eventObject);
+
+		//data.push(eventObject);
+		
+		//autoReportAll();
+		return data;
+	};
+
+
+
 	// changes category and color according to calenderEvent (and ID)
 	this.changeCategory = function(calEvent) {
 		for (index in data) {
