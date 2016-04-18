@@ -14,14 +14,8 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.day = today.getDate();
 	$scope.month = today.getMonth()+1; //January is 0!
 	$scope.year = today.getFullYear();
-	if($scope.day<10) {
-    		$scope.day='0'+$scope.day
-	} 
-	if($scope.month<10) {
-    	$scope.month='0'+ $scope.month
-	}
-
-
+	$scope.hour = today.getHours();
+	$scope.minute = today.getMinutes();
 
 
 	$scope.user = currentAuth.google.displayName;
