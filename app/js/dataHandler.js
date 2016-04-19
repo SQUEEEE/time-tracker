@@ -56,8 +56,8 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		+ indicator of when updated in firebase
 
 	*/
-	this.updateEvents = function(){
-		//maybe open the events for the specific calendar here? 
+	this.updateEvents = function(calendarId, resp){
+		//maybe open the events for the specific calendar here? not sure if we need to organize the data in this way 
 
 		//loop through in same manner as updateCalendarList
 	}
