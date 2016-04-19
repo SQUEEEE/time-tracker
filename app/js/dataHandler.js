@@ -15,9 +15,22 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 	*/
 	this.updateCalendarList = function(calendarList){
 		//get the existing CalendarList
+		var category = 'Important';
+		var sync = true;
 		existingList = this.calendarList;
 		
 		//loop through the incoming calendarList and see if there is a matching id in the existingList
+
+		for(i in calendarList){
+			this.calendarList.$add({
+				'id': calendarList[i].id, 
+				'name': calendarList[i].summary, 
+				'category': category, 
+				'sync': sync
+
+				}
+			);
+		}
 	}
 
 
