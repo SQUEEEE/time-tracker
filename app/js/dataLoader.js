@@ -70,11 +70,7 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
           //https://developers.google.com/apis-explorer/#p/calendar/v3/calendar.calendarList.list
 
         var request = gapi.client.calendar.calendarList.list({
-          'maxResults':10, //not needed
           'fields': 'items(id, summary)'
-          /*
-            ADD HERE: the fields we are interested in for the calendars
-          */
         });
 
         request.execute(function(resp) {
