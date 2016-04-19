@@ -77,10 +77,10 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
         console.log(resp);
 
         //firebase connection
-        var ref = new Firebase("https://time-trackertest.firebaseio.com/" + DataHandler.userId + "/calendarList");
+        DataHandler.calendarListRef = new Firebase("https://time-trackertest.firebaseio.com/" + DataHandler.userId + "/calendarList");
 
         //load the data into the DataHandler
-        DataHandler.calendarList = $firebaseArray(ref);
+        DataHandler.calendarList = $firebaseArray(DataHandler.calendarListRef);
 
         /*
           Call to a function in the 

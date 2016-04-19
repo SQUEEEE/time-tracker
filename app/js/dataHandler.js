@@ -4,7 +4,7 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 	this.calendarList = undefined; //the list of calendars that the user has on their Google Account, including info about whether to sync the calendar etc
 	this.data = undefined; //the events?? 
 	this.categories = undefined; //the categories that the user has saved
-
+	this.calendarListRef = undefined;
 
 	/*
 	function that takes a list of calendars and sees if any should be added to the user's list of calendars
@@ -17,7 +17,12 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		//get the existing CalendarList
 		var category = 'Important';
 		var sync = true;
-		existingList = this.calendarList;
+		
+
+		this.calendarListRef.once("value", function(snapshot){
+			var existingCalendars = snapshot.val();
+			console.log(existingList);
+		});
 		
 		//loop through the incoming calendarList and see if there is a matching id in the existingList
 
