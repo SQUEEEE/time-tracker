@@ -45,10 +45,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	    "self": true
 	   },
 	   "start": {
-	    "dateTime": "2016-04-13T08:00:00+01:00"
+	    "dateTime": "2016-04-20T08:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-04-13T10:00:00+01:00"
+	    "dateTime": "2016-04-20T10:00:00+01:00"
 	   },
 	   "iCalUID": "080045b8ce6d8543b8945ad1212b349e1a9c3c0f",
 	   "sequence": 0,
