@@ -23,11 +23,6 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
     }
 
 
-    /**
-     * Initiate auth flow in response to user clicking authorize button.
-     *
-     * @param {Event} event Button click event.
-     */
     this.handleAuthClick = function(event) {
       gapi.auth.authorize(
         {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
@@ -39,10 +34,10 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
       console.log(authResult);
       //var authorizeDiv = document.getElementById('authorize-div');
       if (authResult && !authResult.error) {
-        // Hide auth UI, then load client library.
+        //see if something can be done here to omit the firebase authentication
         console.log("works");
 
-        //load the userID and then call the function that loads the calendars
+        //load the userID and then call the function that loads the api
         gapi.client.load('oauth2','v2',function(){
           gapi.client.oauth2.userinfo.get().execute(function(resp){
             console.log(resp.id);
@@ -54,27 +49,15 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
         });
           
       } else {
-        // Show auth UI, allowing the user to initiate authorization by
-        // clicking authorize button.
+        
        console.log("didn't work");
       }
     }
 
-       /**
-       * Load Google Calendar client library. List upcoming events
-       * once client library is loaded.
-       */
+    //load the calendar api and call the function that gets the data
     var loadCalendarApi = function() {
         gapi.client.load('calendar', 'v3', loadCalendars);
     }
-
-      /**
-       * Handle response from authorization server.
-       *
-       * @param {Object} authResult Authorization result.
-       */
-
-
 
       /*
         First we want to list all of the user's calendars, and check which ones are to be synced 
@@ -86,18 +69,13 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
 
           //https://developers.google.com/apis-explorer/#p/calendar/v3/calendar.calendarList.list
 
-          var request = gapi.client.calendar.calendarList.list({
-            'maxResults':10
-          });
-       /* var request = gapi.client.calendar.events.list({
-          'calendarId': 'primary',
-          //'timeMin': (new Date()).toISOString(),
-          'timeMin': (new Date(2015,1,1)).toISOString(),
-          'showDeleted': false,
-          'singleEvents': true,
-          'maxResults': 10,
-          'orderBy': 'startTime'
-        });*/
+        var request = gapi.client.calendar.calendarList.list({
+          'maxResults':10, //not needed
+          'fields': 'items(id, summary)'
+          /*
+            ADD HERE: the fields we are interested in for the calendars
+          */
+        });
 
         request.execute(function(resp) {
           var calendars = resp.items;
@@ -123,13 +101,18 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
 
 
           /*
-            
+            loop through the calendarsToSync-list and then call the loadEvents function for every one 
           */
          
         });
 
       }
 
+
+      /*
+        api request for events from a specific calendar
+        check if you can do something here to 
+      */
       var loadEvents = function(calendarId){
         var request = gapi.client.calendar.events.list({
           'calendarId': calendarId,
@@ -143,6 +126,10 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
 
         request.execute(function(resp) {
           console.log(resp);
+
+          //call the DataHandler.updateEvents-function
+
+          DataHandler.updateEvents(calendarId, resp);
 
         });
       }
