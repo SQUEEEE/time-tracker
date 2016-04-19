@@ -12,18 +12,33 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
 
 
 	$scope.logOrNotLog = function(calEvent) {		//changes the status of logged or not logged
-        if (calEvent.logged == false){
+       /* if (calEvent.logged == false){
 			calEvent.logged = true;
             calEvent.borderColor = calEvent.color;
 		}
 		else {
 			calEvent.logged = false;
             calEvent.borderColor = 'black';
+        }*/
+
+        if (calEvent.logged == true) {
+            calEvent.borderColor = calEvent.color;
         }
+        else {
+            calEvent.borderColor = 'black';
+        }
+
         $scope.modalEvent = calEvent;
         TimeTracker.changeLoggedStatus(calEvent);
         $('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
 	}
+
+    $scope.changeAutoReport = function(calEvent) {
+        $scope.modalEvent = calEvent;
+        TimeTracker.changeEventAutoReport(calEvent);
+        $('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
+    }
+
 
     // currently chosen category in list
     $scope.currentSelCat = function(selected) {
@@ -154,7 +169,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
           $scope.alertMessage = ('You are looking at '+ currentView);
         });
     }; */
-     
+    
      
     /* config object */
     $scope.uiConfig = {

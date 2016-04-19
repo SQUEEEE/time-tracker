@@ -28,9 +28,14 @@
                     Start time: {{modalEvent.start.format('DD/MM/YYYY HH:mm')}}<br>
                     End time: {{modalEvent.end.format('DD/MM/YYYY HH:mm')}}<br>
                 	Category: {{modalEvent.category}}<br>
-                	Logged: {{modalEvent.logged}}
+                	Logged: <div class="checkbox-inline">
+                        <label><input type="checkbox" ng-model="modalEvent.logged" ng-change="logOrNotLog(modalEvent)"></label>
+                    </div><br>
+                    Auto Report: <div class="checkbox-inline">
+                        <label><input type="checkbox" ng-model="modalEvent.autoReport" ng-change="changeAutoReport(modalEvent)"></label>
+                    </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer"> 
 
                     <select class='form-control' id="categorySelector" ng-model="selected" ng-change="currentSelCat(selected)" ng-options="choice for choice in categoryNames">
                         <option value="">Select Category</option>
@@ -38,7 +43,7 @@
                     <button type="button" id="categoryButton" ng-click="changeCategory(modalEvent)" class="btn btn-default"> Change category</button>
                     
 
-                	<button type="button" id="loggedButton" ng-click="logOrNotLog(modalEvent)" class="btn btn-default"> Change logged status </button>
+                	<!--<button type="button" id="loggedButton" ng-click="logOrNotLog(modalEvent)" class="btn btn-default"> Change logged status </button>-->
 
                 </div>
             </div>
