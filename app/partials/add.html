@@ -18,23 +18,22 @@
         	<button class="btn btn-default btn-md" ng-hide="timerRunning || (!timeStarted)" ng-click="setTimer(hhours, mminutes, sseconds)">Set as duration</button>
        		</timer><br><br>
         
-        	<span class="formTitle">Name:</span><input class="form-control" ng-model="name" type="text"/><br>
+        	<span class="formTitle">Name:</span><input class="form-control" ng-model="name" ng-change="nameChange(name)" type="text"/><br>
   	  		
-        	<br>
 
 	        <span class="formTitle">Duration:</span> 
 			<div class ="form-group">
 				<div class="col-xs-4">
 				<label for="hour">Hour:</label>
-				<input class="form-control" ng-model="hour" type="text" ng-change="hourChange(hour)" placeholder="00" />
+				<input class="form-control" ng-model="hour" type="number" min="0" ng-change="hourChange(hour)" placeholder="00" />
 				</div>
 				<div class="col-xs-4">
 				<label for="minute">Minute:</label>
-				<input class="form-control" ng-model="minute" type="text" ng-change="minuteChange(minute)" placeholder="00" />
+				<input class="form-control" ng-model="minute" type="number" min="0" ng-change="minuteChange(minute)" placeholder="00" />
 				</div>
 				<div class="col-xs-4">
 				<label for="second">Sec:</label>
-				<input class="form-control" ng-model="second" type="text" ng-change="secondChange(second)" placeholder="00" />
+				<input class="form-control" ng-model="second" type="number" min="0" ng-change="secondChange(second)" placeholder="00" />
 				</div>
 			</div>
 			<br><br><br>
@@ -43,15 +42,15 @@
        		<div class ="form-group">
        			<div class="col-xs-4">
        				<label for="year">Year:</label>
-       				<input class="form-control" type="number" min="2000" ng-model="year" ng-init="year" ng-change=""/>
+       				<input class="form-control" type="number" min="2000" ng-model="year" ng-init="year" ng-change="yearChange(year)"/>
        			</div>
        			<div class="col-xs-4">
        				<label for="month">Month:</label>
-       				<input class="form-control"  type="number" min="1" max="12" ng-model="month" ng-init="month" ng-change=""/>
+       				<input class="form-control"  type="number" min="1" max="12" ng-model="month" ng-init="month" ng-change="monthChange(month)"/>
        			</div>
        			<div class="col-xs-4">
        				<label for="day">Day:</label>
-       				<input class="form-control"  type="number" min="1" max="31" ng-model="day" ng-init="day" ng-change=""/>
+       				<input class="form-control"  type="number" min="1" max="31" ng-model="day" ng-init="day" ng-change="dayChange(day)"/>
        			</div>
        		</div>
         	<br><br><br>
@@ -61,11 +60,11 @@
         	<div class ="form-group">
         		<div class="col-xs-4">
 					<label for="hour">Hour:</label>
-        			<input class="form-control" type="number" min="0" max="23" ng-model="startHour" ng-init="startHour" ng-change="" />
+        			<input class="form-control" type="number" min="0" max="23" ng-model="startHour" ng-init="startHour" ng-change="startHourChange(startHour)" />
         		</div>
         		<div class="col-xs-4">
 					<label for="minute">Minute:</label>
-        			<input class="form-control" type="number" min="0" max="59" ng-model="startMinute"  ng-init="startMinute" ng-change=""/>
+        			<input class="form-control" type="number" min="0" max="59" ng-model="startMinute"  ng-init="startMinute" ng-change="startMinuteChange(startMinute)"/>
         		</div>
         	</div>
 
@@ -74,15 +73,15 @@
 				<br>
 
 		        <span class="formTitle">Category:</span>
-	            <select class='form-control' id="categorySelector" ng-model="selected" ng-change="selectCategory(selected)" ng-options="choice.name for choice in categories">
+	            <select class='form-control' id="categorySelector" ng-model="category" ng-change="selectCategory(category)" ng-options="choice.name for choice in categories">
 	            <option value="">Select Category</option></select><br><br>
 			
-				<button class="btn btn-default" ng-click="addNewEvent(name, date, startTime, hour, minute, second, selected)">Create event</button></span>
+				<button class="btn btn-default" ng-click="addNewEvent()">Create event</button></span>
 			</div>
 	        </div><div class="col-md-3"></div>
 			
 		</div>
-		</div>
+		</div
 
 	</div>
 </div>

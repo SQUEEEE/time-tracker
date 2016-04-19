@@ -1,11 +1,13 @@
 timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) {
+	
+	$scope.categories = TimeTracker.getCategories();
 
 	$scope.timerRunning = false;	// bool if timer is running
 	$scope.timeStarted = false;		// bool if timer has ever been started/only paused not cleared
 	$scope.hour = 0;
 	$scope.minute = 0;
 	$scope.second = 0;
-	lastInput = [0,0,0];
+	//lastInput = [0,0,0];
 	console.log(currentAuth);
 
 	//create variables for today
@@ -19,6 +21,8 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.user = currentAuth.google.displayName;
 	$scope.durationSet = false;		// bool if duration is taken from timer
 	$scope.duration = 0;	
+	$scope.category = $scope.categories[0];
+	$scope.name = "Insert name here";
 	// value of duration
 
 	
@@ -30,61 +34,55 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		$scope.hour = $scope.hours;
 		$scope.minute = $scope.min;
 		$scope.second = $scope.sec;
-		
-		
-		lastInput = [$scope.hours,$scope.min,$scope.sec];
 	}
 	
 	// sets the duration in form with timer
 	$scope.setDuration = function() {
 		
 		$scope.durationSet = true;
-		//console.log($scope.hours);
-		//console.log($scope.min);
-		//console.log($scope.sec);
-		//console.log($scope.millis);
-
 		time = new Date($scope.year, $scope.month, $scope.day, $scope.hour, $scope.minute, $scope.second, 0);
-		//console.log(time);
-		//console.log(time.toLocaleTimeString());
-
 		$scope.duration = time.toLocaleTimeString();
 	}
 	
+	$scope.nameChange = function(name){
+		$scope.name = name;
+	}
 	$scope.hourChange = function(hour){
-		
-		
-		if(hour.match(/^[0-9]+$/) != null) {
-			lastInput[0] = hour;
-		}
-		else {
-			$scope.hour = lastInput[0];
-		}
+		$scope.hour = hour;
 		$scope.setDuration();
 	}
 	$scope.minuteChange = function(minute){
-	
-			
-		if(minute.match(/^[0-9]+$/) != null) {
-			lastInput[1] = minute;
-		}	
-		else {	
-			$scope.minute = lastInput[1];
-		}
+		$scope.minute = minute;
 		$scope.setDuration();
 	}
 	$scope.secondChange = function(second){
-	
-		if (second.match(/^[0-9]+$/) != null) {
-			lastInput[2] = second;
-		}
-		else {
-			$scope.second = lastInput[2];
-		}
+		$scope.second = second;
 		$scope.setDuration();
-		
-		
 	}
+	$scope.yearChange = function(year){
+		$scope.year = year;
+	}
+	$scope.monthChange = function(month){
+		$scope.month = month;
+	}
+	$scope.dayChange = function(day){
+		$scope.day = day;
+	}
+	$scope.startHourChange = function(startHour){
+		$scope.startHour = startHour;
+	}
+	$scope.startMinuteChange = function(startMinute){
+		$scope.startMinute = startMinute;
+	}
+		// selecting category in list
+	$scope.selectCategory = function(selected) {
+        for (index in $scope.categories) {
+            if (selected == $scope.categories[index].name) { 
+                $scope.category = selected;
+            }
+        }
+    }
+
 	// saves the timers time when it stops
 	$scope.$on('timer-stopped', function (event, data){
 		$scope.hours = data.hours;
@@ -121,28 +119,13 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		$scope.timeStarted = false;	
 	}
 
-	$scope.categories = TimeTracker.getCategories();
 
-	// selecting category in list
-	$scope.selectCategory = function(selected) {
-        for (index in $scope.categories) {
-            if (selected == $scope.categories[index].name) { 
-                console.log("val: ", selected);
-            }
-        }
-    }
-
-	$scope.addNewEvent = function(name, date, startTime, hour, minute, second, category) {
-		console.log(name);
-		console.log(date);
-		console.log(hour);
-		console.log(minute);
-		console.log(second);
-		console.log(category);
-		//start = new Date(hour, minute, second);
-
-
-		TimeTracker.addNewEvent(name, 10, 11, category);
+	$scope.addNewEvent = function() {
+		start = new Date($scope.year, $scope.month, $scope.day, $scope.startHour, $scope.startMinute);
+		endHour = 20;
+		endMinute = 0;
+		end = new Date($scope.year, $scope.month, $scope.day, endHour, endMinute);
+		TimeTracker.addNewEvent($scope.name, start, end, $scope.category);
 	}
 
 
