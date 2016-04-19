@@ -22,6 +22,10 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		//loop through the incoming calendarList and see if there is a matching id in the existingList
 
 		for(i in calendarList){
+
+			/*
+				add the calendar: (later we should add the check if there is a record with the same id in the existingList)
+			*/
 			this.calendarList.$add({
 				'id': calendarList[i].id, 
 				'name': calendarList[i].summary, 
