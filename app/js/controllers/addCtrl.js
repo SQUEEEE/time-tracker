@@ -102,14 +102,19 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		$scope.timeStarted = false;	
 	}
 
-
+	//adds a new event by calling addnewevent in the model with the times from the form
 	$scope.addNewEvent = function() {
-		start = new Date($scope.year, $scope.month-1, $scope.day, $scope.startHour, $scope.startMinute);
-		endHour = 20;
-		endMinute = 0;
-		end = new Date($scope.year, $scope.month-1, $scope.day, endHour, endMinute);
-		TimeTracker.addNewEvent($scope.name, start, end, $scope.category);
-		//need to update the calendar!! 
+		var start = new Date($scope.year, $scope.month-1, $scope.day, $scope.startHour, $scope.startMinute);
+
+        var startZone = start.getTimezoneOffset();
+		var beginning = new Date(1970, 0, 0, $scope.hour, $scope.minute, $scope.second);
+		var startMilli = start.getTime();
+		var bMilli = beginning.getTime();
+		var milliTotal = startMilli + bMilli;
+
+		var end = new Date(milliTotal + startZone*60*1000);
+
+		TimeTracker.addNewEvent($scope.name, start, end, $scope.category);	
 	}
 
 
