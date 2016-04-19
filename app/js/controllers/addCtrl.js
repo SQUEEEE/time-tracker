@@ -19,29 +19,15 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.startMinute = today.getMinutes();
 
 	$scope.user = currentAuth.google.displayName;
-	$scope.durationSet = false;		// bool if duration is taken from timer
-	$scope.duration = 0;	
 	$scope.category = $scope.categories[0];
 	$scope.name = "Insert name here";
 	// value of duration
 
 	
 	$scope.setTimer = function(_hour,_minute,_second){
-		console.log($scope.hours);
-		console.log($scope.min);
-		console.log($scope.sec);
-		
 		$scope.hour = $scope.hours;
 		$scope.minute = $scope.min;
 		$scope.second = $scope.sec;
-	}
-	
-	// sets the duration in form with timer
-	$scope.setDuration = function() {
-		
-		$scope.durationSet = true;
-		time = new Date($scope.year, $scope.month, $scope.day, $scope.hour, $scope.minute, $scope.second, 0);
-		$scope.duration = time.toLocaleTimeString();
 	}
 	
 	$scope.nameChange = function(name){
@@ -49,15 +35,12 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	}
 	$scope.hourChange = function(hour){
 		$scope.hour = hour;
-		$scope.setDuration();
 	}
 	$scope.minuteChange = function(minute){
 		$scope.minute = minute;
-		$scope.setDuration();
 	}
 	$scope.secondChange = function(second){
 		$scope.second = second;
-		$scope.setDuration();
 	}
 	$scope.yearChange = function(year){
 		$scope.year = year;
@@ -126,6 +109,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		endMinute = 0;
 		end = new Date($scope.year, $scope.month, $scope.day, endHour, endMinute);
 		TimeTracker.addNewEvent($scope.name, start, end, $scope.category);
+		//need to update the calendar!!
 	}
 
 
