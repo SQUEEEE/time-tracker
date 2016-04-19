@@ -104,12 +104,12 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 
 
 	$scope.addNewEvent = function() {
-		start = new Date($scope.year, $scope.month, $scope.day, $scope.startHour, $scope.startMinute);
+		start = new Date($scope.year, $scope.month-1, $scope.day, $scope.startHour, $scope.startMinute);
 		endHour = 20;
 		endMinute = 0;
-		end = new Date($scope.year, $scope.month, $scope.day, endHour, endMinute);
+		end = new Date($scope.year, $scope.month-1, $scope.day, endHour, endMinute);
 		TimeTracker.addNewEvent($scope.name, start, end, $scope.category);
-		//need to update the calendar!!
+		//need to update the calendar!! 
 	}
 
 
