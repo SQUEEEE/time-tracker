@@ -20,11 +20,13 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		//loop through the incoming calendarList and see if there is a matching id in the existingList
 	}
 
+
 	/*
 		function that returns ids of calendars that are to be synced
 	*/
-
 	this.getSyncedCalendars = function(){
+
+		console.log(this.calendarList);
 
 		syncedCalendars = [];
 

@@ -507,6 +507,14 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		}
 	}
 
+	this.changeEventAutoReport = function(event) {
+		for (index in data) {
+			if (data[index].id == event.id) {
+				data[index].autoReport = event.autoReport
+			}
+		}
+	}
+
 	/***Returns**/
 	
 	//returns the data
