@@ -8,7 +8,6 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	lastInput = [0,0,0];
 	console.log(currentAuth);
 
-
 	//create variables for today
 	var today = new Date();	
 	$scope.day = today.getDate();
@@ -16,7 +15,6 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.year = today.getFullYear();
 	$scope.startHour = today.getHours();
 	$scope.startMinute = today.getMinutes();
-
 
 	$scope.user = currentAuth.google.displayName;
 	$scope.durationSet = false;		// bool if duration is taken from timer
@@ -46,7 +44,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		//console.log($scope.sec);
 		//console.log($scope.millis);
 
-		time = new Date(yyyy, mm, dd, $scope.hour, $scope.minute, $scope.second, 0);
+		time = new Date($scope.year, $scope.month, $scope.day, $scope.hour, $scope.minute, $scope.second, 0);
 		//console.log(time);
 		//console.log(time.toLocaleTimeString());
 
