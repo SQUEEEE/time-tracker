@@ -91,14 +91,17 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
         //calendars to get events from
         calendarsToSync = DataHandler.getSyncedCalendars();
         console.log("Sync the following", calendarsToSync);
-
-        /*for(i in calendarsToSync){
-          loadEvents(calendarsToSync[i]);
-        }*/
+   
+       
 
         /*
           loop through the calendarsToSync-list and then call the loadEvents function for every one 
         */
+
+        /*for(i in calendarsToSync){
+          console.log("looping through calendars to sync");
+         // loadEvents(calendarsToSync[i]);
+        }*/
        
       });
 
@@ -107,9 +110,10 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
 
     /*
       api request for events from a specific calendar
-      check if you can do something here to specify if the events have changed since a specific time? 
+      check if you can do something here to specify if the events have changed since a specific time? - updateMin could be something useful
     */
     var loadEvents = function(calendarId){
+      console.log("loading events from ", calendarId);
       var request = gapi.client.calendar.events.list({
         'calendarId': calendarId,
         //'timeMin': (new Date()).toISOString(),
