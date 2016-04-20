@@ -22,7 +22,7 @@
         	Name:
         	<input class="form-control" ng-model="name" name="name" ng-change="checkEverything()" type="text" required="" />
         	<br/>
-        	<div ng-show="name.length<1">
+        	<div ng-show="name.length<1"> <!-- if there is no name written -->
       			<div style="color:red;">Please choose a name for the event<br><br></div>
     		</div>
   	  		
@@ -42,7 +42,7 @@
 					<input class="form-control" ng-model="second" name="second" type="number" min="0" max="59" ng-change="checkEverything()" placeholder="0" ng-required="!(hour>0 || minute>0 || second>0)"/>
 				</div>
 			</div>
-			<div ng-show="!duration">
+			<div ng-show="!duration"> <!-- if the duration is not valid -->
       			<div style="color:red;"><br><br><br>Choose a duration for the event or use the timer</div>
     		</div>
 			<br><br><br>
@@ -63,8 +63,11 @@
        				<input class="form-control"  type="number" name="day" min="1" max={{getNumberOfDays()}} ng-model="day" ng-init="day" ng-change="checkEverything()"/>
        			</div>
        		</div>
-       		<div ng-show="!date">
+       		<div ng-show="!date"> <!-- if the date is not valid -->
       			<div style="color:red;"><br><br><br>Choose a real date from year 2000</div>
+    		</div>
+    		<div ng-show="year>2100"> <!-- if the year is to big i give a warning -->
+      			<div style="color:orange;"><br><br><br>Are you sure that year is correct?</div>
     		</div>
         	<br><br><br>
 
@@ -80,9 +83,9 @@
         			<input class="form-control" type="number" min="0" name="startMinute" max="59" ng-model="startMinute"  ng-init="startMinute" ng-change="checkEverything()"/>
         		</div>
         	</div>
-        	<div ng-show="!start">
+        	<div ng-show="!start"> <!-- if the start time is not valid -->
       			<div style="color:red;"><br><br><br>Choose a real time of start</div>
-    		</div
+    		</div>
 
 		        <br>
 				<br>
@@ -92,6 +95,7 @@
 	            <select class='form-control' id="categorySelector" ng-model="category" ng-change="selectCategory(category)" ng-options="choice.name for choice in categories">
 	            </select><br><br>
 			
+			<!-- the button is disabled if something is wrong in the form -->
 				<button class="btn btn-default" type="submit" ng-click="addNewEvent()" ng-disabled="!pressButton">Create event</button></span>
 				</form>
 			</div>

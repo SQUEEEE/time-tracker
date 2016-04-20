@@ -23,7 +23,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.category = $scope.categories[0];
 	$scope.name = "";
 
-	
+	//for the error handling
 	$scope.pressButton = false;
 	$scope.duration = false;
 	$scope.date = false;
@@ -44,6 +44,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
     };
     $scope.reset();
 
+
 	$scope.getNumberOfDays = function(){	//returns number of days in the month we are right now
 		var month = $scope.month;		//to make it easier to refer to 
 		if(month==2){
@@ -62,7 +63,10 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		}
 	}
 
-	$scope.checkDuration = function(){
+
+//ALL THE ERROR HANDLING FUNCTIONS
+
+	$scope.checkDuration = function(){	//checks validity for the duration
 		if($scope.hour>=0 && $scope.minute>=0 && $scope.second>=0){
 			if($scope.hour>0 || $scope.minute>0 || $scope.second>0){
 				$scope.duration = true;
@@ -77,7 +81,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 
 	}
 
-	$scope.checkDate = function(){
+	$scope.checkDate = function(){	//checks validity for the date
 		if($scope.year>=2000 && $scope.month>0 && $scope.month<=12 && $scope.day>0 && $scope.day<=$scope.getNumberOfDays()){
 			$scope.date = true;
 		}
@@ -86,7 +90,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		}
 	}
 
-	$scope.checkStart = function(){
+	$scope.checkStart = function(){	//checks validity for the starttime
 		if($scope.startHour>=0 && $scope.startHour<24 && $scope.startMinute>=0 && $scope.startMinute<60){
 			$scope.start = true;
 		}
@@ -96,7 +100,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	}
 
 
-    $scope.checkEverything = function(){
+    $scope.checkEverything = function(){	//controlls everything is right in the form
     	$scope.checkDuration();
     	$scope.checkDate();
     	$scope.checkStart();
@@ -110,7 +114,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
     }
 
    
-    $scope.checkEverything();
+    $scope.checkEverything();	//creates start values
 
 
 	$scope.setTimer = function(_hour,_minute,_second){
