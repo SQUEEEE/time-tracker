@@ -13,6 +13,20 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 	 sync, category (timeTracker-specific) <-- what are the defaults? 
 
 	*/
+
+	var existsInList = function(item, list){
+		for(i in list){
+			if(list[i].id === item.id){
+				return true;
+			}
+
+			//console.log("List id: ", list[i].id, " item id: ");
+
+			//console.log(item.id);
+			//console.log(list[i].id);
+		}
+	}
+
 	this.updateCalendarList = function(calendarList){
 		//get the existing CalendarList
 		var category = 'Important';
@@ -20,13 +34,30 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		
 
 		this.calendarListRef.once("value", function(snapshot){
-			var existingCalendars = snapshot.val();
+			this.existingCalendars = snapshot.val();
 
-			for(i in existingCalendars){
-				console.log(existingCalendars[i].name);
+			for(i in calendarList){
+
+				//console.log(calendarList[i].id);
+				//existsInList(calendarList[i], this.existingCalendars);
+				
+				if(!existsInList(calendarList[i], this.existingCalendars)){
+					/*this.calendarList.$add({
+						'id': calendarList[i].id, 
+						'name': calendarList[i].summary, 
+						'category': category, 
+						'sync': sync
+					}*/
+
+					console.log("adding new calendar");
+				}
 			}
+
+
 			//console.log(existingList);
 		});
+
+	
 		
 		//loop through the incoming calendarList and see if there is a matching id in the existingList
 
