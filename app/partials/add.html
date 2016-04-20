@@ -3,8 +3,8 @@
 	<div class="col-md-12">
 		<span class="mediumTitle">Add</span><hr><br>
 		<div class="wrapper">
-        <div class="col-md-5"></div>
-        <div class="col-md-4">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" >
 
 		<!--     Timer and timer buttons      -->
 		
@@ -99,15 +99,15 @@
 				<button class="btn btn-default" type="submit" ng-click="addNewEvent()" ng-disabled="!pressButton">Create event</button></span>
 				</form>
 			</div>
-	        </div><div class="col-md-3"></div>
+	        </div><div class="col-md-4"></div>
 			
 		</div>
 		</div>
 
 	</div>
 </div>
-<!-- We include the menu as it is shared across several screens.  -->
 
+<!-- The pop up box -->
 <div id="popUpModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -130,5 +130,6 @@
         </div>
 </div>
 
+<!-- We include the menu as it is shared across several screens.  -->
 <ng-include src="'partials/menu.html'" ng-controller="MenuCtrl"></ng-include>
 
