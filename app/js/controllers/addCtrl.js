@@ -22,7 +22,11 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.user = currentAuth.google.displayName;
 	$scope.category = $scope.categories[0];
 	$scope.name = "";
-	// value of duration
+
+	
+	$scope.pressButton = false;
+	$scope.duration = false;
+	$scope.date = false;
 
 
 
@@ -58,21 +62,55 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		}
 	}
 
-    $scope.checkEverything = function(){
-    	if($scope.name.length>0){
-    		if($scope.hour>=0 && $scope.minute>=0 && $scope.second>=0){
-    			if($scope.year>2000 && $scope.month>0 && $scope.month<=12 && $scope.day>0 && $scope.day<=$scope.getNumberOfDays()){
-    				if($scope.startHour>=0 && $scope.startHour<24 && $scope.startMinute>=0 && $scope.startMinute<60){
-    					if($scope.hour>0 || $scope.minute>0 || $scope.second>0){
-    					return false;
-    					}
-    				}
-    			}
-    		}
+	$scope.checkDuration = function(){
+		if($scope.hour>=0 && $scope.minute>=0 && $scope.second>=0){
+			if($scope.hour>0 || $scope.minute>0 || $scope.second>0){
+				$scope.duration = true;
+			}
+			else{
+				$scope.duration = false;
+			}
+		}
+		else{
+			$scope.duration = false;
+		}
+
+	}
+
+	$scope.checkDate = function(){
+		if($scope.year>=2000 && $scope.month>0 && $scope.month<=12 && $scope.day>0 && $scope.day<=$scope.getNumberOfDays()){
+			$scope.date = true;
+		}
+		else{
+			$scope.date = false;
+		}
+	}
+
+	$scope.checkStart = function(){
+		if($scope.startHour>=0 && $scope.startHour<24 && $scope.startMinute>=0 && $scope.startMinute<60){
+			$scope.start = true;
+		}
+    	else{
+    		$scope.start = false;
     	}
-    	return true;
+	}
+
+
+    $scope.checkEverything = function(){
+    	$scope.checkDuration();
+    	$scope.checkDate();
+    	$scope.checkStart();
+    	if($scope.duration && $scope.date && $scope.start && $scope.name.length>0){
+    		$scope.pressButton = true;
+    	}
+    	else{
+    		$scope.pressButton = false;
+    	}
+    	
     }
 
+   
+    $scope.checkEverything();
 
 
 	$scope.setTimer = function(_hour,_minute,_second){
