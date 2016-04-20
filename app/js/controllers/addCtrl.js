@@ -98,14 +98,22 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.addNewEvent = function() {
 		var start = new Date($scope.year, $scope.month-1, $scope.day, $scope.startHour, $scope.startMinute);
 
-        var startZone = start.getTimezoneOffset();
-		var beginning = new Date(1970, 0, 1, $scope.hour, $scope.minute, $scope.second);	//creates a date with milliseconds as the duration
+        //var startZone = start.getTimezoneOffset();
+		//var beginning = new Date(1970, 0, 1, $scope.hour, $scope.minute, $scope.second);	//creates a date with milliseconds as the duration
+		//console.log("beginning", beginning);
 		var startMilli = start.getTime();
-		var bMilli = beginning.getTime();
-		var milliTotal = startMilli + bMilli + startZone*60*1000;	//WHY IS IT NOT THE CORRECT HOUR?
+		//var bMilli = beginning.getTime();
 
-		var end = new Date(milliTotal);
-		console.log(end)
+		//var milliTotal = startMilli + bMilli +startZone*60*60*1000;	//WHY IS IT NOT THE CORRECT HOUR?
+		//console.log(startMilli, bMilli, milliTotal);
+		//var end = new Date(milliTotal);
+
+		milliTotal = ($scope.hour*60*60*1000) + ($scope.minute*60*1000) + ($scope.second*1000);
+
+		var end = new Date(startMilli+milliTotal);
+		//console.log("det ska bli så här många ms: ", end.getTime());
+	
+		console.log("end", end)
 		TimeTracker.addNewEvent($scope.name, start, end, $scope.category);	
 	}
 
