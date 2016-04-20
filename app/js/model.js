@@ -423,11 +423,21 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		   //}
 		};
 
+		currentTime = Date.now();
+		eventEndTime = Date.parse(end);
+			
+		if (currentTime > eventEndTime) {
+				logged = true;
+		}
+		else {
+			logged = false;
+		}
 		
-		eventObject = new EventClass(current, category, true);
+		
+		eventObject = new EventClass(current, category, logged);
 		console.log("data for new event:", eventObject);
 		data.push(eventObject);
-		console.log(data);
+		//console.log(data);
 		//autoReportAll();
 		return data;
 	};
@@ -475,7 +485,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 	// auto reports events that has already happen if auto report is set to true
 	var autoReportAll = this.autoReportAll = function() {
-		console.log("In auto report");
+		//console.log("In auto report");
 		currentTime = Date.now();
 
 		for (index in data) {
