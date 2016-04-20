@@ -86,22 +86,24 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
           TimeTracker-specific data.
         */
 
-        DataHandler.updateCalendarList(calendars); 
+       // DataHandler.updateCalendarList(calendars); 
 
         //calendars to get events from
         calendarsToSync = DataHandler.getSyncedCalendars();
         console.log("Sync the following", calendarsToSync);
-   
+
        
 
         /*
           loop through the calendarsToSync-list and then call the loadEvents function for every one 
         */
+        console.log(calendarsToSync);
+        console.log("before loop", calendarsToSync[0]);
 
-        /*for(i in calendarsToSync){
+        for(i in calendarsToSync){
           console.log("looping through calendars to sync");
          // loadEvents(calendarsToSync[i]);
-        }*/
+        }
        
       });
 

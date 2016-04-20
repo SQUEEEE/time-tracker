@@ -18,65 +18,86 @@
         	<button class="btn btn-default btn-md" ng-hide="timerRunning || (!timeStarted)" ng-click="setTimer(hhours, mminutes, sseconds)">Set as duration</button>
        		</timer><br><br>
         
-        	<span class="formTitle">Name:</span><input class="form-control" ng-model="name" ng-change="nameChange(name)" type="text"/><br>
+        	<form name="form" class="css-form" novalidate>
+        	Name:
+        	<input class="form-control" ng-model="name" name="name" ng-change="checkEverything()" type="text" required="" />
+        	<br/>
+        	<div ng-show="name.length<1"> <!-- if there is no name written -->
+      			<div style="color:red;">Please choose a name for the event<br><br></div>
+    		</div>
   	  		
 
-	        <span class="formTitle">Duration:</span> 
+	        Duration:
 			<div class ="form-group">
 				<div class="col-xs-4">
-				<label for="hour">Hour:</label>
-				<input class="form-control" ng-model="hour" type="number" min="0" ng-change="" placeholder="00"  />
+					<label for="hour">Hour:</label>
+					<input class="form-control" ng-model="hour" type="number" name="hour" min="0" ng-change="checkEverything()" placeholder="0" ng-required="!(hour>0 || minute>0 || second>0)"/>
 				</div>
 				<div class="col-xs-4">
-				<label for="minute">Minute:</label>
-				<input class="form-control" ng-model="minute" type="number" min="0" max="59" ng-change="" placeholder="00" />
+					<label for="minute">Minute:</label>
+					<input class="form-control" ng-model="minute" name="minute" type="number" min="0" max="59" ng-change="checkEverything()" placeholder="0" ng-required="!(hour>0 || minute>0 || second>0)" />
 				</div>
 				<div class="col-xs-4">
-				<label for="second">Sec:</label>
-				<input class="form-control" ng-model="second" type="number" min="0" max="59" ng-change="" placeholder="00" />
+					<label for="second">Sec:</label>
+					<input class="form-control" ng-model="second" name="second" type="number" min="0" max="59" ng-change="checkEverything()" placeholder="0" ng-required="!(hour>0 || minute>0 || second>0)"/>
 				</div>
 			</div>
+			<div ng-show="!duration"> <!-- if the duration is not valid -->
+      			<div style="color:red;"><br><br><br>Choose a duration for the event or use the timer</div>
+    		</div>
 			<br><br><br>
        		<!--  <input class="form-control" ng-model="date"/><br> type="date" -->
-			<span class="formTitle">Date:</span><br>
+			
+			Date:<br>
        		<div class ="form-group">
        			<div class="col-xs-4">
        				<label for="year">Year:</label>
-       				<input class="form-control" type="number" min="2000" ng-model="year" ng-init="year" ng-change=""/>
+       				<input class="form-control" type="number" name="year" min="2000" ng-model="year" ng-init="year" ng-change="checkEverything()"/>
        			</div>
        			<div class="col-xs-4">
        				<label for="month">Month:</label>
-       				<input class="form-control"  type="number" min="1" max="12" ng-model="month" ng-init="month" ng-change=""/>
+       				<input class="form-control"  type="number" name="month" min="1" max="12" ng-model="month" ng-init="month" ng-change="checkEverything()"/>
        			</div>
        			<div class="col-xs-4">
        				<label for="day">Day:</label>
-       				<input class="form-control"  type="number" min="1" max={{getNumberOfDays()}} ng-model="day" ng-init="day" ng-change=""/>
+       				<input class="form-control"  type="number" name="day" min="1" max={{getNumberOfDays()}} ng-model="day" ng-init="day" ng-change="checkEverything()"/>
        			</div>
        		</div>
+       		<div ng-show="!date"> <!-- if the date is not valid -->
+      			<div style="color:red;"><br><br><br>Choose a real date from year 2000</div>
+    		</div>
+    		<div ng-show="year>2100"> <!-- if the year is to big i give a warning -->
+      			<div style="color:orange;"><br><br><br>Are you sure that year is correct?</div>
+    		</div>
         	<br><br><br>
 
-        	<span class="formTitle">Start time:</span><br>
+        	Start time:<br>
         	<!-- <input class="form-control" ng-model="startTime" type="time"/> !-->
         	<div class ="form-group">
         		<div class="col-xs-4">
 					<label for="hour">Hour:</label>
-        			<input class="form-control" type="number" min="0" max="23" ng-model="startHour" ng-init="startHour" ng-change="" />
+        			<input class="form-control" type="number" min="0" name="startHour" max="23" ng-model="startHour" ng-init="startHour" ng-change="checkEverything()" />
         		</div>
         		<div class="col-xs-4">
 					<label for="minute">Minute:</label>
-        			<input class="form-control" type="number" min="0" max="59" ng-model="startMinute"  ng-init="startMinute" ng-change=""/>
+        			<input class="form-control" type="number" min="0" name="startMinute" max="59" ng-model="startMinute"  ng-init="startMinute" ng-change="checkEverything()"/>
         		</div>
         	</div>
+        	<div ng-show="!start"> <!-- if the start time is not valid -->
+      			<div style="color:red;"><br><br><br>Choose a real time of start</div>
+    		</div>
 
 		        <br>
 				<br>
 				<br>
 
-		        <span class="formTitle">Category:</span>
+		        Category:
 	            <select class='form-control' id="categorySelector" ng-model="category" ng-change="selectCategory(category)" ng-options="choice.name for choice in categories">
 	            </select><br><br>
 			
-				<button class="btn btn-default" ng-click="addNewEvent()">Create event</button></span>
+			<!-- the button is disabled if something is wrong in the form -->
+				<button class="btn btn-default" type="submit" ng-click="addNewEvent()" ng-disabled="!pressButton">Create event</button></span>
+				</form>
 			</div>
 	        </div><div class="col-md-3"></div>
 			

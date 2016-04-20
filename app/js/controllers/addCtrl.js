@@ -7,6 +7,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.hour = 0;
 	$scope.minute = 0;
 	$scope.second = 0;
+
 	//lastInput = [0,0,0];
 	console.log(currentAuth);
 
@@ -20,8 +21,28 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 
 	$scope.user = currentAuth.google.displayName;
 	$scope.category = $scope.categories[0];
-	$scope.name = "Insert name here";
-	// value of duration
+	$scope.name = "";
+
+	//for the error handling
+	$scope.pressButton = false;
+	$scope.duration = false;
+	$scope.date = false;
+
+
+
+	//to make the errors work
+	$scope.master = {};
+	$scope.update = function(user) {
+      $scope.master = angular.copy(user);
+    };
+    $scope.reset = function(form) {
+      if (form) {
+        form.$setPristine();
+        form.$setUntouched();
+      }
+      $scope.user = angular.copy($scope.master);
+    };
+    $scope.reset();
 
 
 	$scope.getNumberOfDays = function(){	//returns number of days in the month we are right now
@@ -41,6 +62,60 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 			return 30;
 		}
 	}
+
+
+//ALL THE ERROR HANDLING FUNCTIONS
+
+	$scope.checkDuration = function(){	//checks validity for the duration
+		if($scope.hour>=0 && $scope.minute>=0 && $scope.second>=0){
+			if($scope.hour>0 || $scope.minute>0 || $scope.second>0){
+				$scope.duration = true;
+			}
+			else{
+				$scope.duration = false;
+			}
+		}
+		else{
+			$scope.duration = false;
+		}
+
+	}
+
+	$scope.checkDate = function(){	//checks validity for the date
+		if($scope.year>=2000 && $scope.month>0 && $scope.month<=12 && $scope.day>0 && $scope.day<=$scope.getNumberOfDays()){
+			$scope.date = true;
+		}
+		else{
+			$scope.date = false;
+		}
+	}
+
+	$scope.checkStart = function(){	//checks validity for the starttime
+		if($scope.startHour>=0 && $scope.startHour<24 && $scope.startMinute>=0 && $scope.startMinute<60){
+			$scope.start = true;
+		}
+    	else{
+    		$scope.start = false;
+    	}
+	}
+
+
+    $scope.checkEverything = function(){	//controlls everything is right in the form
+    	$scope.checkDuration();
+    	$scope.checkDate();
+    	$scope.checkStart();
+    	if($scope.duration && $scope.date && $scope.start && $scope.name.length>0){
+    		$scope.pressButton = true;
+    	}
+    	else{
+    		$scope.pressButton = false;
+    	}
+    	
+    }
+
+   
+    $scope.checkEverything();	//creates start values
+
 
 	$scope.setTimer = function(_hour,_minute,_second){
 		$scope.hour = $scope.hours;
@@ -97,23 +172,11 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	//adds a new event by calling addnewevent in the model with the times from the form
 	$scope.addNewEvent = function() {
 		var start = new Date($scope.year, $scope.month-1, $scope.day, $scope.startHour, $scope.startMinute);
-
-        //var startZone = start.getTimezoneOffset();
-		//var beginning = new Date(1970, 0, 1, $scope.hour, $scope.minute, $scope.second);	//creates a date with milliseconds as the duration
-		//console.log("beginning", beginning);
 		var startMilli = start.getTime();
-		//var bMilli = beginning.getTime();
 
-		//var milliTotal = startMilli + bMilli +startZone*60*60*1000;	//WHY IS IT NOT THE CORRECT HOUR?
-		//console.log(startMilli, bMilli, milliTotal);
-		//var end = new Date(milliTotal);
-
-		milliTotal = ($scope.hour*60*60*1000) + ($scope.minute*60*1000) + ($scope.second*1000);
-
+		var milliTotal = ($scope.hour*60*60*1000) + ($scope.minute*60*1000) + ($scope.second*1000);
 		var end = new Date(startMilli+milliTotal);
-		//console.log("det ska bli så här många ms: ", end.getTime());
 	
-		console.log("end", end)
 		TimeTracker.addNewEvent($scope.name, start, end, $scope.category);	
 	}
 
