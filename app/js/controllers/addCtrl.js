@@ -178,7 +178,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		var end = new Date(startMilli+milliTotal);
 	
 		$scope.modalEvent = TimeTracker.addNewEvent($scope.name, start, end, $scope.category);	
-
+		console.log($scope.modalEvent.end.toDateString())
         $('#popUpModal').modal();                     //starts the modal box
 
         return false;
