@@ -31,16 +31,15 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
     }
 
     var handleAuthResult = function (authResult) {
-      console.log(authResult);
       //var authorizeDiv = document.getElementById('authorize-div');
       if (authResult && !authResult.error) {
         //see if something can be done here to omit the firebase authentication
-        console.log("works");
+        console.log("Authorization works");
 
         //load the userID and then call the function that loads the api
         gapi.client.load('oauth2','v2',function(){
           gapi.client.oauth2.userinfo.get().execute(function(resp){
-            console.log(resp.id);
+            console.log("UserID: ", resp.id);
             DataHandler.userId = resp.id;
             loadCalendarApi();
 
@@ -49,7 +48,7 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
           
       } else {
         
-       console.log("didn't work");
+       console.log("Authorization didn't work");
       }
     }
 
@@ -74,7 +73,6 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
 
       request.execute(function(resp) {
         var calendars = resp.items;
-        console.log(resp);
 
         //firebase connection
         DataHandler.calendarListRef = new Firebase("https://time-trackertest.firebaseio.com/" + DataHandler.userId + "/calendarList");
@@ -122,7 +120,7 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
       });
 
       request.execute(function(resp) {
-        console.log(resp);
+        console.log("resp");
 
         //call the DataHandler.updateEvents-function
 
