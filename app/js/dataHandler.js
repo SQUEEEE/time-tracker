@@ -42,6 +42,8 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 				//existsInList(calendarList[i], this.existingCalendars);
 				
 				if(!existsInList(calendarList[i], this.existingCalendars)){
+
+					//add the calendar. This doesn't work for some reasono so omitting it for now
 					/*this.calendarList.$add({
 						'id': calendarList[i].id, 
 						'name': calendarList[i].summary, 
@@ -53,8 +55,6 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 				}
 			}
 
-
-			//console.log(existingList);
 		});
 
 	
@@ -88,6 +88,16 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		syncedCalendars = [];
 
 		//iterate through the calendars and add the ones with value sync = true to the list
+
+		this.calendarListRef.once("value", function(snapshot){
+			var allCals = snapshot.val();
+
+			for(i in allCals){
+				if(allCals[i].sync){
+					syncedCalendars.push(allCals[i].id);
+				}
+			}
+		})
 
 		return syncedCalendars;
 	}
