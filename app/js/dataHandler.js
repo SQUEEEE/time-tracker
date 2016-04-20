@@ -83,7 +83,7 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 	*/
 	this.getSyncedCalendars = function(){
 
-		console.log(this.calendarList);
+		//console.log(this.calendarList);
 
 		syncedCalendars = [];
 
@@ -97,9 +97,14 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 					syncedCalendars.push(allCals[i].id);
 				}
 			}
-		})
+
+			console.log("i am done now!")
+
+		});
 
 		return syncedCalendars;
+
+		
 	}
 
 
