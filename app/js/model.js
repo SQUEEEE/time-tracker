@@ -591,6 +591,25 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		return sum;
 	}
 
+	// calculate total amount of logged time for a category, returns hours
+	this.calcWeekCategory = function(category, startMs, endMs) {
+		sum = 0;
+		for (i in data) {
+			if (category == data[i].category) {
+				if (data[i].logged == true) {
+
+					if (Date.parse(data[i].start) >= startMs && Date.parse(data[i].end) <= endMs) {
+						sum += this.calcDuration(data[i].start, data[i].end);
+					}
+				}
+			}
+		}
+		result = sum /(1000 * 60 * 60);
+
+		return result;
+	}
+
+
 	// returns a list of objects with categories and amount of time spent per category
 	this.statPieObjects = function() {
 		objList = [];
@@ -619,13 +638,13 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 		startMs = startDate.getTime();
 
-		for (k = 1; k < 7; k++) {
+		for (k = 0; k < 6; k++) {
 			n = parseInt(k)+1;
 			ms = n * 86400000;
 			date = new Date(startMs + ms);
 			dateList.push(date.toDateString());
 		}
-
+		
 		for (i in dateList) {
 			sum = 0;
 			for (j in data) {			// for every event
@@ -641,6 +660,37 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			dataList.push(sum);
 		}
 		return dataList;
+	}
+
+
+	// returns a list of objects with categories and amount of time spent per category for one week
+	this.statPieWeek = function() {
+
+		now = new Date();
+		year = now.getFullYear();
+		month = now.getMonth();
+		day = now.getDate();
+		weekday = now.getDay();
+
+		if (weekday == 0) {	// since sunday returns 0 from getDay()
+			weekday = 7;
+		}
+
+		startDate = new Date (year, month, day-weekday+1, 0, 0, 0, 0);
+		
+		startMs = startDate.getTime();
+
+		endMs = startMs + 6*24*60*60*1000;
+
+		objList = [];
+		for (index = 0; index < categoryArray.length; index++) {
+
+			value = this.calcWeekCategory(categoryArray[index].name, startMs, endMs);
+
+			obj = {name: categoryArray[index].name, y: value, color: categoryArray[index].color};
+			objList.push(obj);		
+		}
+		return objList;
 	}
 
 	// returns a list with logged time the current week
