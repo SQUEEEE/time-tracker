@@ -177,7 +177,12 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		var milliTotal = ($scope.hour*60*60*1000) + ($scope.minute*60*1000) + ($scope.second*1000);
 		var end = new Date(startMilli+milliTotal);
 	
-		TimeTracker.addNewEvent($scope.name, start, end, $scope.category);	
+		$scope.modalEvent = TimeTracker.addNewEvent($scope.name, start, end, $scope.category);	
+
+        $('#popUpModal').modal();                     //starts the modal box
+
+        return false;
+    
 	}
 
 

@@ -439,7 +439,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		data.push(eventObject);
 		//console.log(data);
 		//autoReportAll();
-		return data;
+		return eventObject;
 	};
 
 
