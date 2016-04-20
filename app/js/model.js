@@ -376,13 +376,32 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		return this;
 	};
 
-	this.createID = function() {	// TODO - make sure no id can be the same
-	    id = "";
+	// generates a new ID to use for an event
+	this.createID = function() {
+	   
 	    possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	    
+	    bool = true;
+	    while (bool == true) {
+	    	id = "";
 
-	    for (i=0; i < 30; i++) {
-	        id += possible.charAt(Math.floor(Math.random() * possible.length));
-	    }
+	    	for (i=0; i < 45; i++) {
+	        	id += possible.charAt(Math.floor(Math.random() * possible.length));
+	    	}
+
+	    	for (index in data) {
+	    		if (data[index].id == id) {
+	    			if (index == (data.length-1)) {
+	    				index = 0;
+					}
+	    			break;
+	    		}
+	    	}
+
+	    	if (index == (data.length-1)) {
+	    		bool = false;
+	    	}
+	    }  
 
 	    return id;
 	}
