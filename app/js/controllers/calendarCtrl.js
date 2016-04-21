@@ -53,6 +53,12 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
         }
     }
 
+    $scope.deleteEvent = function(calEvent){
+        $scope.modalEvent = calEvent;
+        TimeTracker.deleteEvent(calEvent);
+        $('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
+    }
+
     $scope.hideEvent = function(calEvent){
       calEvent.logged = false;
       calEvent.autoReport = false;

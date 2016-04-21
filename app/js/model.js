@@ -134,6 +134,41 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	   "summary": "Envariabelanalys (SF1625) Föreläsning",
 	   "description": "https://www.kth.se/social/course/SF1625/subgroup/ht-2013-cdate-copen/event/6898920/\n",
 	   "location": "E1",
+	   "intern":true,
+	   "creator": {
+	    "email": "hellquist.erika@gmail.com",
+	    "displayName": "Erika Hellquist",
+	    "self": true
+	   },
+	   "organizer": {
+	    "email": "hellquist.erika@gmail.com",
+	    "displayName": "Erika Hellquist",
+	    "self": true
+	   },
+	   "start": {
+	    "dateTime": "2016-04-21T08:00:00+01:00"
+	   },
+	   "end": {
+	    "dateTime": "2016-04-21T10:00:00+01:00"
+	   },
+	   "iCalUID": "1ef55637f212b3ce20fd17e2c97d57ef0bac2325",
+	   "sequence": 0,
+	   "reminders": {
+	    "useDefault": true
+	    
+	   }
+  	},
+  	{
+	   "kind": "calendar#event",
+	   "etag": "\"2756392697640000\"",
+	   "id": "_65imcd9l6opjephi64p64cr3ckp30pj464rmacj374rm8d9nclj30oj1ccp36chl",
+	   "status": "confirmed",
+	   "htmlLink": "https://www.google.com/calendar/event?eid=XzY1aW1jZDlsNm9wamVwaGk2NHA2NGNyM2NrcDMwcGo0NjRybWFjajM3NHJtOGQ5bmNsajMwb2oxY2NwMzZjaGwgaGVsbHF1aXN0LmVyaWthQG0",
+	   "created": "2013-08-31T00:15:49.000Z",
+	   "updated": "2013-09-03T08:19:08.820Z",
+	   "summary": "Envariabelanalys (SF1625) Föreläsning",
+	   "description": "https://www.kth.se/social/course/SF1625/subgroup/ht-2013-cdate-copen/event/6898920/\n",
+	   "location": "E1",
 	   "creator": {
 	    "email": "hellquist.erika@gmail.com",
 	    "displayName": "Erika Hellquist",
@@ -276,6 +311,16 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		}
 	}
 
+	this.deleteEvent = function(calEvent){
+		for(index in data){
+			if(data[index].id == calEvent.id){
+				console.log(data[index].name)
+				data.splice(index, 1);
+
+			}
+
+		}
+	}
 
 	/******* Categories *****/
 	var colorsTaken = [];
@@ -387,6 +432,13 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		this.color=category.color;
 		this.textColor='black';
 		this.hidden = false;
+		if(current.intern){
+			this.intern = true;
+		}
+		else{
+			this.intern = false;
+		}
+		console.log(this.intern)
 
 		if (this.logged==false){	//if not logged we have a black border
 			this.borderColor='black'; 
@@ -468,6 +520,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		   "summary": name,
 		   "start": start,
 		   "end": end,
+		   "intern": true,
 		};
 
 		currentTime = Date.now();
