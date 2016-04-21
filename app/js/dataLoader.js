@@ -1,13 +1,9 @@
 //model for auth
-timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler){
-	/*var ref = new Firebase("https://time-trackertest.firebaseio.com/data");
-	return $firebaseAuth(ref);*/
+timeTrackerApp.factory("DataLoader", function($http, DataHandler){
     
     var CLIENT_ID = '122923477419-e3s0kltaumck69gqfn8d0he948lhpd8q.apps.googleusercontent.com';
 
     var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
-
-
 
 
       /**
@@ -88,7 +84,6 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
         //calendarsToSync = ["cl.styrelsen@gmail.com", "v6ek23rfiak5gaiq7e2qa8oegg@group.calendar.google.com", "squeeeetheswede@gmail.com"];
         console.log("Sync the following", calendarsToSync);
 
-       
 
         /*
           loop through the calendarsToSync-list and then call the loadEvents function for every one 
@@ -125,7 +120,7 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
 
         //call the DataHandler.updateEvents-function
 
-        DataHandler.updateEvents(calendarId, resp);
+        DataHandler.updateEvents(calendarId, resp.items);
 
       });
     }

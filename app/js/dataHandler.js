@@ -26,6 +26,8 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		this.firebaseRef = new Firebase("https://time-trackertest.firebaseio.com/" + userId);
 		this.calendarListRef = this.firebaseRef.child('calendarList');
 		this.calendarList = $firebaseArray(this.calendarListRef);
+		this.eventsRef = this.firebaseRef.child('events');
+		this.events = $firebaseArray(this.eventsRef);
 	}
 
 	var existsInList = function(item, list){
@@ -146,6 +148,9 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 	*/
 	this.updateEvents = function(calendarId, resp){
 		//maybe open the events for the specific calendar here? not sure if we need to organize the data in this way 
+		//either specify the calendar in the path in the firebase or as a field in the event object
+
+		this.events.$add(resp);
 
 		//loop through in same manner as updateCalendarList
 	}
