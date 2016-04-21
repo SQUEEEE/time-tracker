@@ -1,13 +1,11 @@
 //model for auth
 timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray){
-	this.userId = undefined; //the id of the user that is logged in
+	/*this.userId = undefined; //the id of the user that is logged in
 	this.calendarList = undefined; //the list of calendars that the user has on their Google Account, including info about whether to sync the calendar etc
 	this.data = undefined; //the events?? 
 	this.categories = undefined; //the categories that the user has saved
 	this.calendarListRef = undefined;
 	this.firebaseRef = undefined;
-	this.test = "crap";
-
 	/*
 	function that takes a list of calendars and sees if any should be added to the user's list of calendars
 	calendar should contain the following:
@@ -26,6 +24,8 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		this.firebaseRef = new Firebase("https://time-trackertest.firebaseio.com/" + userId);
 		this.calendarListRef = this.firebaseRef.child('calendarList');
 		this.calendarList = $firebaseArray(this.calendarListRef);
+		this.eventsRef = this.firebaseRef.child('events');
+		this.events = $firebaseArray(this.eventsRef);
 	}
 
 	var existsInList = function(item, list){
@@ -146,6 +146,11 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 	*/
 	this.updateEvents = function(calendarId, resp){
 		//maybe open the events for the specific calendar here? not sure if we need to organize the data in this way 
+		//either specify the calendar in the path in the firebase or as a field in the event object
+		
+
+		//var currentEvents = this.eventsRef.child(calendarId); doesn't work
+		this.events.$add(resp);
 
 		//loop through in same manner as updateCalendarList
 	}

@@ -73,8 +73,4 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 		console.log("test", TimeTracker.getTestData());
 	}
 
-	$scope.test = function() {
-		TimeTracker.testConsole();
-	}
-
 });

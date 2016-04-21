@@ -17,10 +17,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 
 	var calendarArray = [];
-
-	this.testConsole = function() {
-		console.log("i funk", testData);
-	}
 	
 	var testData = [			//a list of events imported from the api
 	{
@@ -483,12 +479,13 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 	// generates a new ID to use for an event
 	this.createID = function() {
-	   
+	   	//possible = "AB"
 	    possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 	    
 	    bool = true;
 	    while (bool == true) {
 	    	id = "";
+	    	working = true;
 
 	    	for (i=0; i < 45; i++) {
 	        	id += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -496,16 +493,16 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 	    	for (index in data) {
 	    		if (data[index].id == id) {
-	    			if (index == (data.length-1)) {
-	    				index = 0;
-					}
-	    			break;
+	    			working = false;
+	    			//console.log("ID finns redan");
 	    		}
 	    	}
 
-	    	if (index == (data.length-1)) {
+	    	if (working == true) {
 	    		bool = false;
+	    		//console.log("Nu är loopen klar");
 	    	}
+	    	console.log("Är detta en oändlig loop?");
 	    }  
 
 	    return id;
