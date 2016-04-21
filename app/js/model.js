@@ -421,6 +421,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 
 	/*****Eventclass **/
+	// The attributes are: id, created, updated, title, start, end, category, logged, autoReport, color, textColor, hidden, intern, logged, borderColor
 	var EventClass = function(current, category, logged, dataList){
 	//creates objects with the attributes we want, current is a object we want to copy most from
 		this.id=current.id;
@@ -459,10 +460,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		var endNow = new Date(this.end);
 
 
-		if(startNow.getDate() == endNow.getDate()){	//no worries
-			console.log("its the same date");
-		}
-		else{	//we need to handle it
+		if(!(startNow.getDate() == endNow.getDate())){		//we need to handle it
 			var start = new Date();
 			start.setDate(startNow.getDate()+1);	//start time for the new event is the next day
 			start.setHours(0, 0, 0);				//at midnight
@@ -480,9 +478,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			this.end = updatedEnd;
 		}
 			
-		
-
-
 		return this;
 	};
 
