@@ -1,7 +1,7 @@
 <div class="container" id="add">
 	<br>
 	<div class="col-md-12">
-		<span class="mediumTitle">Add - by timer or manually</span><hr><br>
+		<span class="mediumTitle">Add - by using the stop watch or manually</span><hr><br>
 		<div class="wrapper"><div class="col-md-2"></div>
         <div class="col-md-4">
           
@@ -22,11 +22,11 @@
 		<!--     Timer and timer buttons      -->
 		        
         	<form name="form" class="css-form" novalidate>
-        	Name:
+        	Title:
         	<input class="form-control" ng-model="name" name="name" ng-change="checkEverything()" type="text" required="" />
         	<br/>
         	<div ng-show="name.length<1"> <!-- if there is no name written -->
-      			<div style="color:red;">Please choose a name for the event<br><br></div>
+      			<div style="color:red;">Please choose a title for the event<br><br></div>
     		</div>
   	  		
 
@@ -46,7 +46,7 @@
 				</div>
 			</div>
 			<div ng-show="!duration"> <!-- if the duration is not valid -->
-      			<div style="color:red;"><br><br><br>Choose a duration for the event or use the timer</div>
+      			<div style="color:red;"><br><br><br>Choose a duration for the event or use the stop watch</div>
     		</div>
 			<br><br><br>
        		<!--  <input class="form-control" ng-model="date"/><br> type="date" -->
