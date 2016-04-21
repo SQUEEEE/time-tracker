@@ -6,13 +6,7 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 	this.categories = undefined; //the categories that the user has saved
 	this.calendarListRef = undefined;
 	this.firebaseRef = undefined;
-	/*
-	function that takes a list of calendars and sees if any should be added to the user's list of calendars
-	calendar should contain the following:
-	 id, name (these are from the calendarList data), 
-	 sync, category (timeTracker-specific) <-- what are the defaults? 
 
-	*/
 
 	/*
 		when the user is authorized we initiate the firebase connections
@@ -39,13 +33,17 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 				return true;
 			}
 
-			//console.log("List id: ", list[i].id, " item id: ");
-
-			//console.log(item.id);
-			//console.log(list[i].id);
 		}
 	}
 
+
+	/*
+	function that takes a list of calendars and sees if any should be added to the user's list of calendars
+	calendar should contain the following:
+	 id, name (these are from the calendarList data), 
+	 sync, category (timeTracker-specific) <-- what are the defaults? 
+
+	*/
 	this.updateCalendarList = function(calendarList){
 		//get the existing CalendarList
 		var category = 'Important';
@@ -102,8 +100,6 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 	*/
 	this.getSyncedCalendars = function(){
 
-		//console.log(this.calendarList);
-
 		syncedCalendars = [];
 
 		//iterate through the calendars and add the ones with value sync = true to the list
@@ -116,8 +112,6 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 					syncedCalendars.push(allCals[i].id);
 				}
 			}
-
-			console.log("i am done now!")
 
 		});
 

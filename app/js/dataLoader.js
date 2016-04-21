@@ -80,11 +80,6 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
         //calendars to get events from
         calendarsToSync = DataHandler.getSyncedCalendars();
 
-      //hard coding of calendars to sync 
-        //calendarsToSync = ["cl.styrelsen@gmail.com", "v6ek23rfiak5gaiq7e2qa8oegg@group.calendar.google.com", "squeeeetheswede@gmail.com"];
-        console.log("Sync the following", calendarsToSync);
-
-
         /*
           loop through the calendarsToSync-list and then call the loadEvents function for every one 
         */
