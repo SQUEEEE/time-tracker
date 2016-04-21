@@ -1,6 +1,7 @@
-timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoader) {
+timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoader, DataHandler) {
 
-	$scope.categoryArray = TimeTracker.getCategories();		// list of categories
+	//$scope.categoryArray = TimeTracker.getCategories();		// list of categories
+	$scope.categoryArray = DataHandler.categories; //use the categories from the firebase! :D
 	$scope.calendarArray = TimeTracker.getTestCalendars();	// list of names of the calendars
 	$scope.colors = TimeTracker.getAllColors();				// all colors available
 
