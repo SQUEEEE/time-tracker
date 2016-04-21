@@ -181,7 +181,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	    "dateTime": "2016-04-13T11:00:00+01:00"
 	   },
 	   "end": {
-	    "dateTime": "2016-04-13T15:00:00+01:00"
+	    "dateTime": "2016-04-14T15:00:00+01:00"
 	   },
 	   "iCalUID": "0646191c57dad5a4ebc4e10f112ec9a042b001eb",
 	   "sequence": 0,
@@ -350,16 +350,16 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	var EventClass = function(current, category, logged){
 	//creates objects with the attributes we want, current is a object we want to copy most from
 		this.id=current.id;
-		//this.url=current.htmlLink;		//remove
+
 		this.created=current.created;	
 		this.updated=current.updated;
 		this.title=current.summary;
-		//this.description=current.description;		//remove
-		//this.creator=current.creator.email;			//remove
-		//this.organizer=current.organizer.email;		//remove
-		this.start=current.start.dateTime;
-		this.end=current.end.dateTime;
-		//this.iCalUID=current.iCalUID;		//remove
+
+		this.start=current.start;
+		this.end=current.end;
+		console.log("start: " + this.start);
+		console.log("end " + this.end);
+
 		this.category=category.name;				//a category grouping some events together, should have a unique color
 		this.logged=logged;				//true/false depending on if the event is logged or not
 		this.autoReport = category.autoReport;		// bool depending on if the event should be auto reported
@@ -372,6 +372,42 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		else{
 			this.borderColor=this.color;
 		}
+
+
+		//to handle passing midnight events by splitting them by midnight, Recursion! <3
+		startNow = new Date(this.start);
+		endNow = new Date(this.end);
+
+		console.log("now we test if its the same date")
+		if(startNow.getDate() == endNow.getDate()){	//no worries
+			console.log("its the same date");
+		}
+		else{	//we need to handle it
+			console.log("its not the same date");
+			start = new Date();
+			start.setDate(startNow.getDate()+1);	//start time for the new event is the next day
+			start.setHours(0, 0, 0);				//at midnight
+			console.log("starttiden är " + start);
+			current.start = start;
+			current.end = endNow;
+			console.log("sluttiden är " + endNow);
+			eventObject = new EventClass(current, category, logged);	//creates a new event
+			console.log(eventObject.start + " " + eventObject.end);
+			console.log(data);
+			data.push(eventObject);				//and adds the new event to the data list
+			console.log(data);
+			updatedEnd = new Date();
+			updatedEnd.setDate(startNow.getDate()-1);		//changes the end time for this current event to midnight at the day of the start date
+			updatedEnd.setHours(23,59,59);
+			this.end = updatedEnd;
+
+			console.log("eventet med midnatt som end är " + this.start + " till " + this.end); 
+			
+			
+		}
+			
+		
+
 
 		return this;
 	};
@@ -410,36 +446,12 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		
 		current = {
 		   "kind": "calendar#event",
-		   //"etag": "",
 		   "id": this.createID(),
-		   //"status": "",
-		   //"htmlLink": "",
 		   "created": "",	// date.now().toDateString() ?
 		   "updated": "",	// date.now() ?
 		   "summary": name,
-		   //"description": "",
-		   //"location": "",
-		   //"creator": {
-		    //"email": "",
-		    //"displayName": "",
-		    //"self": true
-		   //},
-		   //"organizer": {
-		    //"email": "",
-		    //"displayName": "",
-		    //"self": true
-		   //},
-		   "start": {
-		    "dateTime": start
-		   },
-		   "end": {
-		    "dateTime": end
-		   },
-		   //"iCalUID": "",
-		   //"sequence": 0,
-		   //"reminders": {
-		    //"useDefault": true
-		   //}
+		   "start": start,
+		   "end": end,
 		};
 
 		currentTime = Date.now();
@@ -456,7 +468,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		eventObject = new EventClass(current, category, logged);
 		console.log("data for new event:", eventObject);
 		data.push(eventObject);
-		//console.log(data);
 		//autoReportAll();
 		return eventObject;
 	};
@@ -491,6 +502,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		for(index in testData){
 			var current = testData[index];
 			randNum = Math.floor((Math.random() * categoryArray.length));
+			end = current.end.dateTime;
+			current.end = end;
+			start = current.start.dateTime;
+			current.start = start;
 			var eventObject = new EventClass(current, categoryArray[randNum], false);
 			iteratedData.push(eventObject);
 		}
