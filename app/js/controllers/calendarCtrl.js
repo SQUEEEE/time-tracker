@@ -23,6 +23,8 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
         $scope.modalEvent = calEvent;
         TimeTracker.changeLoggedStatus(calEvent);
         $('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
+
+        return calEvent;
 	}
 
     $scope.changeAutoReport = function(calEvent) {
@@ -57,9 +59,37 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
       calEvent.color = "white";
       calEvent.borderColor = "white";
       calEvent.textColor = "#E3DADC";
+      calEvent.hidden = true;
       $scope.modalEvent = calEvent;
       TimeTracker.hideEvent(calEvent);
       $('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
+    }
+
+    $scope.unHideEvent = function(calEvent){
+        var currentTime = Date.now();
+        var eventEndTime = Date.parse(calEvent.end);
+            
+        if (currentTime > eventEndTime) {
+                calEvent.logged = true;
+        }
+        else {
+            calEvent.logged = false;
+        }
+
+        for (i in $scope.categoryArray) {
+            if ($scope.categoryArray[i].name == calEvent.category) {
+                calEvent.color = $scope.categoryArray[i].color;
+                calEvent.autoReport = $scope.categoryArray[i].autoReport;
+            }
+        }
+      
+        calEvent.textColor = "black";
+        calEvent.hidden = false;
+
+        calEvent = $scope.logOrNotLog(calEvent);
+        $scope.modalEvent = calEvent;
+        TimeTracker.hideEvent(calEvent);
+        $('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
     }
 
 

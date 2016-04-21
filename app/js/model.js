@@ -261,6 +261,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 				data[index].borderColor = calEvent.borderColor;
 				data[index].textColor = calEvent.textColor;
 				data[index].autoReport = calEvent.autoReport;
+				data[index].hidden = calEvent.hidden;
 			}
 		}
 	}
@@ -375,6 +376,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		this.autoReport = category.autoReport;		// bool depending on if the event should be auto reported
 		this.color=category.color;
 		this.textColor='black';
+		this.hidden = false;
 
 		if (this.logged==false){	//if not logged we have a black border
 			this.borderColor='black'; 
@@ -388,7 +390,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		var startNow = new Date(this.start);
 		var endNow = new Date(this.end);
 
-		console.log("now we test if its the same date")
+
 		if(startNow.getDate() == endNow.getDate()){	//no worries
 			console.log("its the same date");
 		}
