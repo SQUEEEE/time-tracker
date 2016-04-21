@@ -121,6 +121,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		$scope.hour = $scope.hours;
 		$scope.minute = $scope.min;
 		$scope.second = $scope.sec;
+		$scope.checkEverything();
 	}
 	
 	
