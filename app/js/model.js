@@ -253,6 +253,18 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		}
 	}
 
+	this.hideEvent = function(calEvent){
+		for(index in data){
+			if(data[index].id == calEvent.id){
+				data[index].logged = calEvent.logged;
+				data[index].color = calEvent.color;
+				data[index].borderColor = calEvent.borderColor;
+				data[index].textColor = calEvent.textColor;
+				data[index].autoReport = calEvent.autoReport;
+			}
+		}
+	}
+
 
 	/******* Categories *****/
 	var colorsTaken = [];

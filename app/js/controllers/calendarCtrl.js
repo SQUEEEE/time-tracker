@@ -51,15 +51,16 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
         }
     }
 
-    //$scope.hideEvent = function(calEvent){
-      //  calEvent.logged = false;
-       // calEvent.color = "white";
-        //calEvent.borderColor = "white";
-        //calEvent.textColor = "#E3DADC";
-        //$scope.modalEvent = calEvent;
-
-        //$('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
-    //}
+    $scope.hideEvent = function(calEvent){
+      calEvent.logged = false;
+      calEvent.autoReport = false;
+      calEvent.color = "white";
+      calEvent.borderColor = "white";
+      calEvent.textColor = "#E3DADC";
+      $scope.modalEvent = calEvent;
+      TimeTracker.hideEvent(calEvent);
+      $('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
+    }
 
 
     //from calendar angular walk through
