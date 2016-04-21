@@ -95,6 +95,13 @@
   height: 80%;
 }
 
+/* Link Hover Color */
+.nav-list-item a:hover {
+color: #fff;
+}
+
+
+
 
 /*********** CALENDAR ************/
 
