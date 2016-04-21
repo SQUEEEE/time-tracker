@@ -41,19 +41,24 @@
                         <label><input type="checkbox" ng-model="modalEvent.autoReport" ng-change="changeAutoReport(modalEvent)"></label>
                     </div><br>
                                 </div></div>
-                <div class="modal-footer"> 
-                <div ng-show="modalEvent.hidden">
-                    <button type="button" id="categoryButton" ng-click="unHideEvent(modalEvent)" class="btn btn-default"> Unhide this event</button>
-                </div>
-                <div class="ng-hide" ng-hide="modalEvent.hidden">
-                <button type="button" id="categoryButton" ng-click="hideEvent(modalEvent)" class="btn btn-default"> Hide this event</button>
-                    <select class='form-control' id="categorySelector" ng-model="selected" ng-change="currentSelCat(selected)" ng-options="choice for choice in categoryNames">
-                        <option value="">Select Category</option>
-                    </select>
-                    <button type="button" id="categoryButton" ng-click="changeCategory(modalEvent)" class="btn btn-default"> Change category</button>
-                    
-                </div>
-                	<!--<button type="button" id="loggedButton" ng-click="logOrNotLog(modalEvent)" class="btn btn-default"> Change logged status </button>-->
+                <div class="modal-footer">
+
+                    <div ng-show="modalEvent.intern">
+                        <button type="button" id="categoryButton" data-dismiss="modal" ng-click="deleteEvent(modalEvent)" class="btn btn-warning"> Remove this event</button>
+                    </div> 
+
+                    <div ng-show="modalEvent.hidden">
+                        <button type="button" id="categoryButton" ng-click="unHideEvent(modalEvent)" class="btn btn-default"> Unhide this event</button>
+                    </div>
+
+                    <div ng-hide="modalEvent.hidden">
+                        <button type="button" id="categoryButton" ng-click="hideEvent(modalEvent)" class="btn btn-default"> Hide this event</button>
+                        <select class='form-control' id="categorySelector" ng-model="selected" ng-change="currentSelCat(selected)" ng-options="choice for choice in categoryNames">
+                            <option value="">Select Category</option>
+                        </select>
+                        <button type="button" id="categoryButton" ng-click="changeCategory(modalEvent)" class="btn btn-primary"> Change category</button>
+                    </div>
+
 
                 </div>
             </div>
