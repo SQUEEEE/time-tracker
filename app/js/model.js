@@ -17,10 +17,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 
 	var calendarArray = [];
-
-	this.testConsole = function() {
-		console.log("i funk", testData);
-	}
 	
 	var testData = [			//a list of events imported from the api
 	{
