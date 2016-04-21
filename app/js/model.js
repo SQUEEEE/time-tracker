@@ -347,7 +347,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 
 	/*****Eventclass **/
-	var EventClass = function(current, category, logged){
+	var EventClass = function(current, category, logged, dataList){
 	//creates objects with the attributes we want, current is a object we want to copy most from
 		this.id=current.id;
 
@@ -357,8 +357,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 		this.start=current.start;
 		this.end=current.end;
-		console.log("start: " + this.start);
-		console.log("end " + this.end);
 
 		this.category=category.name;				//a category grouping some events together, should have a unique color
 		this.logged=logged;				//true/false depending on if the event is logged or not
@@ -383,27 +381,21 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			console.log("its the same date");
 		}
 		else{	//we need to handle it
-			console.log("its not the same date");
 			var start = new Date();
 			start.setDate(startNow.getDate()+1);	//start time for the new event is the next day
 			start.setHours(0, 0, 0);				//at midnight
-			console.log("starttiden är " + start);
+			
 			current.start = start;
-			current.end = endNow;
-			console.log("sluttiden är " + endNow);
-			var eventObject = new EventClass(current, category, logged);	//creates a new event
-			console.log(eventObject.start + " " + eventObject.end);
-			console.log(data);
-			data.push(eventObject);				//and adds the new event to the data list
-			console.log(data);
+			current.end = this.end;
+			
+			var eventObject = new EventClass(current, category, logged, dataList);	//creates a new event
+			
+			dataList.push(eventObject);				//and adds the new event to the data list
+			
 			var updatedEnd = new Date();
 			updatedEnd.setDate(startNow.getDate());		//changes the end time for this current event to midnight at the day of the start date
 			updatedEnd.setHours(23,59,59);
 			this.end = updatedEnd;
-
-			console.log("eventet med midnatt som end är " + this.start + " till " + this.end); 
-			
-			
 		}
 			
 		
@@ -465,7 +457,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		}
 		
 		
-		eventObject = new EventClass(current, category, logged);
+		eventObject = new EventClass(current, category, logged, data);
 		console.log("data for new event:", eventObject);
 		data.push(eventObject);
 		//autoReportAll();
@@ -506,10 +498,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			current.end = end;
 			start = current.start.dateTime;
 			current.start = start;
-			var eventObject = new EventClass(current, categoryArray[randNum], false);
+			var eventObject = new EventClass(current, categoryArray[randNum], false, iteratedData);
 			iteratedData.push(eventObject);
 		}
-		data = iteratedData
+		data = iteratedData;
 		console.log("data:", data);
 		autoReportAll();
 		return data;
