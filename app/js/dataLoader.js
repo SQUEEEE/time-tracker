@@ -39,8 +39,7 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
         //load the userID and then call the function that loads the api
         gapi.client.load('oauth2','v2',function(){
           gapi.client.oauth2.userinfo.get().execute(function(resp){
-            console.log("UserID: ", resp.id);
-            DataHandler.userId = resp.id;
+            DataHandler.initiateUser(resp.id)
             loadCalendarApi();
 
           });
@@ -74,12 +73,6 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
       request.execute(function(resp) {
         var calendars = resp.items;
 
-        //firebase connection
-        DataHandler.calendarListRef = new Firebase("https://time-trackertest.firebaseio.com/" + DataHandler.userId + "/calendarList");
-
-        //load the data into the DataHandler
-        DataHandler.calendarList = $firebaseArray(DataHandler.calendarListRef);
-
         /*
           Call to a function in the 
           DataHandler that will only add new events and update the information with 
@@ -90,6 +83,9 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
 
         //calendars to get events from
         calendarsToSync = DataHandler.getSyncedCalendars();
+
+      //hard coding of calendars to sync 
+        //calendarsToSync = ["cl.styrelsen@gmail.com", "v6ek23rfiak5gaiq7e2qa8oegg@group.calendar.google.com", "squeeeetheswede@gmail.com"];
         console.log("Sync the following", calendarsToSync);
 
        
@@ -97,12 +93,10 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
         /*
           loop through the calendarsToSync-list and then call the loadEvents function for every one 
         */
-        console.log(calendarsToSync);
-        console.log("before loop", calendarsToSync[0]);
 
         for(i in calendarsToSync){
-          console.log("looping through calendars to sync");
-         // loadEvents(calendarsToSync[i]);
+          loadEvents(calendarsToSync[i]);
+          console.log("sync calendar ", calendarsToSync[i]);
         }
        
       });
@@ -127,7 +121,7 @@ timeTrackerApp.factory("DataLoader", function($http, $firebaseArray, DataHandler
       });
 
       request.execute(function(resp) {
-        console.log("resp");
+        console.log(resp);
 
         //call the DataHandler.updateEvents-function
 
