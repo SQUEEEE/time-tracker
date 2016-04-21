@@ -249,6 +249,16 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			if(data[index].id == event.id){
 				data[index].start = startDate;
 				data[index].end = endDate;
+				var currentTime = Date.now();
+        		var eventEndTime = Date.parse(data[index].end);
+				if (currentTime > eventEndTime) {
+                	data[index].logged = true;
+                	data[index].borderColor = data[index].color;
+        		}
+        		else {
+            		data[index].logged = false;
+            		data[index].borderColor = 'black';
+        		}
 			}
 		}
 	}
