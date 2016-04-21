@@ -5,6 +5,8 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 	this.data = undefined; //the events?? 
 	this.categories = undefined; //the categories that the user has saved
 	this.calendarListRef = undefined;
+	this.firebaseRef = undefined;
+	this.test = "crap";
 
 	/*
 	function that takes a list of calendars and sees if any should be added to the user's list of calendars
@@ -13,6 +15,18 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 	 sync, category (timeTracker-specific) <-- what are the defaults? 
 
 	*/
+
+	/*
+		when the user is authorized we initiate the firebase connections
+	*/
+
+	this.initiateUser = function(userId){
+		console.log("initializing user ", userId);
+		this.userId = userId; //if we need to save this?
+		this.firebaseRef = new Firebase("https://time-trackertest.firebaseio.com/" + userId);
+		this.calendarListRef = this.firebaseRef.child('calendarList');
+		this.calendarList = $firebaseArray(this.calendarListRef);
+	}
 
 	var existsInList = function(item, list){
 		for(i in list){
@@ -43,7 +57,7 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 				
 				if(!existsInList(calendarList[i], this.existingCalendars)){
 
-					//add the calendar. This doesn't work for some reasono so omitting it for now
+					//add the calendar. This doesn't work for some reason so omitting it for now
 					/*this.calendarList.$add({
 						'id': calendarList[i].id, 
 						'name': calendarList[i].summary, 
