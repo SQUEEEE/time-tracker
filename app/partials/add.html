@@ -1,23 +1,26 @@
 <div class="container" id="add">
 	<br>
 	<div class="col-md-12">
-		<span class="mediumTitle">Add</span><hr><br>
-		<div class="wrapper">
-        <div class="col-md-4"></div>
+		<span class="mediumTitle">Add - by timer or manually</span><hr><br>
+		<div class="wrapper"><div class="col-md-2"></div>
+        <div class="col-md-4">
+          
+      <span class="timer"><timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}<br></span>
+
+    
+      <button class="btn btn-default btn-md" ng-show="!timerRunning" ng-click="startTimer()" ng-disabled="timerRunning"><span class="glyphicon glyphicon-play timerIcons"></span></button>
+          <button class="btn btn-default btn-md" ng-show="timerRunning" ng-click="pauseTimer()" ng-disabled="!timerRunning"><span class="glyphicon glyphicon-pause timerIcons"></span></button>
+          <button class="btn btn-default btn-md" ng-disabled="timerRunning" ng-click="resetTimer()"><span class="glyphicon glyphicon-stop timerIcons"></span></button>
+       
+          <button class="btn btn-default btn-md" ng-hide="timerRunning || (!timeStarted)" ng-click="setTimer(hhours, mminutes, sseconds)">Set as duration</button>
+          </timer><br><br>
+
+        </div>
+
         <div class="col-md-4" >
 
 		<!--     Timer and timer buttons      -->
-		
-			<span class="timer"><timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}<br></span>
-
-		
-			<button class="btn btn-default btn-md" ng-show="!timerRunning" ng-click="startTimer()" ng-disabled="timerRunning"><span class="glyphicon glyphicon-play timerIcons"></span></button>
-        	<button class="btn btn-default btn-md" ng-show="timerRunning" ng-click="pauseTimer()" ng-disabled="!timerRunning"><span class="glyphicon glyphicon-pause timerIcons"></span></button>
-        	<button class="btn btn-default btn-md" ng-disabled="timerRunning" ng-click="resetTimer()"><span class="glyphicon glyphicon-stop timerIcons"></span></button>
-       
-        	<button class="btn btn-default btn-md" ng-hide="timerRunning || (!timeStarted)" ng-click="setTimer(hhours, mminutes, sseconds)">Set as duration</button>
-       		</timer><br><br>
-        
+		        
         	<form name="form" class="css-form" novalidate>
         	Name:
         	<input class="form-control" ng-model="name" name="name" ng-change="checkEverything()" type="text" required="" />
@@ -99,7 +102,7 @@
 				<button class="btn btn-default" type="submit" ng-click="addNewEvent()" ng-disabled="!pressButton">Create event</button></span>
 				</form>
 			</div>
-	        </div><div class="col-md-4"></div>
+	        </div><div class="col-md-2"></div>
 			
 		</div>
 		</div>
