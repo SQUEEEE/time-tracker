@@ -26,6 +26,9 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		this.calendarList = $firebaseArray(this.calendarListRef);
 		this.eventsRef = this.firebaseRef.child('events');
 		this.events = $firebaseArray(this.eventsRef);
+
+
+		//check if there is an Undefined-categori, if not; add it
 		this.categoriesRef = this.firebaseRef.child('categories');
 		this.categories = $firebaseArray(this.categoriesRef);
 	}
