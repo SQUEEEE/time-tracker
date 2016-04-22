@@ -141,6 +141,7 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 	*/
 	this.updateEvents = function(calendarId, resp){
 		var events = this.events;
+		var calendarCategory = this.getCategory(calendarId); //this doesn't get returned fast enough :(
 
 		//things to resolve: check which category the calendar has
 
@@ -183,8 +184,15 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 			.equalTo(calendarId)
 			.once('value', function(snapshot){
 
-				//need to get the child
-				console.log(snapshot.val());
+				/*
+					to get the right part of the returned object, we loop through, 
+					but in reality we only do it once
+				*/
+				var calObj = snapshot.val()
+				for(key in calObj){
+					return calObj[key].category;
+				}
+				
 			});
 	}
 

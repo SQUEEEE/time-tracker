@@ -86,9 +86,8 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
         */
 
         for(i in calendarsToSync){
-          //loadEvents(calendarsToSync[i]);
-          DataHandler.getCategory(calendarsToSync[i]);
-          //console.log("sync calendar ", calendarsToSync[i]);
+          loadEvents(calendarsToSync[i]);
+          console.log("sync calendar ", calendarsToSync[i]);
         }
        
       });
