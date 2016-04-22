@@ -162,7 +162,9 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
 
         var endDate = new Date(event.end);
         endDate.setTime(endDate.getTime() + endZone*60*1000);
-            
+        
+        console.log("i alert")
+        console.log(event)    
         TimeTracker.updateTime(event, startDate, endDate);
     };
      
@@ -183,7 +185,8 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
     $scope.eventClick = function(calEvent, jsEvent, view){  //when click on an event
         //$(this).css('background-color', 'grey');  // change the border color if we want
         $scope.modalEvent = calEvent;
-
+        console.log("you have clicked a event")
+        console.log(calEvent)
         $('#fullCalModal').modal();                     //starts the modal box
 
         return false;

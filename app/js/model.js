@@ -17,6 +17,38 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 
 	var calendarArray = [];
+
+		// generates a new ID to use for an event
+	this.createID = function() {
+	   	//possible = "AB"
+	    possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	    
+	    bool = true;
+	    while (bool == true) {
+	    	id = "";
+	    	working = true;
+
+	    	for (i=0; i < 45; i++) {
+	        	id += possible.charAt(Math.floor(Math.random() * possible.length));
+	    	}
+
+	    	for (index in data) {
+	    		if (data[index].id == id) {
+	    			working = false;
+	    			//console.log("ID finns redan");
+	    		}
+	    	}
+
+	    	if (working == true) {
+	    		bool = false;
+	    		//console.log("Nu är loopen klar");
+	    	}
+	    	console.log("Är detta en oändlig loop?");
+	    }  
+
+	    return id;
+	}
+
 	
 	var testData = [			//a list of events imported from the api
 	{
@@ -119,10 +151,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	    "useDefault": true
 	   }
   	},
-  	{
+  	{	//a test intern event
 	   "kind": "calendar#event",
 	   "etag": "\"2756392697640000\"",
-	   "id": "_65imcd9l6opjephi64p64cr3ckp30pj464rmacj374rm8d9nclj30oj1ccp36chl",
+	   "id": this.createID(),
 	   "status": "confirmed",
 	   "htmlLink": "https://www.google.com/calendar/event?eid=XzY1aW1jZDlsNm9wamVwaGk2NHA2NGNyM2NrcDMwcGo0NjRybWFjajM3NHJtOGQ5bmNsajMwb2oxY2NwMzZjaGwgaGVsbHF1aXN0LmVyaWthQG0",
 	   "created": "2013-08-31T00:15:49.000Z",
@@ -278,21 +310,27 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	this.updateTime = function(event, startDate, endDate){
 		for(index in data){
 			if(data[index].id == event.id){
+				console.log("här kommer id på eventet")
+				console.log(data[index].id)
 				data[index].start = startDate;
 				data[index].end = endDate;
 				var currentTime = Date.now();
         		var eventEndTime = Date.parse(data[index].end);
 				if (currentTime > eventEndTime) {
+					console.log("currenttime>eventendtime")
 					if(data[index].autoReport==true){
+						console.log("autoreport==true")
                 		data[index].logged = true;
                 		data[index].borderColor = data[index].color;
                 	}
                 	else{
+                		console.log("autoreport==false")
                 		data[index].logged = false;
             			data[index].borderColor = 'black';
                 	}
         		}
         		else {
+        			console.log("not gonna log")
             		data[index].logged = false;
             		data[index].borderColor = 'black';
         		}
@@ -477,48 +515,19 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		return this;
 	};
 
-	// generates a new ID to use for an event
-	this.createID = function() {
-	   	//possible = "AB"
-	    possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-	    
-	    bool = true;
-	    while (bool == true) {
-	    	id = "";
-	    	working = true;
 
-	    	for (i=0; i < 45; i++) {
-	        	id += possible.charAt(Math.floor(Math.random() * possible.length));
-	    	}
-
-	    	for (index in data) {
-	    		if (data[index].id == id) {
-	    			working = false;
-	    			//console.log("ID finns redan");
-	    		}
-	    	}
-
-	    	if (working == true) {
-	    		bool = false;
-	    		//console.log("Nu är loopen klar");
-	    	}
-	    	console.log("Är detta en oändlig loop?");
-	    }  
-
-	    return id;
-	}
 
 	this.addNewEvent = function(name, start, end, category){
 		
 		current = {
 		   "kind": "calendar#event",
 		   "id": this.createID(),
-		   "created": "",	// date.now().toDateString() ?
-		   "updated": "",	// date.now() ?
+		   "created": Date.now(),	// date.now().toDateString() ?
+		   "updated": Date.now(),	// date.now() ?
 		   "summary": name,
 		   "start": start,
 		   "end": end,
-		   "intern": true,
+		   "intern": true
 		};
 
 		currentTime = Date.now();
@@ -565,7 +574,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	//creates "our" objects of all objects in the imported list
 	//can be used for automatic logging when a whole calendar should have the same category
 	var iterateData = this.iterateData = function(){
-		var iteratedData = [];
+		//var iteratedData = [];
 		for(index in testData){
 			var current = testData[index];
 			randNum = Math.floor((Math.random() * categoryArray.length));
@@ -573,13 +582,13 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			current.end = end;
 			start = current.start.dateTime;
 			current.start = start;
-			var eventObject = new EventClass(current, categoryArray[randNum], false, iteratedData);
-			iteratedData.push(eventObject);
+			var eventObject = new EventClass(current, categoryArray[randNum], false, data);
+			data.push(eventObject);
 		}
-		data = iteratedData;
+		//data = iteratedData;
 		console.log("data:", data);
 		autoReportAll();
-		return data;
+		//return data;
 	};
 
 	/************ AUTO REPORT *************/
