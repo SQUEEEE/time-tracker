@@ -153,34 +153,40 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 
 	*/
 	this.updateEvents = function(calendarId, resp){
-
+		var events = this.events;
 
 		//things to resolve: check which category the calendar has
-		
 
-		//var currentEvents = this.eventsRef.child(calendarId); doesn't work
-		//this.events.$add(resp);
 
-		for(i in resp){
-			var newEvent = resp[i];
-			var category = 'Undefined';
-			
-			//TODO: check if the event already exists
+		//TODO: check if the event already exists
 			//might make an addEvent-function later for this as it will be used in other contexts as well
-			this.events.$add({
-				'id': newEvent.id, 
-				'name': newEvent.summary, 
-				'start': newEvent.start,
-				'end': newEvent.end,
-				'category': category, 
-				'updated': newEvent.updated,
-				'calendar':calendarId
-			});
+			
+		this.eventsRef.once("value", function(snapshot){
+				var existingEvents = snapshot.val();
 
-			console.log(newEvent);
+				/*loop through the incoming calendarList and see if there is a matching id in the existingList */
+				for(i in resp){
+					var newEvent = resp[i];
+					var category = 'Undefined';
+				
+					if(!existsInList(newEvent, existingEvents)){
 
-		//loop through in same manner as updateCalendarList
-		}
+						events.$add({
+							'id': newEvent.id, 
+							'name': newEvent.summary, 
+							'start': newEvent.start,
+							'end': newEvent.end,
+							'category': category, 
+							'updated': newEvent.updated,
+							'calendar':calendarId
+						});
+
+						console.log("adding", newEvent.summary);
+					}
+
+				}
+
+		});
 	}
 
 	return this;
