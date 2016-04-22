@@ -86,7 +86,7 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
         */
 
         for(i in calendarsToSync){
-         // loadEvents(calendarsToSync[i]);
+          loadEvents(calendarsToSync[i]);
           console.log("sync calendar ", calendarsToSync[i]);
         }
        
@@ -108,12 +108,11 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
         'showDeleted': false,
         'singleEvents': true,
         'maxResults': 10,
-        'orderBy': 'startTime'
+        'orderBy': 'startTime',
+        'fields': 'items(end,id,start,summary,updated)'
       });
 
       request.execute(function(resp) {
-        console.log(resp);
-
         //call the DataHandler.updateEvents-function
 
         DataHandler.updateEvents(calendarId, resp.items);

@@ -121,13 +121,6 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 					syncedCalendars.push(calendar.id);
 				}
 			})
-			/*ar allCals = snapshot.val();
-
-			for(i in allCals){
-				if(allCals[i].sync){
-					syncedCalendars.push(allCals[i].id);
-				}
-			}*/
 
 		});
 
@@ -160,14 +153,34 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 
 	*/
 	this.updateEvents = function(calendarId, resp){
-		//maybe open the events for the specific calendar here? not sure if we need to organize the data in this way 
-		//either specify the calendar in the path in the firebase or as a field in the event object
+
+
+		//things to resolve: check which category the calendar has
 		
 
 		//var currentEvents = this.eventsRef.child(calendarId); doesn't work
-		this.events.$add(resp);
+		//this.events.$add(resp);
+
+		for(i in resp){
+			var newEvent = resp[i];
+			var category = 'Undefined';
+			
+			//TODO: check if the event already exists
+			//might make an addEvent-function later for this as it will be used in other contexts as well
+			this.events.$add({
+				'id': newEvent.id, 
+				'name': newEvent.summary, 
+				'start': newEvent.start,
+				'end': newEvent.end,
+				'category': category, 
+				'updated': newEvent.updated,
+				'calendar':calendarId
+			});
+
+			console.log(newEvent);
 
 		//loop through in same manner as updateCalendarList
+		}
 	}
 
 	return this;
