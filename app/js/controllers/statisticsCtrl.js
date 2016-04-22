@@ -185,7 +185,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                     stacking: 'normal'
                 }
             },
-            series: TimeTracker.statWeekSeries() //$scope.weekData
+            series: $scope.weekData // TimeTracker.statWeekSeries()
         });
     };
 

@@ -163,13 +163,9 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
         endDate = new Date(event.end);
         endDate.setTime(endDate.getTime() + endZone*60*1000);
         
-        console.log("i alert")
-        console.log(event);    
-        console.log("#################", TimeTracker.getTestData());
+
         TimeTracker.updateTime(event, startDate, endDate);
-        console.log("*****************",TimeTracker.getTestData());
-        console.log(event);
-        console.log(event._id);
+
 
         //$scope.modalEvent = event;
         //$('#calendar').fullCalendar('rerenderEvents');           // still some jQuery here!
@@ -177,9 +173,9 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
 
       //  $('#calendar').fullCalendar('updateEvent', event);
 
-        $('#calendar').fullCalendar('removeEventSource', $scope.testData );
-        $('#calendar').fullCalendar('addEventSource', TimeTracker.getTestData());
-        $('#calendar').fullCalendar('refetchEvents');
+       // $('#calendar').fullCalendar('removeEventSource', $scope.testData );
+        //$('#calendar').fullCalendar('addEventSource', TimeTracker.getTestData());
+        //$('#calendar').fullCalendar('refetchEvents');
     };
      
     /*

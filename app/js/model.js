@@ -43,7 +43,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	    		bool = false;
 	    		//console.log("Nu är loopen klar");
 	    	}
-	    	console.log("Är detta en oändlig loop?");
+	    	//console.log("Är detta en oändlig loop?");
 	    }  
 
 	    return id;
@@ -310,27 +310,27 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	this.updateTime = function(event, startDate, endDate){
 		for(index in data){
 			if(data[index].id == event.id){
-				console.log("här kommer id på eventet")
-				console.log(data[index].id)
+				//console.log("här kommer id på eventet")
+				//console.log(data[index].id)
 				data[index].start = startDate;
 				data[index].end = endDate;
 				var currentTime = Date.now();
         		var eventEndTime = Date.parse(data[index].end);
 				if (currentTime > eventEndTime) {
-					console.log("currenttime>eventendtime")
+					//console.log("currenttime>eventendtime")
 					if(data[index].autoReport==true){
-						console.log("autoreport==true")
+						//console.log("autoreport==true")
                 		data[index].logged = true;
                 		data[index].borderColor = data[index].color;
                 	}
                 	else{
-                		console.log("autoreport==false")
+                		//console.log("autoreport==false")
                 		data[index].logged = false;
             			data[index].borderColor = 'black';
                 	}
         		}
         		else {
-        			console.log("not gonna log")
+        			//console.log("not gonna log")
             		data[index].logged = false;
             		data[index].borderColor = 'black';
         		}
@@ -354,7 +354,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	this.deleteEvent = function(calEvent){
 		for(index in data){
 			if(data[index].id == calEvent.id){
-				console.log(data[index].name)
+				//console.log(data[index].name)
 				data.splice(index, 1);
 
 			}
@@ -479,7 +479,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		else{
 			this.intern = false;
 		}
-		console.log(this.intern)
+		//console.log(this.intern)
 
 		if (this.logged==false){	//if not logged we have a black border
 			this.borderColor='black'; 
@@ -489,28 +489,28 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		}
 
 
-		//to handle passing midnight events by splitting them by midnight, Recursion! <3
-		var startNow = new Date(this.start);
-		var endNow = new Date(this.end);
+		/*//to handle passing midnight events by splitting them by midnight, Recursion! <3
+		startNow = new Date(this.start);
+		endNow = new Date(this.end);
 
 
 		if(!(startNow.getDate() == endNow.getDate())){		//we need to handle it
-			var start = new Date();
+			start = new Date();
 			start.setDate(startNow.getDate()+1);	//start time for the new event is the next day
 			start.setHours(0, 0, 0);				//at midnight
 			
 			current.start = start;
 			current.end = this.end;
 			
-			var eventObject = new EventClass(current, category, logged, dataList);	//creates a new event
+			eventObject = new EventClass(current, category, logged, dataList);	//creates a new event
 			
 			dataList.push(eventObject);				//and adds the new event to the data list
 			
-			var updatedEnd = new Date();
+			updatedEnd = new Date();
 			updatedEnd.setDate(startNow.getDate());		//changes the end time for this current event to midnight at the day of the start date
 			updatedEnd.setHours(23,59,59);
 			this.end = updatedEnd;
-		}
+		}*/
 			
 		return this;
 	};
@@ -543,9 +543,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		
 		eventObject = new EventClass(current, category, logged, data);
 		eventObject._id = (data.length+1)
-		console.log("data for new event:", eventObject);
+		//console.log("data for new event:", eventObject);
 		data.push(eventObject);
-		console.log(data);
+		//console.log(data);
 		//autoReportAll();
 		return eventObject;
 	};
@@ -588,7 +588,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			data.push(eventObject);
 		}
 		//data = iteratedData;
-		console.log("data:", data);
+		//console.log("data:", data);
 		autoReportAll();
 		//return data;
 	};
@@ -741,6 +741,43 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		return valueList;
 	}
 
+	this.calcDay = function(j, dateList, i) {
+		sum = 0;
+
+		startDateMilli = Date.parse(data[j].start);
+		startDate = new Date(startDateMilli);
+		startDateString = startDate.toDateString();
+
+		endDateMilli = Date.parse(data[j].end);
+		endDate = new Date(endDateMilli);
+		endDateString = endDate.toDateString();
+
+
+		startLateMidnight = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+1,0,0,0,0);
+		endEarlyMidnight = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(),0,0,0,0);
+
+		if (dateList[i] == startDateString && dateList[i] == endDateString) {	// if the whole event is the same day
+			sum += (this.calcDuration(data[j].start, data[j].end)) /(1000 * 60 * 60);	// change to hours instead of milliseconds
+		}
+		else if (dateList[i] == startDateString && dateList[i] != endDateString) {	// report first day of event
+			sum += (this.calcDuration(data[j].start, startLateMidnight) /(1000 * 60 * 60));	// change to hours instead of milliseconds
+		}
+		else if ((dateList[i] != startDateString) && (dateList[i] == endDateString)) {	// if its the last day of the event
+			sum += (this.calcDuration(endEarlyMidnight, data[j].end) /(1000 * 60 * 60));	// change to hours instead of milliseconds
+		}
+		else if (Date.parse(dateList[i]) >= startLateMidnight.getTime() && Date.parse(dateList[i]) <= endEarlyMidnight.getTime()) { // if its a date between start and end
+
+			milliDate = Date.parse(dateList[i]);
+			d = new Date(milliDate);
+			startD = new Date(d.getFullYear(), d.getMonth(), d.getDate(),0,0,0,0);
+			endD = new Date(d.getFullYear(), d.getMonth(), d.getDate()+1,0,0,0,0);
+
+			sum += (this.calcDuration(startD, endD) /(1000 * 60 * 60));	// change to hours instead of milliseconds
+		}		
+
+		return sum;
+	}
+
 	// returns current week logged time
 	this.createWeekList = function(startDate, category) {
 		dataList = [];
@@ -762,11 +799,38 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			for (j in data) {			// for every event
 				if (data[j].logged == true && data[j].category == category) {	// if logged and right category
 
-					compareDate = Date.parse(data[j].start);
-					compareDate = new Date(compareDate);
-					if (dateList[i] == compareDate.toDateString()) {
+					sum += this.calcDay(j, dateList, i);
+
+					/*startDateMilli = Date.parse(data[j].start);
+					startDate = new Date(startDateMilli);
+					startDateString = startDate.toDateString();
+
+					endDateMilli = Date.parse(data[j].end);
+					endDate = new Date(endDateMilli);
+					endDateString = endDate.toDateString();
+
+
+					startLateMidnight = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+1,0,0,0,0);
+					endEarlyMidnight = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(),0,0,0,0);
+
+					if (dateList[i] == startDateString && dateList[i] == endDateString) {	// if the whole event is the same day
 						sum += (this.calcDuration(data[j].start, data[j].end)) /(1000 * 60 * 60);	// change to hours instead of milliseconds
 					}
+					else if (dateList[i] == startDateString && dateList[i] != endDateString) {	// report first day of event
+						sum += (this.calcDuration(data[j].start, startLateMidnight) /(1000 * 60 * 60));	// change to hours instead of milliseconds
+					}
+					else if ((dateList[i] != startDateString) && (dateList[i] == endDateString)) {	// if its the last day of the event
+						sum += (this.calcDuration(endEarlyMidnight, data[j].end) /(1000 * 60 * 60));	// change to hours instead of milliseconds
+					}
+					else if (Date.parse(dateList[i]) >= startLateMidnight.getTime() && Date.parse(dateList[i]) <= endEarlyMidnight.getTime()) { // if its a date between start and end
+
+						milliDate = Date.parse(dateList[i]);
+						d = new Date(milliDate);
+						startD = new Date(d.getFullYear(), d.getMonth(), d.getDate(),0,0,0,0);
+						endD = new Date(d.getFullYear(), d.getMonth(), d.getDate()+1,0,0,0,0);
+
+						sum += (this.calcDuration(startD, endD) /(1000 * 60 * 60));	// change to hours instead of milliseconds
+					}*/
 				}
 			}
 			dataList.push(sum);
@@ -862,6 +926,77 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		return weekList;
 	}
 
+	// returns current month logged time
+	this.createMonthList = function(startDate, category, month) {
+		daysInMonth=[31,28,31,30,31,30,31,31,30,31,30,31];
+		dataList = [];
+		dateList = [];
+
+		start = startDate.toDateString();
+		dateList.push(start);
+
+		startMs = startDate.getTime();
+
+		for	(k = 0; k < daysInMonth[month]-1; k++) {
+			n = parseInt(k)+1;
+			ms = n * 86400000;
+			date = new Date(startMs + ms);
+			dateList.push(date.toDateString());
+		}
+		//console.log("dateList", dateList);
+
+		for (i in dateList) {
+			sum = 0;
+			for (j in data) {			// for every event
+				if (data[j].logged == true && data[j].category == category) {	// if logged and right category
+
+				//	sum += this.calcDay(j, dateList, i);
+
+					/*compareDate = Date.parse(data[j].start);
+					compareDate = new Date(compareDate);
+					if (dateList[i] == compareDate.toDateString()) {
+						sum += (this.calcDuration(data[j].start, data[j].end)) /(1000 * 60 * 60);	// change to hours instead of milliseconds
+					}*/
+
+					startDateMilli = Date.parse(data[j].start);
+					startDate = new Date(startDateMilli);
+					startDateString = startDate.toDateString();
+
+					endDateMilli = Date.parse(data[j].end);
+					endDate = new Date(endDateMilli);
+					endDateString = endDate.toDateString();
+
+
+					startLateMidnight = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+1,0,0,0,0);
+					endEarlyMidnight = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(),0,0,0,0);
+
+					if (dateList[i] == startDateString && dateList[i] == endDateString) {	// if the whole event is the same day
+						sum += (this.calcDuration(data[j].start, data[j].end)) /(1000 * 60 * 60);	// change to hours instead of milliseconds
+					}
+					else if (dateList[i] == startDateString && dateList[i] != endDateString) {	// report first day of event
+						sum += (this.calcDuration(data[j].start, startLateMidnight) /(1000 * 60 * 60));	// change to hours instead of milliseconds
+					}
+					else if ((dateList[i] != startDateString) && (dateList[i] == endDateString)) {	// if its the last day of the event
+						sum += (this.calcDuration(endEarlyMidnight, data[j].end) /(1000 * 60 * 60));	// change to hours instead of milliseconds
+					}
+					else if (Date.parse(dateList[i]) >= startLateMidnight.getTime() && Date.parse(dateList[i]) <= endEarlyMidnight.getTime()) { // if its a date between start and end
+
+						milliDate = Date.parse(dateList[i]);
+						d = new Date(milliDate);
+						startD = new Date(d.getFullYear(), d.getMonth(), d.getDate(),0,0,0,0);
+						endD = new Date(d.getFullYear(), d.getMonth(), d.getDate()+1,0,0,0,0);
+
+						sum += (this.calcDuration(startD, endD) /(1000 * 60 * 60));	// change to hours instead of milliseconds
+					}
+
+				}
+			}
+			dataList.push(sum);
+		}
+		//console.log(dataList);
+		return dataList;
+	}
+
 
 	// returns a list with logged time the current month
 	this.statMonthSeries = function() {
@@ -882,40 +1017,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		return monthList;
 	}
 
-	// returns current month logged time
-	this.createMonthList = function(startDate, category, month) {
-		daysInMonth=[31,28,31,30,31,30,31,31,30,31,30,31];
-		dataList = [];
-		dateList = [];
-
-		start = startDate.toDateString();
-		dateList.push(start);
-
-		startMs = startDate.getTime();
-
-		for	(k = 0; k < daysInMonth[month]; k++) {
-			n = parseInt(k)+1;
-			ms = n * 86400000;
-			date = new Date(startMs + ms);
-			dateList.push(date.toDateString());
-		}
-
-		for (i in dateList) {
-			sum = 0;
-			for (j in data) {			// for every event
-				if (data[j].logged == true && data[j].category == category) {	// if logged and right category
-
-					compareDate = Date.parse(data[j].start);
-					compareDate = new Date(compareDate);
-					if (dateList[i] == compareDate.toDateString()) {
-						sum += (this.calcDuration(data[j].start, data[j].end)) /(1000 * 60 * 60);	// change to hours instead of milliseconds
-					}
-				}
-			}
-			dataList.push(sum);
-		}
-		return dataList;
-	}
 
 
 	
