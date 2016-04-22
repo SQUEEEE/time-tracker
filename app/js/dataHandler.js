@@ -1,12 +1,5 @@
 //model for auth
 timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray){
-	/*this.userId = undefined; //the id of the user that is logged in
-	this.calendarList = undefined; //the list of calendars that the user has on their Google Account, including info about whether to sync the calendar etc
-	this.data = undefined; //the events?? 
-	this.categories = undefined; //the categories that the user has saved
-	this.calendarListRef = undefined;
-	this.firebaseRef = undefined;
-
 
 	/*
 		when the user is authorized we initiate the firebase connections
@@ -20,18 +13,13 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		this.calendarList = $firebaseArray(this.calendarListRef);
 		this.eventsRef = this.firebaseRef.child('events');
 		this.events = $firebaseArray(this.eventsRef);
-
-
-		//check if there is an Undefined-categori, if not; add it
+		
 		var categoriesRef = this.categoriesRef = this.firebaseRef.child('categories');
-		var categories = this.categoriesRef = $firebaseArray(categoriesRef);
-
-
+		var categories = this.categories = $firebaseArray(categoriesRef);
 		
 		/*
 			check that there is the default category Undefined; if not then add it
 		*/
-
 		categoriesRef.once("value", function(snapshot){
 			var hasUndefined = false;
 
@@ -53,7 +41,6 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 			
 		});
 	}
-
 
 
 	var existsInList = function(item, list){
@@ -187,6 +174,18 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 				}
 
 		});
+	}
+
+	this.getCategory = function(calendarId){
+		console.log("Get category for", calendarId);
+		this.calendarListRef
+			.orderByChild('id')
+			.equalTo(calendarId)
+			.once('value', function(snapshot){
+
+				//need to get the child
+				console.log(snapshot.val());
+			});
 	}
 
 	return this;
