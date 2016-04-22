@@ -23,8 +23,8 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 
 
 		//check if there is an Undefined-categori, if not; add it
-		var categoriesRef = this.firebaseRef.child('categories');
-		var categories = $firebaseArray(categoriesRef);
+		var categoriesRef = this.categoriesRef = this.firebaseRef.child('categories');
+		var categories = this.categoriesRef = $firebaseArray(categoriesRef);
 
 
 		
@@ -52,8 +52,6 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		}
 			
 		});
-
-
 	}
 
 
@@ -75,62 +73,34 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 	 sync, category (timeTracker-specific) <-- what are the defaults? 
 
 	*/
-	this.updateCalendarList = function(calendarList){
+	this.updateCalendarList = function(calendars){
 		//get the existing CalendarList
-		var category = 'Important';
+		var category = 'Undefined';
 		var sync = true;
-		
+		var calendarList = this.calendarList;
 
 		this.calendarListRef.once("value", function(snapshot){
-			//this.existingCalendars = snapshot.val(); //snapshot for each!!
-			snapshot.forEach(function(snapChild){ //loops through the calendars in the snapshot
-				var calendar = snapChild.val();
-				
-				if(!existsInList(calendar, this.existingCalendars)){
+			var existingCalendars = snapshot.val();
+
+			/*loop through the incoming calendarList and see if there is a matching id in the existingList */
+			for(i in calendars){
+				var cal = calendars[i];
+				if(!existsInList(cal, existingCalendars)){
 
 					//add the calendar. This doesn't work for some reason so omitting it for now
-					/*this.calendarList.$add({
-						'id': calendarList[i].id, 
-						'name': calendarList[i].summary, 
+					calendarList.$add({
+						'id': cal.id, 
+						'name': cal.summary, 
 						'category': category, 
 						'sync': sync
-					}*/
+					});
 
-					console.log("adding new calendar");
+					console.log("adding new calendar", cal.summary);
 				}
 
-				//console.log("looping through calendar", calendar.name);
-			});
-
-
-		/*	for(i in calendarList){
-
-				//console.log(calendarList[i].id);
-				//existsInList(calendarList[i], this.existingCalendars);
-				
-				
-			}*/
+			}
 
 		});
-
-	
-		
-		//loop through the incoming calendarList and see if there is a matching id in the existingList
-
-		/*for(i in calendarList){
-
-			
-				add the calendar: (later we should add the check if there is a record with the same id in the existingList)
-			
-			this.calendarList.$add({
-				'id': calendarList[i].id, 
-				'name': calendarList[i].summary, 
-				'category': category, 
-				'sync': sync
-
-				}
-			);
-		}*/
 	}
 
 
@@ -144,13 +114,20 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		//iterate through the calendars and add the ones with value sync = true to the list
 
 		this.calendarListRef.once("value", function(snapshot){
-			var allCals = snapshot.val();
+
+			snapshot.forEach(function(snapChild){
+				calendar = snapChild.val();
+				if(calendar.sync){
+					syncedCalendars.push(calendar.id);
+				}
+			})
+			/*ar allCals = snapshot.val();
 
 			for(i in allCals){
 				if(allCals[i].sync){
 					syncedCalendars.push(allCals[i].id);
 				}
-			}
+			}*/
 
 		});
 
