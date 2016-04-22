@@ -542,8 +542,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		
 		
 		eventObject = new EventClass(current, category, logged, data);
+		eventObject._id = (data.length+1)
 		console.log("data for new event:", eventObject);
 		data.push(eventObject);
+		console.log(data);
 		//autoReportAll();
 		return eventObject;
 	};

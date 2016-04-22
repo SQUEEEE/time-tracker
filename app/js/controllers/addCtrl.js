@@ -172,11 +172,11 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 
 	//adds a new event by calling addnewevent in the model with the times from the form
 	$scope.addNewEvent = function() {
-		var start = new Date($scope.year, $scope.month-1, $scope.day, $scope.startHour, $scope.startMinute);
-		var startMilli = start.getTime();
+		start = new Date($scope.year, $scope.month-1, $scope.day, $scope.startHour, $scope.startMinute);
+		startMilli = start.getTime();
 
-		var milliTotal = ($scope.hour*60*60*1000) + ($scope.minute*60*1000) + ($scope.second*1000);
-		var end = new Date(startMilli+milliTotal);
+		milliTotal = ($scope.hour*60*60*1000) + ($scope.minute*60*1000) + ($scope.second*1000);
+		end = new Date(startMilli+milliTotal);
 	
 		$scope.modalEvent = TimeTracker.addNewEvent($scope.name, start, end, $scope.category);	
 		console.log($scope.modalEvent.end.toDateString())
