@@ -27,32 +27,36 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		this.categories = $firebaseArray(this.categoriesRef);
 
 
-		/*
-			check that there is the default category Undefined; if not then add it
-		*/
-		if(!checkHasUndefined(this.categoriesRef)){
-				this.categories.$add({
+		checkHasUndefined(this.categoriesRef, this.categories);
+
+	
+
+
+	}
+
+	/*
+		check that there is the default category Undefined; if not then add it
+	*/
+	var checkHasUndefined = function(catRef, categories){
+
+		catRef.once("value", function(snapshot){
+			var hasUndefined = false;
+
+			snapshot.forEach(function(snapChild){
+				var category = snapChild.val();
+				if(category.name === "Undefined"){
+					console.log("category Undefined exists");
+					hasUndefined = true;
+				}
+			});
+			if(!hasUndefined){
+				console.log("i am in the if checkHasUndefined");
+				categories.$add({
 					'name':'Undefined',
 					'color':'LightGray',
 					'autoReport':false
 				});
 		}
-
-
-	}
-
-	var checkHasUndefined = function(catRef){
-		catRef.once("value", function(snapshot){
-
-			snapshot.forEach(function(snapChild){
-				
-				var category = snapChild.val();
-				if(category.name === "Undefined"){
-					console.log("category Undefined exists");
-					return true;
-				}
-			});
-			return false;
 			
 		});
 
