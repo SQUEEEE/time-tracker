@@ -121,33 +121,18 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		function that takes a list of events for a calendar and sees if any need to be added or updated
 		an event should contain the following (needs to be revised)
 
-		id; <-
-		url (htmlLink); <-?
-		created; probably not needed
-		updated; <-
-		title (summary); <-
-		description; <-?
-		start (start.dateTime); <-
-		end=(end.dateTime); <-
-
-		this.category=category.name;	<-		
-		this.logged=logged;		<-	
-		this.autoReport = category.autoReport;	<-	// bool depending on if the event should be auto reported
-		this.color=category.color; <-
-		this.textColor='black'; <- ? 
-
+		might have to update the info saved
 		+ indicator of when updated in firebase
 
 	*/
 	this.updateEvents = function(calendarId, resp){
 		var events = this.events;
 		var calendarCategory = this.getCategory(calendarId); //this doesn't get returned fast enough :(
-
+		//look at this when not super tired https://www.firebase.com/blog/2016-01-21-keeping-our-promises.html
 		//things to resolve: check which category the calendar has
 
-
-		//TODO: check if the event already exists
-			//might make an addEvent-function later for this as it will be used in other contexts as well
+		
+		//might make an addEvent-function later for this as it will be used in other contexts as well
 			
 		this.eventsRef.once("value", function(snapshot){
 				var existingEvents = snapshot.val();
