@@ -23,23 +23,16 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 
 
 		//check if there is an Undefined-categori, if not; add it
-		this.categoriesRef = this.firebaseRef.child('categories');
-		this.categories = $firebaseArray(this.categoriesRef);
+		var categoriesRef = this.firebaseRef.child('categories');
+		var categories = $firebaseArray(categoriesRef);
 
 
-		checkHasUndefined(this.categoriesRef, this.categories);
+		
+		/*
+			check that there is the default category Undefined; if not then add it
+		*/
 
-	
-
-
-	}
-
-	/*
-		check that there is the default category Undefined; if not then add it
-	*/
-	var checkHasUndefined = function(catRef, categories){
-
-		catRef.once("value", function(snapshot){
+		categoriesRef.once("value", function(snapshot){
 			var hasUndefined = false;
 
 			snapshot.forEach(function(snapChild){
@@ -60,7 +53,10 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 			
 		});
 
+
 	}
+
+
 
 	var existsInList = function(item, list){
 		for(i in list){
