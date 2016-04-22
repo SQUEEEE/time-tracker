@@ -75,10 +75,11 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
           TimeTracker-specific data.
         */
 
-       // DataHandler.updateCalendarList(calendars); 
+        DataHandler.updateCalendarList(calendars); 
 
         //calendars to get events from
         calendarsToSync = DataHandler.getSyncedCalendars();
+
 
         /*
           loop through the calendarsToSync-list and then call the loadEvents function for every one 
@@ -88,7 +89,6 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
          // loadEvents(calendarsToSync[i]);
           console.log("sync calendar ", calendarsToSync[i]);
         }
-
        
       });
 

@@ -25,6 +25,37 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		//check if there is an Undefined-categori, if not; add it
 		this.categoriesRef = this.firebaseRef.child('categories');
 		this.categories = $firebaseArray(this.categoriesRef);
+
+
+		/*
+			check that there is the default category Undefined; if not then add it
+		*/
+		if(!checkHasUndefined(this.categoriesRef)){
+				this.categories.$add({
+					'name':'Undefined',
+					'color':'LightGray',
+					'autoReport':false
+				});
+		}
+
+
+	}
+
+	var checkHasUndefined = function(catRef){
+		catRef.once("value", function(snapshot){
+
+			snapshot.forEach(function(snapChild){
+				
+				var category = snapChild.val();
+				if(category.name === "Undefined"){
+					console.log("category Undefined exists");
+					return true;
+				}
+			});
+			return false;
+			
+		});
+
 	}
 
 	var existsInList = function(item, list){
@@ -51,14 +82,11 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		
 
 		this.calendarListRef.once("value", function(snapshot){
-			this.existingCalendars = snapshot.val();
-
-			for(i in calendarList){
-
-				//console.log(calendarList[i].id);
-				//existsInList(calendarList[i], this.existingCalendars);
+			//this.existingCalendars = snapshot.val(); //snapshot for each!!
+			snapshot.forEach(function(snapChild){ //loops through the calendars in the snapshot
+				var calendar = snapChild.val();
 				
-				if(!existsInList(calendarList[i], this.existingCalendars)){
+				if(!existsInList(calendar, this.existingCalendars)){
 
 					//add the calendar. This doesn't work for some reason so omitting it for now
 					/*this.calendarList.$add({
@@ -70,7 +98,18 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 
 					console.log("adding new calendar");
 				}
-			}
+
+				//console.log("looping through calendar", calendar.name);
+			});
+
+
+		/*	for(i in calendarList){
+
+				//console.log(calendarList[i].id);
+				//existsInList(calendarList[i], this.existingCalendars);
+				
+				
+			}*/
 
 		});
 
