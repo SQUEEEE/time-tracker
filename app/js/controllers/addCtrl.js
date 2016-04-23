@@ -24,7 +24,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.name = "";
 
 	//for the error handling
-	$scope.pressButton = false;
+	$scope.pressButton = true;
 	$scope.duration = false;
 	$scope.date = false;
 
@@ -82,7 +82,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	}
 
 	$scope.checkDate = function(){	//checks validity for the date
-		if($scope.year>=2000 && $scope.month>0 && $scope.month<=12 && $scope.day>0 && $scope.day<=$scope.getNumberOfDays()){
+		if($scope.year>=2000 && $scope.year<2200 && $scope.month>0 && $scope.month<=12 && $scope.day>0 && $scope.day<=$scope.getNumberOfDays()){
 			$scope.date = true;
 		}
 		else{
@@ -104,7 +104,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
     	$scope.checkDuration();
     	$scope.checkDate();
     	$scope.checkStart();
-    	if($scope.duration && $scope.date && $scope.start && $scope.name.length>0){
+    	if($scope.duration && $scope.date && $scope.start && $scope.name.length>0 && $scope.name!=null){
     		$scope.pressButton = true;
     	}
     	else{
@@ -114,14 +114,14 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
     }
 
    
-    $scope.checkEverything();	//creates start values
+   // $scope.checkEverything();	//creates start values
 
 
 	$scope.setTimer = function(_hour,_minute,_second){
 		$scope.hour = $scope.hours;
 		$scope.minute = $scope.min;
 		$scope.second = $scope.sec;
-		$scope.checkEverything();
+		//$scope.checkEverything();
 	}
 	
 	
@@ -172,17 +172,23 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 
 	//adds a new event by calling addnewevent in the model with the times from the form
 	$scope.addNewEvent = function() {
-		start = new Date($scope.year, $scope.month-1, $scope.day, $scope.startHour, $scope.startMinute);
-		startMilli = start.getTime();
+		$scope.checkEverything();
+		if($scope.pressButton){
+			start = new Date($scope.year, $scope.month-1, $scope.day, $scope.startHour, $scope.startMinute);
+			startMilli = start.getTime();
 
-		milliTotal = ($scope.hour*60*60*1000) + ($scope.minute*60*1000) + ($scope.second*1000);
-		end = new Date(startMilli+milliTotal);
-	
-		$scope.modalEvent = TimeTracker.addNewEvent($scope.name, start, end, $scope.category);	
-		console.log($scope.modalEvent.end.toDateString())
-        $('#popUpModal').modal();                     //starts the modal box
+			milliTotal = ($scope.hour*60*60*1000) + ($scope.minute*60*1000) + ($scope.second*1000);
+			end = new Date(startMilli+milliTotal);
+		
+			$scope.modalEvent = TimeTracker.addNewEvent($scope.name, start, end, $scope.category);	
+			console.log($scope.modalEvent.end.toDateString())
+	        $('#popUpModal').modal();                     //starts the modal box
 
-        return false;
+	        return false;
+    	}
+    	else{
+    		return true;
+    	}	
     
 	}
 
