@@ -6,12 +6,17 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
     // total logged time
 	$scope.totalSum = TimeTracker.calcTimeAllCategories();
 
-    // info for week Statistics
-    $scope.weekData = TimeTracker.statWeekSeries();
+    $scope.month = 0;
 
-    $scope.monthData = TimeTracker.statMonthSeries();
+    $scope.week = 0;
+
+    // info for week Statistics
+    $scope.weekData = TimeTracker.statWeekSeries($scope.week);
+
+    $scope.monthData = TimeTracker.statMonthSeries($scope.month);
 
     $scope.active = "Total";
+
 
     $scope.isActive = function(type) {
         if (type == $scope.active) {
@@ -58,7 +63,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         },
         tooltip: {
             valueSuffix: ' hours',
-            pointFormat: '<b>{point.y}</b><br/>'
+            pointFormat: '<b>{point.y:.1f}</b><br/>'
         },
         series: [{
             data: TimeTracker.statBarList()
@@ -142,7 +147,16 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
     }
 
     // stats for current week
-    $scope.showWeek = function() {
+    $scope.showWeek = function(whichWeek) {
+
+        if (whichWeek == 0) {
+            $scope.week = 0;
+        }
+        else {
+            $scope.week += whichWeek;
+            console.log("scope.week", $scope.week);
+        }
+
 
         Highcharts.setOptions({
         global: {
@@ -175,7 +189,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                 }
             },
             tooltip: {
-                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y:.1f}</b> ({point.percentage:.0f}%)<br/>',
                 shared: true,
                 valueSuffix: ' hours',
                 xDateFormat: '%A %e %b',
@@ -185,12 +199,21 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                     stacking: 'normal'
                 }
             },
-            series: $scope.weekData // TimeTracker.statWeekSeries()
+            series: TimeTracker.statWeekSeries($scope.week) // $scope.weekData
         });
     };
 
     // stats for current week
-    $scope.showMonth = function() {
+    $scope.showMonth = function(whichMonth) {
+
+        if (whichMonth == 0) {
+            $scope.month = 0;
+        }
+        else {
+            $scope.month += whichMonth;
+            console.log("scope.month", $scope.month);
+        }
+        
 
         Highcharts.setOptions({
         global: {
@@ -223,7 +246,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                 }
             },
             tooltip: {
-                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y:.1f}</b> ({point.percentage:.0f}%)<br/>',
                 shared: true,
                 valueSuffix: ' hours',
                 xDateFormat: '%A %e %b',
@@ -233,7 +256,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                     stacking: 'normal'
                 }
             },
-            series: $scope.monthData
+            series: TimeTracker.statMonthSeries($scope.month) // $scope.monthData
         });
     };
 
