@@ -1,5 +1,5 @@
 //model for auth
-timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray){
+timeTrackerApp.factory("DataHandler", function($firebaseArray, TimeTracker){
 
 	/*
 		when the user is authorized we initiate the firebase connections
@@ -13,6 +13,7 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 		this.calendarList = $firebaseArray(this.calendarListRef);
 		this.eventsRef = this.firebaseRef.child('events');
 		this.events = $firebaseArray(this.eventsRef);
+		this.test = $firebaseArray(this.firebaseRef.child('testPath'));
 		
 		var categoriesRef = this.categoriesRef = this.firebaseRef.child('categories');
 		var categories = this.categories = $firebaseArray(categoriesRef);
@@ -181,7 +182,12 @@ timeTrackerApp.factory("DataHandler", ["$firebaseArray", function($firebaseArray
 			});
 	}
 
+	this.save = function(){
+		console.log("saving TimeTracker data to Firebase")
+		this.test.$add(TimeTracker.getTestData()); //this needs to overwrite and not add
+	}
+
 	return this;
 
-}]);
+});
 

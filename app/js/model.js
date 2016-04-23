@@ -1,9 +1,7 @@
-timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
+timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	var data = []; // a list of events with the right attributes
 
-	//var testData = DataHandler;
-	//console.log("test", DataHandler);
 
 	
 	var colors = ['lightblue', 'green', 'pink', 'AntiqueWhite', 'Aquamarine', 'CadetBlue', 'Chartreuse', 'Coral',

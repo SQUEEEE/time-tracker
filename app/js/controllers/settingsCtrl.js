@@ -3,6 +3,9 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 		TO ADD:
 			something that gets information about a category
 
+		TO CHANGE:
+			make everything firebase-adjusted
+
 	*/
 
 
