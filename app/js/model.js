@@ -1,6 +1,7 @@
 timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 	var data = []; // a list of events with the right attributes
+	//var dataIndex;
 
 	//var testData = DataHandler;
 	//console.log("test", DataHandler);
@@ -542,10 +543,32 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		
 		
 		eventObject = new EventClass(current, category, logged, data);
-		eventObject._id = (data.length+1)
-		//console.log("data for new event:", eventObject);
+
+		id = data.length+1;
+		//console.log("hejhej")
+		while (true) {
+			bool=true;
+			//testID = "_"+id.toString();
+			//console.log("testID: ", testID);
+
+			for (i in data) {
+				if (data[i]._id == id) {
+					//console.log(data[i]._id)
+					bool = false;
+				}
+			}
+
+			if (bool == true) {
+				eventObject._id = id;
+				break;
+			}
+			id++;
+		}
+
+		//eventObject._id = (data.length+1)
+		console.log("data for new event:", eventObject);
 		data.push(eventObject);
-		//console.log(data);
+		console.log(data);
 		//autoReportAll();
 		return eventObject;
 	};
