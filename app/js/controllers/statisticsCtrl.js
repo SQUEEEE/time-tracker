@@ -110,7 +110,17 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
     }
 
     // stats for categories percentage 
-    $scope.showWeekPercentage = function() {
+    $scope.showWeekPercentage = function(whichWeek) {
+
+        if (whichWeek == 0) {
+            $scope.week = 0;
+        }
+        else {
+            $scope.week += whichWeek;
+           // console.log("scope.week", $scope.week);
+        }
+
+
         return Highcharts.chart('stat', {
             chart: {
                 plotBackgroundColor: null,
@@ -141,10 +151,53 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                 }
             },
             series: [{
-                data: TimeTracker.statPieWeek()
+                data: TimeTracker.statPieWeek($scope.week)
             }]
         });
     }
+
+    // stats for total logged time  
+    $scope.showWeekTotal = function(whichWeek) {
+        if (whichWeek == 0) {
+            $scope.week = 0;
+        }
+        else {
+            $scope.week += whichWeek;
+        }
+
+        return Highcharts.chart('stat', {
+        chart: {
+            type: 'bar'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Total amount of logged hours'
+        },
+        xAxis: {
+            categories: $scope.categoryNames,
+            title: {
+                text: 'Categories'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Time in hours'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            valueSuffix: ' hours',
+            pointFormat: '<b>{point.y:.1f}</b><br/>'
+        },
+        series: [{
+            data: TimeTracker.statWeekTotalList($scope.week)
+        }]
+        });
+    };
 
     // stats for current week
     $scope.showWeek = function(whichWeek) {
@@ -154,7 +207,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         }
         else {
             $scope.week += whichWeek;
-            console.log("scope.week", $scope.week);
+            //console.log("scope.week", $scope.week);
         }
 
 
@@ -211,7 +264,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         }
         else {
             $scope.month += whichMonth;
-            console.log("scope.month", $scope.month);
+            //console.log("scope.month", $scope.month);
         }
         
 
@@ -261,7 +314,16 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
     };
 
     // stats for categories percentage 
-    $scope.showMonthPercentage = function() {
+    $scope.showMonthPercentage = function(whichMonth) {
+
+        if (whichMonth == 0) {
+            $scope.month = 0;
+        }
+        else {
+            $scope.month += whichMonth;
+            console.log("scope.month", $scope.month);
+        }
+
         return Highcharts.chart('stat', {
             chart: {
                 plotBackgroundColor: null,
@@ -292,7 +354,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                 }
             },
             series: [{
-                data: TimeTracker.statPieMonth()
+                data: TimeTracker.statPieMonth($scope.month)
             }]
         });
     }

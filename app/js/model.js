@@ -831,7 +831,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 
 	// returns a list of objects with categories and amount of time spent per category for one week
-	this.statPieWeek = function() {
+	this.statPieWeek = function(whichWeek) {
 
 		now = new Date();
 		year = now.getFullYear();
@@ -843,42 +843,12 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			weekday = 7;
 		}
 
-		startDate = new Date (year, month, day-weekday+1, 0, 0, 0, 0);
+		startDate = new Date (year, month, day-weekday+1+(7*whichWeek), 0, 0, 0, 0);
 		
 		startMs = startDate.getTime();
 
 		endMs = startMs + 6*24*60*60*1000;
 
-		objList = [];
-		for (index = 0; index < categoryArray.length; index++) {
-
-			value = this.calcPeriodCategory(categoryArray[index].name, startMs, endMs);
-
-			obj = {name: categoryArray[index].name, y: value, color: categoryArray[index].color};
-			objList.push(obj);		
-		}
-		return objList;
-	}
-
-	// returns a list of objects with categories and amount of time spent per category for one week
-	this.statPieMonth = function() {
-		daysInMonth=[31,28,31,30,31,30,31,31,30,31,30,31];
-
-		now = new Date();
-		year = now.getFullYear();
-		month = now.getMonth();
-		startDate = new Date (year, month, 1, 0, 0, 0, 0);
-		
-		startMs = startDate.getTime();
-
-		endMs = startMs;
-
-		for	(k = 0; k < daysInMonth[month]; k++) {
-			n = parseInt(k)+1;
-			ms = n * 86400000;
-			endMs += ms
-		}
-		
 		objList = [];
 		for (index = 0; index < categoryArray.length; index++) {
 
@@ -916,6 +886,45 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		}
 		return weekList;
 	}
+
+	// returns a list of spent time in category order
+	this.statWeekTotalList = function(whichWeek) {
+		/*valueList = [];
+		for (k in categoryArray) {
+			valueList.push({name: categoryArray[k].name, y: this.calcTimeCategory(categoryArray[k].name), color: categoryArray[k].color});
+		}
+		return valueList;*/
+
+
+		now = new Date();
+		year = now.getFullYear();
+		month = now.getMonth();
+		day = now.getDate();
+		weekday = now.getDay();
+
+		if (weekday == 0) {	// since sunday returns 0 from getDay()
+			weekday = 7;
+		}
+		
+		startDate = new Date (year, month, day-weekday+1+(7*whichWeek), 0, 0, 0, 0);
+		
+		startMs = startDate.getTime();
+
+		endMs = startMs + 6*24*60*60*1000;
+
+		objList = [];
+		for (index = 0; index < categoryArray.length; index++) {
+
+			value = this.calcPeriodCategory(categoryArray[index].name, startMs, endMs);
+
+			obj = {name: categoryArray[index].name, y: value, color: categoryArray[index].color};
+			objList.push(obj);		
+		}
+		return objList;
+
+	}
+
+
 
 	// returns current month logged time
 	this.createMonthList = function(startDate, category, month) {
@@ -1006,6 +1015,36 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			monthList.push(obj);
 		}
 		return monthList;
+	}
+
+	// returns a list of objects with categories and amount of time spent per category for one week
+	this.statPieMonth = function(whichMonth) {
+		daysInMonth=[31,28,31,30,31,30,31,31,30,31,30,31];
+
+		now = new Date();
+		year = now.getFullYear();
+		month = now.getMonth();
+		startDate = new Date (year, month+whichMonth, 1, 0, 0, 0, 0);
+		startMs = startDate.getTime();
+		endMs = startMs;
+
+		console.log(daysInMonth[(month+whichMonth)%12]);
+
+		for	(k = 1; k < daysInMonth[(month+whichMonth)%12]; k++) {
+
+			ms = 86400000;
+			endMs += ms
+		}
+		
+		objList = [];
+		for (index = 0; index < categoryArray.length; index++) {
+
+			value = this.calcPeriodCategory(categoryArray[index].name, startMs, endMs);
+
+			obj = {name: categoryArray[index].name, y: value, color: categoryArray[index].color};
+			objList.push(obj);		
+		}
+		return objList;
 	}
 
 
