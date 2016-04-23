@@ -4,7 +4,7 @@
 		<span class="mediumTitle">Add - by using the stop watch or manually</span><hr><br>
 		<div class="wrapper"><div class="col-md-2"></div>
         <div class="col-md-4">
-          
+      <div class="col-md-8">By using the stop watch you make a duration for the form to the right</div>
       <span class="timer"><timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}<br></span>
 
     
@@ -14,14 +14,27 @@
        
           <button class="btn btn-default btn-md" ng-hide="timerRunning || (!timeStarted)" ng-click="setTimer(hhours, mminutes, sseconds)">Set as duration</button>
           </timer><br><br>
+          <br><br>
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-8">
+          <button class="btn btn-success btn-lg" type="submit" ng-click="addNewEvent()" data-loading-text="Submitting...">Create event</button></span><br><br>
+          </div>
 
         </div>
+
+
 
         <div class="col-md-4" >
 
 		<!--     Timer and timer buttons      -->
 		        
         	<form name="form" class="css-form" novalidate>
+
+          Category:
+              <select class='form-control' id="categorySelector" ng-model="category" ng-change="selectCategory(category)" ng-options="choice.name for choice in categories">
+              </select><br><br>
+
         	Title:
         	<input class="form-control" ng-model="name" name="name" type="text" required="" />
         	
@@ -107,12 +120,10 @@
           <br><br>
 
 
-		        Category:
-	            <select class='form-control' id="categorySelector" ng-model="category" ng-change="selectCategory(category)" ng-options="choice.name for choice in categories">
-	            </select><br><br>
+		        
 			
 			<!-- the button is disabled if something is wrong in the form -->
-				<button class="btn btn-default" type="submit" ng-click="addNewEvent()" data-loading-text="Submitting...">Create event</button></span>
+				
 				</form>
 			</div>
 	        </div><div class="col-md-2"></div>
