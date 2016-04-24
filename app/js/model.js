@@ -18,6 +18,15 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	var calendarArray = [];
 	var categoryArray = [];
 
+	//to know when to update the date from firebase
+	var loadedData = false;
+	this.changeLoadedData = function(){
+		loadedData = true;
+	}
+	this.getLoadedData = function(){
+		return loadedData;
+	}
+
 		// generates a new ID to use for an event
 	this.createID = function() {
 	    possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
