@@ -961,7 +961,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	this.addCalendar = function(calendar){
 		//adds calendar from google-response - defaults to sync and no category
-		calendarArray.push(this.createCalendar(calendar.id, calendar.summary, categoryArray[1], true));
+		calendarArray.push(this.createCalendar(calendar.id, calendar.summary, categoryArray[0], true));
 	}
 
 	return this;
