@@ -58,7 +58,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		return new CalendarClass(id, name, category, sync);
 	}
 
-	this.createTestCalendarArray = function() {
+	this.createTestCalendarArray = function() {	//SLÄNG
 		calendarArray.push(this.createCalendar("fakeID1", "KTH calendar", categoryArray[1], true));
 		calendarArray.push(this.createCalendar("fakeID2", "Work calendar", categoryArray[2], true));
 		calendarArray.push(this.createCalendar("fakeID3", "Other calendar", categoryArray[3], true));
@@ -931,7 +931,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	}
 	
 
-	this.initiateData = function(){
+	this.initiateData = function(){	//SLÄNG
 		//this.iterateData();
 		//this.createTestCalendarArray();
 		//this.autoReportAll();
