@@ -167,7 +167,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 		for(i in resp){
 			var newEvent = resp[i];
-			if(!existsInList(newEvent, currentEvents)){
+			if(!existsInList(newEvent, currentEvents) && newEvent.start.dateTime){
 				newEvents.push(newEvent);
 				console.log("new event!");
 			}
