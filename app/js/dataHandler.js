@@ -35,6 +35,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 		/*
 			check that there is the default category Undefined; if not then add it
+			CHANGE so this adds Undefined category in the TimeTracker data instead
 		*/
 		categoriesRef.once("value", function(snapshot){
 			var hasUndefined = false;
@@ -224,9 +225,10 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 
 		this.testCategories.once("value", function(snapshot){
-			console.log("Firebase data:", snapshot.val());
+			console.log("Firebase categories:", snapshot.val());
 			console.log("setting the categoryArray to firebase data");
 			
+			//if the firebase was empty, we set the data to an empty array 
 			res = snapshot.val();
 			if(res===null){
 				res = [];
@@ -238,8 +240,9 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		});
 
 		this.testCalendars.once("value", function(snapshot){
-			console.log("Firebase data:", snapshot.val());
+			console.log("Firebase calendars:", snapshot.val());
 			
+
 			res = snapshot.val();
 			if(res===null){
 				res = [];
@@ -250,7 +253,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		});
 
 		this.testEvents.once("value", function(snapshot){
-			console.log("Firebase data:", snapshot.val());
+			console.log("Firebase events:", snapshot.val());
 			
 
 			console.log("setting the calendarArray to firebase data");
