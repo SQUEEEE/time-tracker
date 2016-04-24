@@ -20,7 +20,7 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 	$scope.showAutoReportInfo = false;		// bool to decide if info about auto report is shown or not
 	$scope.showSyncInfo = false;			// bool to decide if info about sync is shown or not
 
-	var save = function(){
+	$scope.save = function(){
 		DataHandler.save();
 	}
 	// creates a new category
@@ -34,9 +34,7 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 
 			$scope.categoryArray.push(TimeTracker.createCategory(name, autoReport));
 
-			//console.log($scope.categoryArray)
-			save();
-
+			$scope.save();
 		}
 	}
 
@@ -45,30 +43,30 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 		newColor = TimeTracker.colorsWithoutDublett(category);
 		category.color = newColor;
 		TimeTracker.changeColor(category);
-		save();
-		
+		$scope.save();
 	}
 
 	// removes a category
 	$scope.removeCategory = function(category) {
 		TimeTracker.removeCategory(category);
-		save();
+		$scope.save();
 	}
 
 	// change if a category should be auto reported or not
 	$scope.changeAutoreport = function(category) {
 		TimeTracker.changeAutoReport(category);
-
+		$scope.save();
 	}
 
 	// change if a category should be auto reported or not
 	$scope.changeSync = function(calendar) {
 		TimeTracker.changeSync(calendar);
-		save();
+		$scope.save();
 	}
 
 	$scope.autoReportNow = function() {
 		TimeTracker.autoReportAll();
+		$scope.save();
 	}
 
 
@@ -76,13 +74,14 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 	$scope.saveCalendarChanges = function(calendar, selected) {
 		if (selected != null && selected != "") {
 			TimeTracker.changeCalendarCategory(calendar, selected);
+			$scope.save();
 		}
 	}
 
 	$scope.saveCategoryName = function(category, newName) {
-		console.log(category, newName);
 		if (newName != null && newName != "") {
 			TimeTracker.changeCategoryName(category, newName);
+			$scope.save();
 		}
 	}
 
