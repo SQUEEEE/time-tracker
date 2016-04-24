@@ -10,16 +10,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		this.userId = userId; //if we need to save this?
 		this.firebaseRef = new Firebase("https://time-trackertest.firebaseio.com/" + userId);
 		
-		/*this.calendarListRef = this.firebaseRef.child('calendarList');
-		this.calendarList = $firebaseArray(this.calendarListRef);
-		this.eventsRef = this.firebaseRef.child('events');
-		this.events = $firebaseArray(this.eventsRef);
-				
-		var categoriesRef = this.categoriesRef = this.firebaseRef.child('categories');
-		var categories = this.categories = $firebaseArray(categoriesRef);*/
-		
-		//firebase paths for testing
-		this.testPath = this.firebaseRef.child('testPath');
+
 		this.test = $firebaseArray(this.testPath);
 		this.testCategories = this.firebaseRef.child('categories');
 		this.testCalendars = this.firebaseRef.child('calendars');
@@ -38,28 +29,20 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			if(list[i].id === item.id){
 				return i;
 			}
-
 		}
-
 		return false;
 	}
 
 
 	/*
 	function that takes a list of calendars and sees if any should be added to the user's list of calendars
-	calendar should contain the following:
-	 id, name (these are from the calendarList data), 
-	 sync, category (timeTracker-specific) <-- what are the defaults? 
-
 	*/
 	this.updateCalendars = function(calendars){
-		//get the existing CalendarList
-		/*var category = 'Undefined';
-		var sync = true;
-		var calendarList = this.calendarList;*/
+
 
 		console.log("Updating calendars")
 
+		//check if the incoming calendars already are saved and only add them if they're not
 		var existingCals = TimeTracker.getTestCalendars();
 
 		for(i in calendars){
@@ -68,30 +51,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 				TimeTracker.addCalendar(cal);
 			}
 		}
-
-		/*this.calendarListRef.once("value", function(snapshot){
-			var existingCalendars = snapshot.val();
-
-			/*loop through the incoming calendarList and see if there is a matching id in the existingList */
-			/*for(i in calendars){
-				var cal = calendars[i];
-				if(!existsInList(cal, existingCalendars)){
-
-					//add the calendar. This doesn't work for some reason so omitting it for now
-					calendarList.$add({
-						'id': cal.id, 
-						'name': cal.summary, 
-						'category': category, 
-						'sync': sync
-					});
-
-					console.log("adding new calendar", cal.summary);
-				}
-
-			}
-
-		});*/
-
 
 	}
 
@@ -116,9 +75,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 		});
 
-		return syncedCalendars;
-
-		
+		return syncedCalendars;	
 	}
 
 
@@ -135,17 +92,44 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		var calendarCategory = calendar.category; 
 
 		var newEvents = [];
-
+		console.log("############################");
+		console.log(resp);
 		for(i in resp){
 			var newEvent = resp[i];
-			var exists = existsInList(newEvent, currentEvents);
-			if(!exists && newEvent.start.dateTime){
+
+			retValue = existsInList(newEvent, currentEvents);
+			console.log("retValue: ", retValue);
+
+			if (retValue != false) {	// exists in currentEvents
+				//current event updated tid > våran updated tid:
+				// den med senast updated tiden, skriver över tiderna, 
+				// namnet skrivs alltid över på det event som redan finns
+				
+				console.log("currentEvents[retValue]", currentEvents[retValue]);
+				console.log("updated", currentEvents[retValue].updated);
+				console.log("Funkar detta?", Date.parse(currentEvents[retValue].updated));
+
+
+			}
+			else if (retValue == false && newEvent.start.dateTime) { // not in current Events, a new event
 				newEvents.push(newEvent);
 				console.log("new event! last updated:", newEvent);
 			}
+			else {
+				console.log("släng detta event - heldag?")
+			}
+
+			/*
+			var exists = existsInList(newEvent, currentEvents);
+			if(!exists && newEvent.start.dateTime){
+
+			if(!existsInList(newEvent, currentEvents) && newEvent.start.dateTime){
+				newEvents.push(newEvent);
+				console.log("new event!");
+			}	
 			else{
 				console.log("event already exists");
-			}
+			}*/
 		}
 
 
@@ -232,10 +216,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			
 			
 		});
-
-		/*console.log("TimeTracker categories:", TimeTracker.getCategories());
-		console.log("TimeTracker calendars:", TimeTracker.getTestCalendars());
-		console.log("TimeTracker events:", TimeTracker.getTestData());*/
 	}
 
 	return this;
