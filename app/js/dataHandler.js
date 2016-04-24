@@ -106,10 +106,21 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 				// namnet skrivs alltid över på det event som redan finns
 				
 				console.log("currentEvents[retValue]", currentEvents[retValue]);
-				console.log("updated", currentEvents[retValue].updated);
-				console.log("Funkar detta?", Date.parse(currentEvents[retValue].updated));
+				//console.log("updated", currentEvents[retValue].updated);
+				//console.log("Funkar detta?", Date.parse(currentEvents[retValue].updated));
 
-
+				currentListMs = Date.parse(currentEvents[retValue].updated);
+				newEventMs = Date.parse(newEvent.updated);
+				if (currentListMs < newEventMs) {	// event updated from google
+					currentEvents[retValue].summary = newEvent.summary;
+					currentEvents[retValue].updated = newEvent.updated;
+					currentEvents[retValue].start = newEvent.start;
+					currentEvents[retValue].end =  newEvent.end;
+					console.log("ändrat Event", currentEvents[retValue]);
+				}
+				else {
+					console.log("vi behöver inte göra något med detta event");
+				}
 			}
 			else if (retValue == false && newEvent.start.dateTime) { // not in current Events, a new event
 				newEvents.push(newEvent);
