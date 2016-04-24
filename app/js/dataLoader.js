@@ -129,8 +129,10 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
     }
 
     this.loadData = function(){
+      console.log("Loading data!");
       this.checkAuth();
       this.handleAuthClick();
+      TimeTracker.changeLoadedDatat();
     }
 
 
