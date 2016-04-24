@@ -128,7 +128,7 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
       });
     }
 
-    $this.loadData = function(){
+    this.loadData = function(){
       this.checkAuth();
       this.handleAuthClick();
     }
