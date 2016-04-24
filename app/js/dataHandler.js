@@ -67,8 +67,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			}
 		}
 
-		this.save();
-
 		/*this.calendarListRef.once("value", function(snapshot){
 			var existingCalendars = snapshot.val();
 
@@ -149,6 +147,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 
 		TimeTracker.iterateData(newEvents, calendar.category);
+		this.save();
 	
 	}
 
