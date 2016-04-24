@@ -54,7 +54,6 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
 
       /*
         First we want to list all of the user's calendars, and check which ones are to be synced 
-        (need to decide which is best: a bool on each calendar-record or sepearate record with the calendars that are to be synced)
         Then we want to iterate these to load the events and save the new/updated ones to Firebase
        */
     var loadCalendars = function() {
@@ -123,7 +122,7 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
 
       request.execute(function(resp) {
         //call the DataHandler.updateEvents-function
-
+        console.log("response");
         DataHandler.updateEvents(calendar, resp.items);
 
       });

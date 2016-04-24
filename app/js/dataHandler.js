@@ -254,10 +254,10 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			//console.log("Firebase categories:", snapshot.val());
 			console.log("setting the categoryArray to firebase data");
 			
-			//if the firebase was empty, we set the data to an empty array 
+			//if the firebase was empty, we set it to the default Undefined category
 			res = snapshot.val();
 			if(res===null){
-				res = [];
+				res = [TimeTracker.createCategory("Undefined", false)];
 			}
 
 			TimeTracker.setCategories(res);
@@ -287,7 +287,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			if(res===null){
 				res = [];
 			}
-			TimeTracker.data = res; //to fix
+			TimeTracker.setEventData(res); //to fix
 			
 			
 		});
