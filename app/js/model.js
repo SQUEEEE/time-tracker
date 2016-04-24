@@ -69,18 +69,22 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		return new CalendarClass(id, name, category, sync);
 	}
 
-	this.createTestCalendarArray = function() {	//SLÄNG
-		calendarArray.push(this.createCalendar("fakeID1", "KTH calendar", categoryArray[1], true));
-		calendarArray.push(this.createCalendar("fakeID2", "Work calendar", categoryArray[2], true));
-		calendarArray.push(this.createCalendar("fakeID3", "Other calendar", categoryArray[3], true));
-		calendarArray.push(this.createCalendar("fakeID4", "Private calendar", null, false));
-	}
+
 
 	this.changeCalendarCategory = function(calendar, category) {
 		for (i in calendarArray) {
 			if (calendarArray[i].name == calendar.name) {
 				for (j in categoryArray) {
 					if (categoryArray[j].name == category.name){
+						for(e in data){
+							if(data[e].calender == calendarArray[i].id){
+								data[e].category = categoryArray[j].name;
+								data[e].color = categoryArray[j].color;
+								if (data[e].logged == true){
+									data[e].borderColor = category.color;
+								}
+							}
+						}
 						calendarArray[i].category = categoryArray[j];
 						break;
 					}
@@ -88,8 +92,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 				break;
 			}
 		}
-
-		// TODO: Write code to change also in the events
 	}	
 
 	this.getTestCalendars = function(){
