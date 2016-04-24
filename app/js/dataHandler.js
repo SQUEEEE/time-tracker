@@ -13,11 +13,18 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, TimeTracker){
 		this.calendarList = $firebaseArray(this.calendarListRef);
 		this.eventsRef = this.firebaseRef.child('events');
 		this.events = $firebaseArray(this.eventsRef);
-		this.test = $firebaseArray(this.firebaseRef.child('testPath'));
-		
+				
 		var categoriesRef = this.categoriesRef = this.firebaseRef.child('categories');
 		var categories = this.categories = $firebaseArray(categoriesRef);
 		
+		//firebase paths for testing
+		this.testPath = this.firebaseRef.child('testPath');
+		this.test = $firebaseArray(this.testPath);
+		this.testCategories = this.testPath.child('categories');
+		this.testCalendars = this.testPath.child('calendars');
+		this.testEvents = this.testPath.child('events');
+
+
 		/*
 			check that there is the default category Undefined; if not then add it
 		*/
@@ -184,7 +191,9 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, TimeTracker){
 
 	this.save = function(){
 		console.log("saving TimeTracker data to Firebase")
-		this.test.$add(TimeTracker.getTestData()); //this needs to overwrite and not add
+		this.testCategories.set(TimeTracker.getCategories()); 
+		this.testCalendars.set(TimeTracker.getTestCalendars()); 
+		this.testEvents.set(TimeTracker.getTestData()); //this needs to overwrite and not add
 	}
 
 	return this;
