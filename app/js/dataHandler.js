@@ -6,7 +6,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	*/
 
 	this.initiateUser = function(userId){
-		console.log("initializing user ", userId);
+		//console.log("initializing user ", userId);
 		this.userId = userId; //if we need to save this?
 		this.firebaseRef = new Firebase("https://time-trackertest.firebaseio.com/" + userId);
 
@@ -36,9 +36,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	function that takes a list of calendars and sees if any should be added to the user's list of calendars
 	*/
 	this.updateCalendars = function(calendars){
-
-
-		console.log("Updating calendars")
 
 		//check if the incoming calendars already are saved and only add them if they're not
 		var existingCals = TimeTracker.getTestCalendars();
@@ -90,22 +87,15 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		var calendarCategory = calendar.category; 
 
 		var newEvents = [];
-		console.log("############################");
-		console.log(resp);
+
 		for(i in resp){
 			var newEvent = resp[i];
 
 			retValue = existsInList(newEvent, currentEvents);
-			console.log("retValue: ", retValue);
+
 
 			if (retValue != false) {	// exists in currentEvents
-				//current event updated tid > våran updated tid:
-				// den med senast updated tiden, skriver över tiderna, 
-				// namnet skrivs alltid över på det event som redan finns
-				
-				console.log("currentEvents[retValue]", currentEvents[retValue]);
-				//console.log("updated", currentEvents[retValue].updated);
-				//console.log("Funkar detta?", Date.parse(currentEvents[retValue].updated));
+		
 
 				currentListMs = Date.parse(currentEvents[retValue].updated);
 				newEventMs = Date.parse(newEvent.updated);
@@ -116,17 +106,13 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 					currentEvents[retValue].end =  newEvent.end;
 					console.log("ändrat Event", currentEvents[retValue]);
 				}
-				else {
-					console.log("vi behöver inte göra något med detta event");
-				}
+				
 			}
 			else if (retValue == false && newEvent.start.dateTime) { // not in current Events, a new event
 				newEvents.push(newEvent);
-				console.log("new event! last updated:", newEvent);
+	
 			}
-			else {
-				console.log("släng detta event - heldag?")
-			}
+
 
 			/*
 			var exists = existsInList(newEvent, currentEvents);
@@ -143,12 +129,13 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 
 		TimeTracker.iterateData(newEvents, calendar.category);
+		TimeTracker.autoReportAll();
 		this.save();
 	
 	}
 
 	this.getCategory = function(calendarId){
-		console.log("Get category for", calendarId);
+
 		this.calendarListRef
 			.orderByChild('id')
 			.equalTo(calendarId)
@@ -167,12 +154,10 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	}
 
 	this.save = function(){
-		console.log("saving TimeTracker data to Firebase");
-
 		this.testCategories.set(cleanUp(TimeTracker.getCategories())); 
 		this.testCalendars.set(cleanUp(TimeTracker.getTestCalendars())); 
 		this.testEvents.set(cleanUp(TimeTracker.getTestData())); 
-		console.log("save events!")
+
 	}
 
 	/*
@@ -185,12 +170,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 	this.setTimeTrackerData = function(){
 
-		console.log("getting TimeTracker data from Firebase");
-
-
 		this.testCategories.once("value", function(snapshot){
-
-			console.log("setting the categoryArray to firebase data");
 			
 			//if the firebase was empty, we set it to the default Undefined category
 			res = snapshot.val();
@@ -210,13 +190,12 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 				res = [];
 			}
 			TimeTracker.setCalendars(res);
-			console.log("setting the calendarArray to firebase data");
 			
 		});
 
 		this.testEvents.once("value", function(snapshot){
 
-			console.log("setting the calendarArray to firebase data");
+
 			res = snapshot.val();
 			if(res===null){
 				res = [];
