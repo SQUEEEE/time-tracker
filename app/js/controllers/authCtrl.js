@@ -1,5 +1,3 @@
-
-
 timeTrackerApp.controller("authCtrl", function($scope, Auth, DataLoader, DataHandler){
 
 	$scope.auth = Auth;

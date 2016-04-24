@@ -107,7 +107,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 				calendarArray[index].sync == calendar.sync;
 			}
 		}
-
 	}
 
 
