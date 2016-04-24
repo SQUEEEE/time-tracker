@@ -10,16 +10,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		this.userId = userId; //if we need to save this?
 		this.firebaseRef = new Firebase("https://time-trackertest.firebaseio.com/" + userId);
 		
-		/*this.calendarListRef = this.firebaseRef.child('calendarList');
-		this.calendarList = $firebaseArray(this.calendarListRef);
-		this.eventsRef = this.firebaseRef.child('events');
-		this.events = $firebaseArray(this.eventsRef);
-				
-		var categoriesRef = this.categoriesRef = this.firebaseRef.child('categories');
-		var categories = this.categories = $firebaseArray(categoriesRef);*/
-		
-		//firebase paths for testing
-		this.testPath = this.firebaseRef.child('testPath');
+
 		this.test = $firebaseArray(this.testPath);
 		this.testCategories = this.firebaseRef.child('categories');
 		this.testCalendars = this.firebaseRef.child('calendars');
@@ -38,7 +29,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			if(list[i].id === item.id){
 				return i;
 			}
-
 		}
 
 		return false;
@@ -47,19 +37,13 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 	/*
 	function that takes a list of calendars and sees if any should be added to the user's list of calendars
-	calendar should contain the following:
-	 id, name (these are from the calendarList data), 
-	 sync, category (timeTracker-specific) <-- what are the defaults? 
-
 	*/
 	this.updateCalendars = function(calendars){
-		//get the existing CalendarList
-		/*var category = 'Undefined';
-		var sync = true;
-		var calendarList = this.calendarList;*/
+
 
 		console.log("Updating calendars")
 
+		//check if the incoming calendars already are saved and only add them if they're not
 		var existingCals = TimeTracker.getTestCalendars();
 
 		for(i in calendars){
@@ -68,30 +52,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 				TimeTracker.addCalendar(cal);
 			}
 		}
-
-		/*this.calendarListRef.once("value", function(snapshot){
-			var existingCalendars = snapshot.val();
-
-			/*loop through the incoming calendarList and see if there is a matching id in the existingList */
-			/*for(i in calendars){
-				var cal = calendars[i];
-				if(!existsInList(cal, existingCalendars)){
-
-					//add the calendar. This doesn't work for some reason so omitting it for now
-					calendarList.$add({
-						'id': cal.id, 
-						'name': cal.summary, 
-						'category': category, 
-						'sync': sync
-					});
-
-					console.log("adding new calendar", cal.summary);
-				}
-
-			}
-
-		});*/
-
 
 	}
 
@@ -232,10 +192,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			
 			
 		});
-
-		/*console.log("TimeTracker categories:", TimeTracker.getCategories());
-		console.log("TimeTracker calendars:", TimeTracker.getTestCalendars());
-		console.log("TimeTracker events:", TimeTracker.getTestData());*/
 	}
 
 	return this;
