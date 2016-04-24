@@ -1,5 +1,5 @@
 //model for auth
-timeTrackerApp.factory("DataLoader", function($http, DataHandler){
+timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
     
     var CLIENT_ID = '122923477419-e3s0kltaumck69gqfn8d0he948lhpd8q.apps.googleusercontent.com';
 
@@ -62,38 +62,44 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
 
         //https://developers.google.com/apis-explorer/#p/calendar/v3/calendar.calendarList.list
 
-    /*  var request = gapi.client.calendar.calendarList.list({
+      var request = gapi.client.calendar.calendarList.list({
         'fields': 'items(id, summary)'
-      });*/
+      });
 
-      /*request.execute(function(resp) {
-        var calendars = resp.items;*/
+      request.execute(function(resp) {
+        var calendars = resp.items;
+        console.log(calendars);
 
+        DataHandler.updateCalendars(calendars);
         /*
           Call to a function in the 
           DataHandler that will only add new events and update the information with 
           TimeTracker-specific data.
         */
 
-       // DataHandler.updateCalendarList(calendars); 
+       // DataHandler.updateCalendarList(calendars); //change to TimeTracker
 
-        //calendars to get events from
-       //calendarsToSync = DataHandler.getSyncedCalendars();
+      
+
+
+        //calendars to get events from - change to TimeTracker-data
+
+      //  calendarsToSync = DataHandler.getSyncedCalendars();
 
 
         /*
           loop through the calendarsToSync-list and then call the loadEvents function for every one 
         */
 
-    /*    for(i in calendarsToSync){
+        /*for(i in calendarsToSync){
           //loadEvents(calendarsToSync[i]);
           console.log("sync calendar ", calendarsToSync[i]);
-        }
-*/
-       // DataHandler.save();
+        }*/
+
+        //DataHandler.save();
 
        
-      //});
+      });
 
     }
 

@@ -76,17 +76,26 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	 sync, category (timeTracker-specific) <-- what are the defaults? 
 
 	*/
-	this.updateCalendarList = function(calendars){
+	this.updateCalendars = function(calendars){
 		//get the existing CalendarList
 		var category = 'Undefined';
 		var sync = true;
 		var calendarList = this.calendarList;
 
-		this.calendarListRef.once("value", function(snapshot){
+		var existingCals = TimeTracker.getTestCalendars();
+
+		for(i in calendars){
+			var cal = calendars[i];
+			if(!existsInList(cal, existingCals)){
+				TimeTracker.addCalendar(cal);
+			}
+		}
+
+		/*this.calendarListRef.once("value", function(snapshot){
 			var existingCalendars = snapshot.val();
 
 			/*loop through the incoming calendarList and see if there is a matching id in the existingList */
-			for(i in calendars){
+			/*for(i in calendars){
 				var cal = calendars[i];
 				if(!existsInList(cal, existingCalendars)){
 
@@ -103,7 +112,9 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 			}
 
-		});
+		});*/
+
+
 	}
 
 
@@ -232,7 +243,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			
 
 			console.log("setting the calendarArray to firebase data");
-			TimeTracker.data = snapshot.val();
+			TimeTracker.data = snapshot.val(); //to fix
 			
 			
 		});
@@ -240,7 +251,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		console.log("TimeTracker categories:", TimeTracker.getCategories());
 		console.log("TimeTracker calendars:", TimeTracker.getTestCalendars());
 		console.log("TimeTracker events:", TimeTracker.getTestData());
-
 	}
 
 	return this;

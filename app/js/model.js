@@ -224,22 +224,23 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	
 
 	/*********** Calendar class *************/
-	var CalendarClass = function(name, category, sync) {
+	var CalendarClass = function(id, name, category, sync) {
+		this.id = id;
 		this.name = name;
 		this.sync = sync;
 		this.category = category;
 	}
 	
 	// creates a new calendar object
-	this.createCalendar = function(name, category, sync) {
-		return new CalendarClass(name, category, sync);
+	this.createCalendar = function(id, name, category, sync) {
+		return new CalendarClass(id, name, category, sync);
 	}
 
 	this.createTestCalendarArray = function() {
-		calendarArray.push(this.createCalendar("KTH calendar", categoryArray[1], true));
-		calendarArray.push(this.createCalendar("Work calendar", categoryArray[2], true));
-		calendarArray.push(this.createCalendar("Other calendar", categoryArray[3], true));
-		calendarArray.push(this.createCalendar("Private calendar", null, false));
+		calendarArray.push(this.createCalendar("fakeID1", "KTH calendar", categoryArray[1], true));
+		calendarArray.push(this.createCalendar("fakeID2", "Work calendar", categoryArray[2], true));
+		calendarArray.push(this.createCalendar("fakeID3", "Other calendar", categoryArray[3], true));
+		calendarArray.push(this.createCalendar("fakeID4", "Private calendar", null, false));
 	}
 
 	this.changeCalendarCategory = function(calendar, category) {
@@ -931,6 +932,22 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		console.log("setting eventdata")
 		data = events;
 		//autoReportAll();
+	}
+
+	this.getSyncedCalendars = function(){
+		console.log("getting synced calendars from TimeTracker");
+		var toSync = [];
+
+		for(cal in calendarArray){
+			if(cal.sync){
+				toSync.push(cal.id);
+			}
+		}
+	}
+
+	this.addCalendar = function(calendar){
+		//adds calendar from google-response
+		calendarArray.push(this.createCalendar(calendar.id, calendar.summary, null, false));
 	}
 
 	return this;
