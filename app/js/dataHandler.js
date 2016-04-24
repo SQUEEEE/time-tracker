@@ -78,9 +78,9 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	*/
 	this.updateCalendars = function(calendars){
 		//get the existing CalendarList
-		var category = 'Undefined';
+		/*var category = 'Undefined';
 		var sync = true;
-		var calendarList = this.calendarList;
+		var calendarList = this.calendarList;*/
 
 		var existingCals = TimeTracker.getTestCalendars();
 
@@ -90,6 +90,8 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 				TimeTracker.addCalendar(cal);
 			}
 		}
+
+		this.save();
 
 		/*this.calendarListRef.once("value", function(snapshot){
 			var existingCalendars = snapshot.val();
@@ -224,7 +226,13 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		this.testCategories.once("value", function(snapshot){
 			console.log("Firebase data:", snapshot.val());
 			console.log("setting the categoryArray to firebase data");
-			TimeTracker.setCategories(snapshot.val());
+			
+			res = snapshot.val();
+			if(res===null){
+				res = [];
+			}
+
+			TimeTracker.setCategories(res);
 			
 			
 		});
@@ -232,8 +240,11 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		this.testCalendars.once("value", function(snapshot){
 			console.log("Firebase data:", snapshot.val());
 			
-			
-			TimeTracker.setCalendars(snapshot.val());
+			res = snapshot.val();
+			if(res===null){
+				res = [];
+			}
+			TimeTracker.setCalendars(res);
 			console.log("setting the calendarArray to firebase data");
 			
 		});
@@ -243,7 +254,11 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			
 
 			console.log("setting the calendarArray to firebase data");
-			TimeTracker.data = snapshot.val(); //to fix
+			res = snapshot.val();
+			if(res===null){
+				res = [];
+			}
+			TimeTracker.data = res; //to fix
 			
 			
 		});
