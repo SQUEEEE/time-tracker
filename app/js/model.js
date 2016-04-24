@@ -259,6 +259,14 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		}
 	}
 
+	this.changeColorCalendar = function(category) {
+		for (i in calendarArray) {
+			if (calendarArray[i].category.name == category.name) {
+				calendarArray[i].category.color = category.color;
+			}
+		}
+	}
+
 
 	//var categoryArray = [new CategoryClass("Undefined", true, this.colorsWithoutDublett(null)), new CategoryClass("KTH", true, this.colorsWithoutDublett(null)), new CategoryClass("Work", true, this.colorsWithoutDublett(null)), new CategoryClass("Other", true, this.colorsWithoutDublett(null))];	//the real list of categories
 
