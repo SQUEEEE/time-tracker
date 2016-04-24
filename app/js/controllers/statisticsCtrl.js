@@ -173,7 +173,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             enabled: false
         },
         title: {
-            text: 'Total amount of logged hours'
+            text: 'Logged hours during one week'
         },
         xAxis: {
             categories: $scope.categoryNames,
@@ -221,7 +221,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                 type: 'column'
             },
             title: {
-                text: 'Time logged during this week'
+                text: 'Weekly overview'
             },
             credits: {
                 enabled: false
@@ -278,7 +278,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                 type: 'column'
             },
             title: {
-                text: 'Time logged during this month'
+                text: 'Monthly overview'
             },
             credits: {
                 enabled: false
