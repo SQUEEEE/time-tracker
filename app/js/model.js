@@ -1,6 +1,6 @@
 timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
-	var data = this.data = []; // a list of events with the right attributes
+	var data = []; // a list of events with the right attributes
 
 
 	
@@ -260,6 +260,11 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	this.getTestCalendars = function(){
 		return calendarArray;
+	}
+
+	this.setCalendars = function(calendars){
+		console.log("in setCategories");
+		calendarArray = calendars;
 	}
 
 	// changes sync for a calendar
@@ -643,6 +648,12 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	this.getCategories = function(){
 		return categoryArray;
 	}
+
+	this.setCategories = function(categories){
+		//for setting the categories from the firebase
+		console.log("in setCategories");
+		categoryArray = categories;
+	}
 	// returns all category names in a list
 	this.getCategoryNames = function(){
 		nameList = []
@@ -909,11 +920,18 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	}
 
 
-	
+	this.initiateData = function(){
+		//this.iterateData();
+		//this.createTestCalendarArray();
+		//this.autoReportAll();
+	}
 
-	this.iterateData();
-	this.createTestCalendarArray();
-	this.autoReportAll();
+
+	this.setEventData = function(events){
+		console.log("setting eventdata")
+		data = events;
+		//autoReportAll();
+	}
 
 	return this;
 
