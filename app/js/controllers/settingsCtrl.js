@@ -1,4 +1,4 @@
-timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoader, DataHandler) {
+timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoader, DataHandler, DataLoader) {
 	/*
 		TO ADD:
 			something that gets information about a category
@@ -8,6 +8,9 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 
 	*/
 
+	if(!TimeTracker.getLoadedData()){
+		DataLoader.loadData();
+	}
 
 	$scope.categoryArray = TimeTracker.getCategories();		// list of categories
 	//$scope.categoryArray = DataHandler.categories; //use the categories from the firebase! :D

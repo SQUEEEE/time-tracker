@@ -1,4 +1,9 @@
-timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, DataHandler) {
+timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, DataHandler, DataLoader) {
+
+    if(!TimeTracker.getLoadedData()){
+        DataLoader.loadData();
+        
+    }
 
 	$scope.testData = TimeTracker.getTestData();		//a list of data
 

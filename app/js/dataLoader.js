@@ -95,7 +95,8 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
           console.log("sync calendar ", calendarsToSync[i]);
         }
 
-        //DataHandler.save();
+        console.log("done with syncing");
+        DataHandler.save(); // save everything to firebase once everything is loaded
 
        
       });
@@ -126,6 +127,14 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
 
       });
     }
+
+    this.loadData = function(){
+      console.log("Loading data!");
+      this.checkAuth();
+      this.handleAuthClick();
+      TimeTracker.changeLoadedData();
+    }
+
 
       return this;
 });

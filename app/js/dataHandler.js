@@ -29,35 +29,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		//this.testCategories.onDisconnect().set(TimeTracker.getCategories()); //this doesn't work?
 		
 		this.setTimeTrackerData();
-		/*$firebaseObject(this.testCategories).$loaded().then(function(data){
-			console.log("categories loaded from firebase", data.val());
-		})*/
 
-
-		/*
-			check that there is the default category Undefined; if not then add it
-			CHANGE so this adds Undefined category in the TimeTracker data instead
-		*/
-		/*categoriesRef.once("value", function(snapshot){
-			var hasUndefined = false;
-
-			snapshot.forEach(function(snapChild){
-				var category = snapChild.val();
-				if(category.name === "Undefined"){
-					console.log("category Undefined exists");
-					hasUndefined = true;
-				}
-			});
-			if(!hasUndefined){
-				console.log("i am in the if checkHasUndefined");
-				categories.$add({
-					'name':'Undefined',
-					'color':'LightGray',
-					'autoReport':false
-				});
-		}
-			
-		});*/
 	}
 
 
@@ -94,8 +66,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 				TimeTracker.addCalendar(cal);
 			}
 		}
-
-		this.save();
 
 		/*this.calendarListRef.once("value", function(snapshot){
 			var existingCalendars = snapshot.val();
@@ -158,9 +128,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	*/
 	this.updateEvents = function(calendar, resp){
 		var currentEvents = TimeTracker.getTestData();
-		var calendarCategory = calendar.category; //this doesn't get returned fast enough :(
-		//look at this when not super tired https://www.firebase.com/blog/2016-01-21-keeping-our-promises.html
-		//things to resolve: check which category the calendar has
+		var calendarCategory = calendar.category; 
 
 		var newEvents = [];
 		console.log("############################");
@@ -184,13 +152,17 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			}
 			else if (retValue == false && newEvent.start.dateTime) { // not in current Events, a new event
 				newEvents.push(newEvent);
-				console.log("new event!");
+				console.log("new event! last updated:", newEvent);
 			}
 			else {
 				console.log("släng detta event - heldag?")
 			}
 
-			/*if(!existsInList(newEvent, currentEvents) && newEvent.start.dateTime){
+			/*
+			var exists = existsInList(newEvent, currentEvents);
+			if(!exists && newEvent.start.dateTime){
+
+			if(!existsInList(newEvent, currentEvents) && newEvent.start.dateTime){
 				newEvents.push(newEvent);
 				console.log("new event!");
 			}	
@@ -201,35 +173,8 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 
 		TimeTracker.iterateData(newEvents, calendar.category);
-		
-		//might make an addEvent-function later for this as it will be used in other contexts as well
-			
-		/*this.eventsRef.once("value", function(snapshot){
-				var existingEvents = snapshot.val();
-
-				loop through the incoming calendarList and see if there is a matching id in the existingList 
-				for(i in resp){
-					var newEvent = resp[i];
-					var category = 'Undefined';
-				
-					if(!existsInList(newEvent, existingEvents)){
-
-						events.$add({
-							'id': newEvent.id, 
-							'name': newEvent.summary, 
-							'start': newEvent.start,
-							'end': newEvent.end,
-							'category': category, 
-							'updated': newEvent.updated,
-							'calendar':calendarId
-						});
-
-						console.log("adding", newEvent.summary);
-					}
-
-				}
-
-		});*/
+		this.save();
+	
 	}
 
 	this.getCategory = function(calendarId){
@@ -257,6 +202,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		this.testCategories.set(cleanUp(TimeTracker.getCategories())); 
 		this.testCalendars.set(cleanUp(TimeTracker.getTestCalendars())); 
 		this.testEvents.set(cleanUp(TimeTracker.getTestData())); 
+		console.log("save events!")
 	}
 
 	/*
@@ -269,12 +215,11 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 	this.setTimeTrackerData = function(){
 
-		//have some syncronization problems here, needs to be checked out
 		console.log("getting TimeTracker data from Firebase");
 
 
 		this.testCategories.once("value", function(snapshot){
-			//console.log("Firebase categories:", snapshot.val());
+
 			console.log("setting the categoryArray to firebase data");
 			
 			//if the firebase was empty, we set it to the default Undefined category
@@ -289,8 +234,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		});
 
 		this.testCalendars.once("value", function(snapshot){
-			//console.log("Firebase calendars:", snapshot.val());
-			
 
 			res = snapshot.val();
 			if(res===null){
@@ -302,8 +245,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		});
 
 		this.testEvents.once("value", function(snapshot){
-			//console.log("Firebase events:", snapshot.val());
-			
 
 			console.log("setting the calendarArray to firebase data");
 			res = snapshot.val();
