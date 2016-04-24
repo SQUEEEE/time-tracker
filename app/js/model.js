@@ -107,7 +107,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 				calendarArray[index].sync == calendar.sync;
 			}
 		}
-
 	}
 
 
@@ -119,6 +118,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 				//console.log(data[index].id)
 				data[index].start = startDate;
 				data[index].end = endDate;
+				
+				data[index].updated = Date.now();
+
 				var currentTime = Date.now();
         		var eventEndTime = Date.parse(data[index].end);
 				if (currentTime > eventEndTime) {
