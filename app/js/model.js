@@ -331,8 +331,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		else {
 			logged = false;
 		}
-		
-		
+
 		eventObject = new EventClass(current, category, logged, data);
 
 		id = data.length+1;
@@ -354,9 +353,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		}
 
 		//eventObject._id = (data.length+1)
-		console.log("data for new event:", eventObject);
+		//console.log("data for new event:", eventObject);
 		data.push(eventObject);
-		console.log(data);
+		//console.log(data);
 		//autoReportAll();
 		return eventObject;
 	};
