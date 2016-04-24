@@ -272,7 +272,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	/*****Eventclass **/
 	// The attributes are: id, created, updated, title, start, end, category, logged, autoReport, color, textColor, hidden, intern, logged, borderColor
-	var EventClass = function(current, category, logged, dataList){
+	var EventClass = function(current, category, logged, dataList, calendarId){
 	//creates objects with the attributes we want, current is a object we want to copy most from
 		this.id=current.id;
 
@@ -282,7 +282,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 		this.start=current.start;
 		this.end=current.end;
-
+		this.calendarId = calendarId;
 		this.category=category.name;				//a category grouping some events together, should have a unique color
 		this.logged=logged;				//true/false depending on if the event is logged or not
 		this.autoReport = category.autoReport;		// bool depending on if the event should be auto reported
@@ -387,7 +387,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	//can be used for automatic logging when a whole calendar should have the same category
 
 
-	var iterateData = this.iterateData = function(testData, category){
+	var iterateData = this.iterateData = function(testData, calendar){
 		var iteratedData = [];
 
 		for(index in testData){
@@ -398,7 +398,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 			start = current.start.dateTime;
 			current.start = start;
 
-			var eventObject = new EventClass(current, category, false, iteratedData);
+			var eventObject = new EventClass(current, calendar.category, false, iteratedData, calendar.id);
 			iteratedData.push(eventObject);
 			data.push(eventObject);
 		}

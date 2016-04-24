@@ -104,7 +104,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 					currentEvents[retValue].updated = newEvent.updated;
 					currentEvents[retValue].start = newEvent.start;
 					currentEvents[retValue].end =  newEvent.end;
-					console.log("ändrat Event", currentEvents[retValue]);
+					//console.log("ändrat Event", currentEvents[retValue]);
 				}
 				
 			}
@@ -128,7 +128,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		}
 
 
-		TimeTracker.iterateData(newEvents, calendar.category);
+		TimeTracker.iterateData(newEvents, calendar);
 		TimeTracker.autoReportAll();
 		this.save();
 	
