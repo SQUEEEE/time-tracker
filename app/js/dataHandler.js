@@ -9,20 +9,21 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		console.log("initializing user ", userId);
 		this.userId = userId; //if we need to save this?
 		this.firebaseRef = new Firebase("https://time-trackertest.firebaseio.com/" + userId);
-		this.calendarListRef = this.firebaseRef.child('calendarList');
+		
+		/*this.calendarListRef = this.firebaseRef.child('calendarList');
 		this.calendarList = $firebaseArray(this.calendarListRef);
 		this.eventsRef = this.firebaseRef.child('events');
 		this.events = $firebaseArray(this.eventsRef);
 				
 		var categoriesRef = this.categoriesRef = this.firebaseRef.child('categories');
-		var categories = this.categories = $firebaseArray(categoriesRef);
+		var categories = this.categories = $firebaseArray(categoriesRef);*/
 		
 		//firebase paths for testing
 		this.testPath = this.firebaseRef.child('testPath');
 		this.test = $firebaseArray(this.testPath);
-		this.testCategories = this.testPath.child('categories');
-		this.testCalendars = this.testPath.child('calendars');
-		this.testEvents = this.testPath.child('events');
+		this.testCategories = this.firebaseRef.child('categories');
+		this.testCalendars = this.firebaseRef.child('calendars');
+		this.testEvents = this.firebaseRef.child('events');
 
 
 		//this.testCategories.onDisconnect().set(TimeTracker.getCategories()); //this doesn't work?
@@ -37,7 +38,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			check that there is the default category Undefined; if not then add it
 			CHANGE so this adds Undefined category in the TimeTracker data instead
 		*/
-		categoriesRef.once("value", function(snapshot){
+		/*categoriesRef.once("value", function(snapshot){
 			var hasUndefined = false;
 
 			snapshot.forEach(function(snapChild){
@@ -56,7 +57,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 				});
 		}
 			
-		});
+		});*/
 	}
 
 
