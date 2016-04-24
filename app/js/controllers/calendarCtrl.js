@@ -60,15 +60,15 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
     }
 
     $scope.hideEvent = function(calEvent){
-      calEvent.logged = false;
-      calEvent.autoReport = false;
-      calEvent.color = "white";
-      calEvent.borderColor = "white";
-      calEvent.textColor = "#E3DADC";
-      calEvent.hidden = true;
-      $scope.modalEvent = calEvent;
-      TimeTracker.hideEvent(calEvent);
-      $('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
+        calEvent.logged = false;
+        calEvent.autoReport = false;
+        calEvent.color = "white";
+        calEvent.borderColor = "white";
+        calEvent.textColor = "#E3DADC";
+        calEvent.hidden = true;
+        $scope.modalEvent = calEvent;
+        TimeTracker.hideEvent(calEvent);
+        $('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
     }
 
     $scope.unHideEvent = function(calEvent){
@@ -97,13 +97,6 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
         TimeTracker.hideEvent(calEvent);
         $('#calendar').fullCalendar('refetchEvents');           // still some jQuery here!
     }
-
-
-    //from calendar angular walk through
-   /* var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear()*/
      
      
     /*event source that pulls from google.com
@@ -165,17 +158,6 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
         
 
         TimeTracker.updateTime(event, startDate, endDate);
-
-
-        //$scope.modalEvent = event;
-        //$('#calendar').fullCalendar('rerenderEvents');           // still some jQuery here!
-
-
-      //  $('#calendar').fullCalendar('updateEvent', event);
-
-       // $('#calendar').fullCalendar('removeEventSource', $scope.testData );
-        //$('#calendar').fullCalendar('addEventSource', TimeTracker.getTestData());
-        //$('#calendar').fullCalendar('refetchEvents');
     };
      
     /*
@@ -237,7 +219,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
           next: 'right-single-arrow'
           
         },
-        allDaySlot: false,              //no all day events    
+        allDaySlot: false,                  //no all day events    
             defaultView: 'agendaWeek',      //a week with squares for the time slots
             nowIndicator: true,             // shows current time  
             firstDay: 1,                    //starts on monday
