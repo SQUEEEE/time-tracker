@@ -90,8 +90,7 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 
 	$scope.updateCalendars = function() {
 
-		DataLoader.checkAuth();
-		DataLoader.handleAuthClick();
+		DataLoader.loadData();
 
 		console.log("test", TimeTracker.getTestData());
 	}
