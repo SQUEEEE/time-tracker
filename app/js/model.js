@@ -251,6 +251,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		for (i in data) {
 			if (data[i].category == category.name) {
 				data[i].color = category.color;
+				if (data[i].logged == true){
+					data[i].borderColor = category.color;
+				}
+				
 			}
 		}
 	}
