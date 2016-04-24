@@ -18,7 +18,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	var calendarArray = [];
 	var categoryArray = [];
 
-		// generates a new ID to use for an event
+	// generates a new ID to use for an event
 	this.createID = function() {
 	    possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 	    
@@ -98,7 +98,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 				calendarArray[index].sync == calendar.sync;
 			}
 		}
-
 	}
 
 
@@ -389,7 +388,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	// auto reports events that has already happen if auto report is set to true
 	var autoReportAll = this.autoReportAll = function() {
-		//console.log("In auto report");
 		currentTime = Date.now();
 
 		for (index in data) {
@@ -516,7 +514,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 			}
 		}
 		result = sum /(1000 * 60 * 60);
-
 		return result;
 	}
 
@@ -540,6 +537,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		return valueList;
 	}
 
+	// calculates duration depedning on start and end time of events
 	this.calcDayDuration = function(j, dateList, i) {
 		sum = 0;
 
@@ -586,7 +584,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 		startMs = startDate.getTime();
 
-		for (k = 0; k < 6; k++) {
+		for (k = 0; k < 6; k++) {		// creates a list with the dates
 			n = parseInt(k)+1;
 			ms = n * 86400000;
 			date = new Date(startMs + ms);
@@ -606,8 +604,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		return dataList;
 	}
 
-
-	// returns a list of objects with categories and amount of time spent per category for one week
+	// returns a list for week pie chart
 	this.statPieWeek = function(whichWeek) {
 
 		now = new Date();
@@ -639,7 +636,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 
 
-	// returns a list with logged time the current week
+	// returns a list for week overview statistics
 	this.statWeekSeries = function(whichWeek) {
 		weekList = [];
 		now = new Date();
@@ -664,7 +661,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		return weekList;
 	}
 
-	// returns a list of spent time in category order
+	// returns a list for week total statistics
 	this.statWeekTotalList = function(whichWeek) {
 
 		now = new Date();
@@ -703,7 +700,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		year = now.getFullYear();
 		month = now.getMonth();
 
-		if (year % 4 == 0) {
+		if (year % 4 == 0) {		// if leap year
 			daysInMonth[1] = 29;
 		}
 		
@@ -713,11 +710,11 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 		newMonth = (month+whichMonth)%12;
 
-		if (newMonth < 0) {
+		if (newMonth < 0) {			// 'modulo' for negative numbers
 			newMonth = 12+newMonth;
 		}	
 
-		for	(k = 1; k < daysInMonth[newMonth]; k++) {
+		for	(k = 1; k < daysInMonth[newMonth]; k++) {	// sets the right end time
 			ms = 86400000;
 			endMs += ms
 		}
@@ -733,8 +730,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		return objList;
 	}
 
-
-
 	// returns current month logged time
 	this.createMonthList = function(startDate, category, month) {
 		daysInMonth=[31,28,31,30,31,30,31,31,30,31,30,31];
@@ -746,17 +741,17 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 		startMs = startDate.getTime();
 
-		if (startDate.getFullYear() % 4 == 0) {
+		if (startDate.getFullYear() % 4 == 0) {		// if leap year
 			daysInMonth[1] = 29;
 		}
 		
 		newMonth = month%12;
 
-		if (newMonth < 0) {
+		if (newMonth < 0) {			// 'modulo' for negative numbers
 			newMonth = 12+newMonth;
 		}	
 
-		for	(k = 0; k < daysInMonth[newMonth]-1; k++) {
+		for	(k = 0; k < daysInMonth[newMonth]-1; k++) {		// creates a list with all the dates
 			n = parseInt(k)+1;
 			ms = n * 86400000;
 			date = new Date(startMs + ms);
@@ -767,14 +762,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 			sum = 0;
 			for (j in data) {			// for every event
 				if (data[j].logged == true && data[j].category == category) {	// if logged and right category
-
-				//	sum += this.calcDay(j, dateList, i);
-
-					/*compareDate = Date.parse(data[j].start);
-					compareDate = new Date(compareDate);
-					if (dateList[i] == compareDate.toDateString()) {
-						sum += (this.calcDuration(data[j].start, data[j].end)) /(1000 * 60 * 60);	// change to hours instead of milliseconds
-					}*/
 
 					startDateMilli = Date.parse(data[j].start);
 					startDate = new Date(startDateMilli);
@@ -806,7 +793,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 						sum += (this.calcDuration(startD, endD) /(1000 * 60 * 60));	// change to hours instead of milliseconds
 					}
-
 				}
 			}
 			dataList.push(sum);
@@ -833,14 +819,14 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		return monthList;
 	}
 
-	// returns a list of objects with categories and amount of time spent per category for one week
+	// returns a list of objects with categories and amount of time spent per category for one month
 	this.statPieMonth = function(whichMonth) {
 		daysInMonth=[31,28,31,30,31,30,31,31,30,31,30,31];
 
 		now = new Date();
 		year = now.getFullYear();
 
-		if (year % 4 == 0) {
+		if (year % 4 == 0) {		// if leap year
 			daysInMonth[1] = 29;
 		}
 
@@ -850,13 +836,11 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		endMs = startMs;
 
 		newMonth = (month+whichMonth)%12;
-
-
-		if (newMonth < 0) {
+		if (newMonth < 0) {				// 'modulo' for negative numbers
 			newMonth = 12+newMonth;
 		}	
 
-		for	(k = 1; k < daysInMonth[newMonth]; k++) {
+		for	(k = 1; k < daysInMonth[newMonth]; k++) {	// sets the right end time
 			ms = 86400000;
 			endMs += ms
 		}
@@ -871,7 +855,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		}
 		return objList;
 	}
-
+	// returns a list for year statistics
 	this.statYearOverview = function (whichYear) {
 		objList = [];
 		daysInMonth=[31,28,31,30,31,30,31,31,30,31,30,31];
@@ -879,7 +863,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		now = new Date();
 		year = now.getFullYear();
 
-		if (year % 4 == 0) {
+		if (year % 4 == 0) {		// if leap year
 			daysInMonth[1] = 29;
 		}
 
@@ -891,7 +875,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 				startMs = startDate.getTime();
 				endMs = startMs;
 
-				for	(k = 1; k < daysInMonth[j]; k++) {
+				for	(k = 1; k < daysInMonth[j]; k++) {	// sets the right end time
 					ms = 86400000;
 					endMs += ms
 				}
