@@ -18,7 +18,6 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 			}
 
 			$scope.categoryArray.push(TimeTracker.createCategory(name, autoReport));
-			//console.log($scope.categoryArray)
 		}
 	}
 

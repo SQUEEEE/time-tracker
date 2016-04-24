@@ -35,7 +35,7 @@
 
 
       <perfect-scrollbar class="scroller" wheel-propagation="true" scroll.padding="15" wheel-speed="5" include-padding='true'>
-      <div class="col-md-7" > <!-- 7 -->
+      <div class="col-md-7">
 
 		
         <form name="form" class="css-form" novalidate>
@@ -69,7 +69,8 @@
 				    </div>
           </div>
 
-          <div ng-show="!(selectedDuration.hour>=0 && selectedDuration.minute>=0 && selectedDuration.second>=0 && (selectedDuration.hour>0 || selectedDuration.minute>0 || selectedDuration.second>0)) && !pressButton"> <!-- if the duration is not valid -->
+          <div ng-show="!(selectedDuration.hour>=0 && selectedDuration.minute>=0 && selectedDuration.second>=0 && (selectedDuration.hour>0 || selectedDuration.minute>0 || selectedDuration.second>0)) && !pressButton">
+           <!-- if the duration is not valid -->
       			<span style="color:red;">Choose a duration for the event or use the stop watch</span>
     	     </div>
           <div ng-show="!(selectedDuration.hour>=0 && selectedDuration.minute>=0 && selectedDuration.second>=0 && (selectedDuration.hour>0 || selectedDuration.minute>0 || selectedDuration.second>0)) && pressButton"><br></div>

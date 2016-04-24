@@ -3,15 +3,11 @@
 timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) {
 	
 	$scope.categories = TimeTracker.getCategories();
-
 	$scope.timerRunning = false;	// bool if timer is running
 	$scope.timeStarted = false;		// bool if timer has ever been started/only paused not cleared
 
-	//lastInput = [0,0,0];
-	//console.log(currentAuth);
-
-
 	$scope.selectedDuration = {hour:0, minute:0, second:0};
+
 	//create variables for today
 	var today = new Date();	
 	$scope.selectedDate = {day:today.getDate(), month:today.getMonth()+1, year:today.getFullYear()}; //January is 0!
@@ -25,7 +21,6 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.pressButton = true;
 	$scope.duration = false;
 	$scope.date = false;
-
 
 
 	//to make the errors work
@@ -64,7 +59,6 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 
 //ALL THE ERROR HANDLING FUNCTIONS
 	
-
 	$scope.checkDuration = function(){	//checks validity for the duration
 		if($scope.selectedDuration.hour>=0 && $scope.selectedDuration.minute>=0 && $scope.selectedDuration.second>=0){
 			if($scope.selectedDuration.hour>0 || $scope.selectedDuration.minute>0 || $scope.selectedDuration.second>0){
@@ -99,7 +93,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	}
 
 
-    $scope.checkEverything = function(){	//controlls everything is right in the form
+    $scope.checkEverything = function(){//controlls everything is right in the form
     	$scope.checkDuration();
     	$scope.checkDate();
     	$scope.checkStart();
@@ -112,8 +106,6 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
     	
     }
 
-   
-   // $scope.checkEverything();	//creates start values
 
 
 	$scope.setTimer = function(_hour,_minute,_second){
@@ -139,7 +131,6 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		$scope.min = data.minutes;
 		$scope.sec = data.seconds;
 		$scope.millis = data.millis;
-      //  console.log('Timer Stopped - data = ', data);
     });
 
 	// starts the timer
