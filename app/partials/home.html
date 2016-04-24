@@ -5,14 +5,14 @@
 	 			<span class="mediumTitle"> Hello, {{authData.google.displayName}} </span><hr>
 	 		</div>
 	 		<div class="col-md-12">
-
+	 			<perfect-scrollbar class="scroller" wheel-propagation="true" scroll.padding="15" wheel-speed="5" include-padding='true'>
 	 			<div class="col-md-4">
 	 				<hr class="vr">
 	 			</div>
 
 	 			<div class="col-md-4">
 
-	 				<button class="btn btn-default" ng-click="loadData()">Test data loading</button></center>
+	 				<button class="btn btn-default" ng-click="loadData()">Test data loading</button>
 
 	 				<p>Time tracker is a web page where 
 			 		you can keep track on how much 
@@ -28,11 +28,13 @@
 			 		
 			 		<p>In <i>Settings</i> you can choose what calendars you wish to sync from Google Calendar and what categories they are connected to. You can also create new categories and change the old ones. </p>
 
+			 		<br><br><br><br><br><br>
 
 	 			</div>
 
 
 	 			<hr class="vr">
+	 			</perfect-scrollbar>
 	 		</div>
 
 				 			
@@ -43,9 +45,11 @@
 	 	
 	 	<div ng-hide="authData" class="container" id="unauthorized">
 	 		<div class="col-md-12">
+	 		
 	 			<br>
 	 			
 	 			<div class="centerBox">
+	 			<perfect-scrollbar class="scroller" wheel-propagation="true" scroll.padding="15" wheel-speed="5" include-padding='true'>
 
 	 				<center><span class="jumboTitle">Welcome to Time Tracker</span></center>
 
@@ -61,7 +65,9 @@
 				 	<center><p>Log in with google here</p>
 				    <button class="btn btn-default" ng-click="login()">Sign in</button></center>
 				</div>
+				</perfect-scrollbar>
 			</div>
+
 	 	</div>
 	 
 
