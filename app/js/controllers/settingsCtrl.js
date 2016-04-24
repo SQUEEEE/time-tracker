@@ -8,7 +8,7 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 
 	*/
 
-	if(!TimeTracker.getLoadedData()){
+	if(TimeTracker.getLoadedData() == false){
 		DataLoader.loadData();
 	}
 

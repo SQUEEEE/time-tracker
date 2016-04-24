@@ -1,8 +1,7 @@
 timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, DataHandler, DataLoader) {
 
-    if(!TimeTracker.getLoadedData()){
+    if(TimeTracker.getLoadedData() == false){
         DataLoader.loadData();
-        
     }
 
 	$scope.testData = TimeTracker.getTestData();		//a list of data
