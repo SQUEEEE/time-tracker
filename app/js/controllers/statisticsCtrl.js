@@ -359,6 +359,49 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         });
     }
 
+    // stats for total logged time  
+    $scope.showMonthTotal = function(whichMonth) {
+        if (whichMonth== 0) {
+            $scope.month = 0;
+        }
+        else {
+            $scope.month += whichMonth;
+        }
+
+        return Highcharts.chart('stat', {
+        chart: {
+            type: 'bar'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Logged hours during one month'
+        },
+        xAxis: {
+            categories: $scope.categoryNames,
+            title: {
+                text: 'Categories'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Time in hours'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            valueSuffix: ' hours',
+            pointFormat: '<b>{point.y:.1f}</b><br/>'
+        },
+        series: [{
+            data: TimeTracker.statMonthTotalList($scope.month)
+        }]
+        });
+    };
+
 
 
 

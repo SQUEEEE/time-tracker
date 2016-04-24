@@ -915,7 +915,45 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			objList.push(obj);		
 		}
 		return objList;
+	}
 
+
+	// returns a list of spent time in category order
+	this.statMonthTotalList = function(whichMonth) {
+		daysInMonth=[31,28,31,30,31,30,31,31,30,31,30,31];
+
+		now = new Date();
+		year = now.getFullYear();
+		month = now.getMonth();
+
+		if (year % 4 == 0) {
+			daysInMonth[1] = 29;
+		}
+		
+		startDate = new Date (year, month+whichMonth, 1, 0, 0, 0, 0);
+		startMs = startDate.getTime();
+		endMs = startMs;
+
+		newMonth = (month+whichMonth)%12;
+
+		if (newMonth < 0) {
+			newMonth = 12+newMonth;
+		}	
+
+		for	(k = 1; k < daysInMonth[newMonth]; k++) {
+			ms = 86400000;
+			endMs += ms
+		}
+
+		objList = [];
+		for (index = 0; index < categoryArray.length; index++) {
+
+			value = this.calcPeriodCategory(categoryArray[index].name, startMs, endMs);
+
+			obj = {name: categoryArray[index].name, y: value, color: categoryArray[index].color};
+			objList.push(obj);		
+		}
+		return objList;
 	}
 
 
@@ -935,14 +973,11 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			daysInMonth[1] = 29;
 		}
 		
-
 		newMonth = month%12;
 
 		if (newMonth < 0) {
 			newMonth = 12+newMonth;
 		}	
-		//console.log(newMonth);
-		//console.log("dagar:", daysInMonth[newMonth]);
 
 		for	(k = 0; k < daysInMonth[newMonth]-1; k++) {
 			n = parseInt(k)+1;
@@ -950,7 +985,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			date = new Date(startMs + ms);
 			dateList.push(date.toDateString());
 		}
-		//console.log("dateList", dateList);
 
 		for (i in dateList) {
 			sum = 0;
@@ -1000,7 +1034,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			}
 			dataList.push(sum);
 		}
-		//console.log(dataList);
 		return dataList;
 	}
 
@@ -1047,8 +1080,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		if (newMonth < 0) {
 			newMonth = 12+newMonth;
 		}	
-		//console.log(newMonth);	
-		//console.log(daysInMonth[newMonth]);
 
 		for	(k = 1; k < daysInMonth[newMonth]; k++) {
 			ms = 86400000;
@@ -1065,8 +1096,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		}
 		return objList;
 	}
-
-
 
 	
 

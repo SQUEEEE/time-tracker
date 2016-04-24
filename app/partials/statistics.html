@@ -3,21 +3,6 @@
 	<div class="col-md-12">
 		<span class="mediumTitle">Statistics</span><br><br>
 
-		<!--<nav class="navbar navbar-default">
-			<div class="container">
-				<ul class="nav navbar-nav" id="nav">
-					<li class="{{isActive('Total')}}"><a ng-href="http://localhost:8000/#/statistics" ng-init="startValue()" ng-click="showTotal();setActive('Total')">Total time</a></li>
-					<li class="{{isActive('Categories')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showCategories();setActive('Categories')">Categories percentage</a></li>
-					<li class="{{isActive('Week')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showWeek(0);setActive('Week')">Weekly status</a></li>
-					<li class="{{isActive('WeekPercentage')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showWeekPercentage(0);setActive('WeekPercentage')">Weekly percentage</a></li>
-					<li class="{{isActive('WeekTotal')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showWeekTotal(0);setActive('WeekTotal')">Weekly total</a></li>
-
-					<li class="{{isActive('Month')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showMonth(0);setActive('Month')">Monthly status</a></li>
-					<li class="{{isActive('MonthPercentage')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showMonthPercentage(0);setActive('MonthPercentage')">Monthly percentage</a></li>
-				</ul>
-			</div>
-		</nav>-->
-
 		<nav class="navbar navbar-default">
 			<div class="container">
 				<ul class="nav navbar-nav" id="nav">
@@ -25,55 +10,25 @@
 
 					<li class="{{isActive('Categories')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showCategories();setActive('Categories')">Categories percentage</a></li>
 
-<!--
-					<li class="{{isActive('Week')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showWeek(0);setActive('Week')">Weekly status</a></li>
-					<li class="{{isActive('WeekPercentage')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showWeekPercentage(0);setActive('WeekPercentage')">Weekly percentage</a></li>
-					<li class="{{isActive('WeekTotal')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showWeekTotal(0);setActive('WeekTotal')">Weekly total</a></li>
-					-->
-
-					<li class="dropdown {{isActive('Week')}}"><a class="dropdown-toggle" data-toggle="dropdown">Weekly<span class="caret"></span></a>
+					<li class="dropdown {{isActive('Week')}} {{isActive('WeekTotal')}} {{isActive('WeekPercentage')}}"><a class="dropdown-toggle" data-toggle="dropdown">Weekly menu<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li ng-click="showWeek(0);setActive('Week')"><a ng-href="http://localhost:8000/#/statistics">Overview</a></li>
-							<li ng-click="showWeekTotal(0);setActive('Week')"><a ng-href="http://localhost:8000/#/statistics">Total</a></li>
-							<li ng-click="showWeekPercentage(0);setActive('Week')"><a ng-href="http://localhost:8000/#/statistics">Percentage</a></li>
+							<li ng-click="showWeekTotal(0);setActive('WeekTotal')"><a ng-href="http://localhost:8000/#/statistics">Total</a></li>
+							<li ng-click="showWeekPercentage(0);setActive('WeekPercentage')"><a ng-href="http://localhost:8000/#/statistics">Percentage</a></li>
 						</ul>
 					</li>
 
-					<li class="dropdown {{isActive('Month')}}"><a class="dropdown-toggle" data-toggle="dropdown">Monthly<span class="caret"></span></a>
+					<li class="dropdown {{isActive('Month')}} {{isActive('MonthTotal')}} {{isActive('MonthPercentage')}}"><a class="dropdown-toggle" data-toggle="dropdown">Monthly menu<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li ng-click="showMonth(0);setActive('Month')"><a ng-href="http://localhost:8000/#/statistics">Overview</a></li>
-							<li ng-click="showMonthPercentage(0);setActive('Month')"><a ng-href="http://localhost:8000/#/statistics">Percentage</a></li>
+							<li ng-click="showMonthTotal(0);setActive('MonthTotal')"><a ng-href="http://localhost:8000/#/statistics">Total</a></li>
+							<li ng-click="showMonthPercentage(0);setActive('MonthPercentage')"><a ng-href="http://localhost:8000/#/statistics">Percentage</a></li>
 						</ul>
 					</li>
 
-					<!--<li class="{{isActive('MonthPercentage')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showMonthPercentage(0);setActive('MonthPercentage')">Monthly percentage</a></li>-->
 				</ul>
 			</div>
 		</nav>
-
-
-<!--<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="">Page 1
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Page 1-1</a></li>
-          <li><a href="#">Page 1-2</a></li>
-          <li><a href="#">Page 1-3</a></li> 
-        </ul>
-      </li>
-      <li><a href="#">Page 2</a></li> 
-      <li><a href="#">Page 3</a></li> 
-    </ul>
-  </div>
-</nav>-->
-
 
 
 		<!-- Statistics shown here -->
@@ -88,6 +43,21 @@
 					<div class="btn-group">
 						<button class="btn btn-default" ng-click="showMonth(-1)"><span class="glyphicon glyphicon-chevron-left"></span></button>
 						<button class="btn btn-default" ng-click="showMonth(1)"><span class="glyphicon glyphicon-chevron-right"></span></button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div ng-if="isActive('MonthTotal')">
+			<div class="row">
+				<div class="col-md-10"></div>
+				<div class="col-md-2">
+
+					<button class="btn btn-default" ng-click="showMonthTotal(0)">Today</button>
+
+					<div class="btn-group">
+						<button class="btn btn-default" ng-click="showMonthTotal(-1)"><span class="glyphicon glyphicon-chevron-left"></span></button>
+						<button class="btn btn-default" ng-click="showMonthTotal(1)"><span class="glyphicon glyphicon-chevron-right"></span></button>
 					</div>
 				</div>
 			</div>
