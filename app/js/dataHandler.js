@@ -158,12 +158,26 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 	*/
 	this.updateEvents = function(calendar, resp){
-		var events = this.events;
+		var currentEvents = TimeTracker.getTestData();
 		var calendarCategory = calendar.category; //this doesn't get returned fast enough :(
 		//look at this when not super tired https://www.firebase.com/blog/2016-01-21-keeping-our-promises.html
 		//things to resolve: check which category the calendar has
 
-		TimeTracker.iterateData(resp, calendar.category);
+		var newEvents = [];
+
+		for(i in resp){
+			var newEvent = resp[i];
+			if(!existsInList(newEvent, currentEvents)){
+				newEvents.push(newEvent);
+				console.log("new event!");
+			}
+			else{
+				console.log("event already exists");
+			}
+		}
+
+
+		TimeTracker.iterateData(newEvents, calendar.category);
 		
 		//might make an addEvent-function later for this as it will be used in other contexts as well
 			
