@@ -10,7 +10,6 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 
 	if(!TimeTracker.getLoadedData()){
 		DataLoader.loadData();
-		TimeTracker.changeLoadedData();
 	}
 
 	$scope.categoryArray = TimeTracker.getCategories();		// list of categories

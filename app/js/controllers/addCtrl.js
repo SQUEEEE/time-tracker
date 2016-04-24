@@ -2,7 +2,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, 
 
 	if(!TimeTracker.getLoadedData()){
 		DataLoader.loadData();
-		TimeTracker.changeLoadedData();
+		
 	}
 	
 	$scope.categories = TimeTracker.getCategories();
