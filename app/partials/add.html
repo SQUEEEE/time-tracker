@@ -7,9 +7,9 @@
 		
       <div class="col-md-2"></div>
       <div class="col-md-4">
-        <div class="col-md-8">By using the stop watch you make a duration for the form to the right</div>
-        <span class="timer"><!--     Timer and timer buttons      -->
-          <timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}<br>
+        <div class="col-md-8">By using the stop watch you can set a duration for the form to the right</div>
+        <!--     Timer and timer buttons      -->
+          <timer autostart="false" interval="1000"><span class="timer">{{hhours}}:{{mminutes}}:{{sseconds}}</span><br>
 
     
             <button class="btn btn-default btn-md" ng-show="!timerRunning" ng-click="startTimer()" ng-disabled="timerRunning">
@@ -20,8 +20,9 @@
               <span class="glyphicon glyphicon-stop timerIcons"></span></button>
        
             <button class="btn btn-default btn-md" ng-hide="timerRunning || (!timeStarted)" ng-click="setTimer(hhours, mminutes, sseconds)">Set as duration</button>
+            <br><br><br>
           </timer>
-        </span>
+        
 
           
         <div class="col-md-2">
