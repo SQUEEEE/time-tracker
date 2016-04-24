@@ -1,4 +1,4 @@
-timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoader, DataHandler) {
+timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoader, DataHandler, DataLoader) {
 	/*
 		TO ADD:
 			something that gets information about a category
@@ -9,7 +9,7 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 	*/
 
 	if(!TimeTracker.getLoadedData()){
-		DataHandler.loadData();
+		DataLoader.loadData();
 		TimeTracker.changeLoadedData();
 	}
 

@@ -1,7 +1,7 @@
-timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, currentAuth) {
+timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, currentAuth, DataLoader) {
 
 	if(!TimeTracker.getLoadedData()){
-		DataHandler.loadData();
+		DataLoader.loadData();
 		TimeTracker.changeLoadedData();
 	}
 	

@@ -1,7 +1,7 @@
-timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
+timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker, DataLoader) {
 
     if(!TimeTracker.getLoadedData()){
-        DataHandler.loadData();
+        DataLoader.loadData();
         TimeTracker.changeLoadedData();
     }
     // names of all the categories
