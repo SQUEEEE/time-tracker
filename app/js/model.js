@@ -271,7 +271,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		else{
 			this.intern = false;
 		}
-		//console.log(this.intern)
 
 		if (this.logged==false){	//if not logged we have a black border
 			this.borderColor='black'; 
@@ -279,30 +278,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		else{
 			this.borderColor=this.color;
 		}
-
-
-		/*//to handle passing midnight events by splitting them by midnight, Recursion! <3
-		startNow = new Date(this.start);
-		endNow = new Date(this.end);
-
-
-		if(!(startNow.getDate() == endNow.getDate())){		//we need to handle it
-			start = new Date();
-			start.setDate(startNow.getDate()+1);	//start time for the new event is the next day
-			start.setHours(0, 0, 0);				//at midnight
-			
-			current.start = start;
-			current.end = this.end;
-			
-			eventObject = new EventClass(current, category, logged, dataList);	//creates a new event
-			
-			dataList.push(eventObject);				//and adds the new event to the data list
-			
-			updatedEnd = new Date();
-			updatedEnd.setDate(startNow.getDate());		//changes the end time for this current event to midnight at the day of the start date
-			updatedEnd.setHours(23,59,59);
-			this.end = updatedEnd;
-		}*/
 			
 		return this;
 	};
@@ -314,8 +289,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		current = {
 		   "kind": "calendar#event",
 		   "id": this.createID(),
-		   "created": Date.now(),	// date.now().toDateString() ?
-		   "updated": Date.now(),	// date.now() ?
+		   "created": Date.now(),	
+		   "updated": Date.now(),	
 		   "summary": name,
 		   "start": start,
 		   "end": end,
@@ -339,11 +314,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		while (true) {
 			bool=true;
 			//testID = "_"+id.toString();
-			//console.log("testID: ", testID);
 
 			for (i in data) {
 				if (data[i]._id == id) {
-					//console.log(data[i]._id)
 					bool = false;
 				}
 			}
