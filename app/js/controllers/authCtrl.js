@@ -15,8 +15,7 @@ timeTrackerApp.controller("authCtrl", function($scope, Auth, DataLoader, DataHan
 			scope: "calendar.readonly"
 		})
 
-		DataLoader.checkAuth();
-		DataLoader.handleAuthClick();
+		DataLoader.loadData();
 
 	}
 
