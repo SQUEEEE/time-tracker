@@ -132,7 +132,7 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
       console.log("Loading data!");
       this.checkAuth();
       this.handleAuthClick();
-      TimeTracker.changeLoadedDatat();
+      TimeTracker.changeLoadedData();
     }
 
 
