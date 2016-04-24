@@ -97,7 +97,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	}
 
 	this.setCalendars = function(calendars){
-		console.log("in setCategories");
 		calendarArray = calendars;
 	}
 
@@ -346,9 +345,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		}
 
 		//eventObject._id = (data.length+1)
-		console.log("data for new event:", eventObject);
+
 		data.push(eventObject);
-		console.log(data);
+
 		//autoReportAll();
 		return eventObject;
 	};
@@ -396,7 +395,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 			data.push(eventObject);
 		}
 		//data.push(iteratedData);
-		console.log("data:", data);
+	
 		autoReportAll();
 		//return data;
 	};
@@ -448,7 +447,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	
 	//returns the data
 	this.getTestData = function() {
-		console.log("in getTestData()");
+
 		return data;
 	};
 
@@ -463,7 +462,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	this.setCategories = function(categories){
 		//for setting the categories from the firebase
-		console.log("in setCategories");
 		categoryArray = categories;
 	}
 	// returns all category names in a list
@@ -905,22 +903,13 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		return objList;
 	}
 	
-
-	this.initiateData = function(){	//SLÄNG
-		//this.iterateData();
-		//this.createTestCalendarArray();
-		//this.autoReportAll();
-	}
-
-
 	this.setEventData = function(events){
-		console.log("setting eventdata")
+
 		data = events;
 		//autoReportAll();
 	}
 
 	this.getSyncedCalendars = function(){
-		console.log("getting synced calendars from TimeTracker");
 		var toSync = [];
 
 		for(i in calendarArray){

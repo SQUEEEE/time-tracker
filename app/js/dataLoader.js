@@ -31,7 +31,6 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
       //var authorizeDiv = document.getElementById('authorize-div');
       if (authResult && !authResult.error) {
         //see if something can be done here to omit the firebase authentication
-        console.log("Authorization works");
 
         //load the userID and then call the function that loads the api
         gapi.client.load('oauth2','v2',function(){
@@ -42,10 +41,7 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
           });
         });
           
-      } else {
-        
-       console.log("Authorization didn't work");
-      }
+      } 
     }
 
     //load the calendar api and call the function that gets the data
@@ -68,7 +64,6 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
 
       request.execute(function(resp) {
         var calendars = resp.items;
-        console.log(calendars);
 
         DataHandler.updateCalendars(calendars);
         /*
@@ -77,12 +72,7 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
           TimeTracker-specific data.
         */
 
-
-
-      
-
-
-        //calendars to get events from - change to TimeTracker-data
+        //calendars to get events from
 
         calendarsToSync = TimeTracker.getSyncedCalendars();
 
@@ -93,10 +83,10 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
 
         for(i in calendarsToSync){
           loadEvents(calendarsToSync[i]);
-          console.log("sync calendar ", calendarsToSync[i]);
+
         }
 
-        console.log("done with syncing");
+
         DataHandler.save(); // save everything to firebase once everything is loaded
 
        
@@ -110,7 +100,7 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
       check if you can do something here to specify if the events have changed since a specific time? - updateMin could be something useful
     */
     var loadEvents = function(calendar){
-      console.log("loading events from ", calendar.id);
+
       var request = gapi.client.calendar.events.list({
         'calendarId': calendar.id,
         //'timeMin': (new Date()).toISOString(),
@@ -123,14 +113,14 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
 
       request.execute(function(resp) {
         //call the DataHandler.updateEvents-function
-        console.log("response");
+
         DataHandler.updateEvents(calendar, resp.items);
 
       });
     }
 
     this.loadData = function(){
-      console.log("Loading data!");
+
       this.checkAuth();
       this.handleAuthClick();
       TimeTracker.changeLoadedData();
