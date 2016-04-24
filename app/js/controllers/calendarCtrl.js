@@ -22,7 +22,8 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
 
         $scope.modalEvent = calEvent;
         TimeTracker.changeLoggedStatus(calEvent);
-        $('#calendar').fullCalendar('refetchEvents');         
+        $('#calendar').fullCalendar('refetchEvents');   
+        DataHandler.save();      
 
         return calEvent;
 	}
@@ -30,7 +31,8 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
     $scope.changeAutoReport = function(calEvent) {
         $scope.modalEvent = calEvent;
         TimeTracker.changeEventAutoReport(calEvent);
-        $('#calendar').fullCalendar('refetchEvents');           
+        $('#calendar').fullCalendar('refetchEvents'); 
+        DataHandler.save();          
     }
 
 
@@ -49,14 +51,16 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
             $scope.modalEvent = calEvent;
 
             TimeTracker.changeCategory(calEvent);
-            $('#calendar').fullCalendar('refetchEvents');       
+            $('#calendar').fullCalendar('refetchEvents');
+            DataHandler.save();       
         }
     }
 
     $scope.deleteEvent = function(calEvent){
         $scope.modalEvent = calEvent;
         TimeTracker.deleteEvent(calEvent);
-        $('#calendar').fullCalendar('refetchEvents');          
+        $('#calendar').fullCalendar('refetchEvents'); 
+        DataHandler.save();         
     }
 
     $scope.hideEvent = function(calEvent){
@@ -68,7 +72,8 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
         calEvent.hidden = true;
         $scope.modalEvent = calEvent;
         TimeTracker.hideEvent(calEvent);
-        $('#calendar').fullCalendar('refetchEvents');           
+        $('#calendar').fullCalendar('refetchEvents');  
+        DataHandler.save();         
     }
 
     $scope.unHideEvent = function(calEvent){
@@ -95,7 +100,8 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
         calEvent = $scope.logOrNotLog(calEvent);
         $scope.modalEvent = calEvent;
         TimeTracker.hideEvent(calEvent);
-        $('#calendar').fullCalendar('refetchEvents');           
+        $('#calendar').fullCalendar('refetchEvents'); 
+        DataHandler.save();          
     }
      
      
@@ -118,6 +124,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
         
 
         TimeTracker.updateTime(event, startDate, endDate);
+        DataHandler.save();
     };
      
      

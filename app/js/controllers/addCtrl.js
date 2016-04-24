@@ -1,6 +1,6 @@
 
 
-timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) {
+timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, currentAuth) {
 	
 	$scope.categories = TimeTracker.getCategories();
 	$scope.timerRunning = false;	// bool if timer is running
@@ -172,7 +172,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		
 			$scope.modalEvent = TimeTracker.addNewEvent($scope.name.title, start, end, $scope.category);	
 	        $('#popUpModal').modal();                     //starts the modal box
-
+	        DataHandler.save();
 	        return false;
     	}
     	else{
