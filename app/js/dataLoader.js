@@ -112,10 +112,9 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
       var request = gapi.client.calendar.events.list({
         'calendarId': calendar.id,
         //'timeMin': (new Date()).toISOString(),
-        'timeMin': (new Date(2016,4,1)).toISOString(),
+        'timeMin': (new Date(2016,1,1)).toISOString(),
         'showDeleted': false,
         'singleEvents': true,
-        'maxResults': 10,
         'orderBy': 'startTime',
         'fields': 'items(end,id,start,summary,updated)'
       });
