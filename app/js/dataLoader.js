@@ -10,6 +10,7 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
        * Check if current user has authorized this application.
        */
     this.checkAuth = function () {
+
         gapi.auth.authorize(
           {
             'client_id': CLIENT_ID,
@@ -130,9 +131,9 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
 
     this.loadData = function(){
       console.log("Loading data!");
-      //this.checkAuth();
-      //this.handleAuthClick();
-      //TimeTracker.changeLoadedData();
+      this.checkAuth();
+      this.handleAuthClick();
+      TimeTracker.changeLoadedData();
     }
 
 
