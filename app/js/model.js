@@ -275,6 +275,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 				calendarArray[index].sync == calendar.sync;
 			}
 		}
+
 	}
 
 
@@ -946,8 +947,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	}
 
 	this.addCalendar = function(calendar){
-		//adds calendar from google-response
-		calendarArray.push(this.createCalendar(calendar.id, calendar.summary, null, false));
+		//adds calendar from google-response - defaults to sync and no category
+		calendarArray.push(this.createCalendar(calendar.id, calendar.summary, categoryArray[1], true));
 	}
 
 	return this;

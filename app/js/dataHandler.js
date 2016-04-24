@@ -213,9 +213,25 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 	this.save = function(){
 		console.log("saving TimeTracker data to Firebase")
-		this.testCategories.set(TimeTracker.getCategories()); 
-		this.testCalendars.set(TimeTracker.getTestCalendars()); 
-		this.testEvents.set(TimeTracker.getTestData()); 
+		/*console.log("TESTING...Data as is:", TimeTracker.getCategories());
+		var data = angular.toJson(TimeTracker.getCategories());
+		console.log("TESTING...angular.toJson:", data);
+		var data2 = angular.fromJson(data);
+		console.log("TESTING...angular.fromJson:", data2)*/
+
+		//console.log("TESTING...cleanUp():", cleanUp(TimeTracker.getCategories()));
+
+		this.testCategories.set(cleanUp(TimeTracker.getCategories())); 
+		this.testCalendars.set(cleanUp(TimeTracker.getTestCalendars())); 
+		this.testEvents.set(cleanUp(TimeTracker.getTestData())); 
+	}
+
+	/*
+		helper function to cleanUp angular-specific keys when saving data to firebase
+	*/
+	var cleanUp = function(data){
+		var newData = angular.fromJson(angular.toJson(data));
+		return newData;
 	}
 
 	this.setTimeTrackerData = function(){
@@ -230,6 +246,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			
 			//if the firebase was empty, we set the data to an empty array 
 			res = snapshot.val();
+			console.log("LOOK HERE", res);
 			if(res===null){
 				res = [];
 			}
