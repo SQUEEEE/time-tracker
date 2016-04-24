@@ -235,6 +235,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
           right: 'today prev,next',
           prev: 'left-single-arrow',
           next: 'right-single-arrow'
+          
         },
         allDaySlot: false,              //no all day events    
             defaultView: 'agendaWeek',      //a week with squares for the time slots
@@ -246,6 +247,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker) {
             axisFormat: 'HH(:mm)',
             timeFormat: 'HH:mm',
             columnFormat: 'ddd D/M',
+            titleFormat: 'D MMMM, YYYY',
 
         eventClick: $scope.eventClick,
         //dayClick: $scope.dayClick,

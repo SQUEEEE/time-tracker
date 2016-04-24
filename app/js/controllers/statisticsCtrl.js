@@ -72,7 +72,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
     };
 
 
-	// stats for categories percentage 
+	// stats for all categories total percentage 
     $scope.showCategories = function() {
         return Highcharts.chart('stat', {
             chart: {
@@ -109,7 +109,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         });
     }
 
-    // stats for categories percentage 
+    // stats for one weeks categories percentage 
     $scope.showWeekPercentage = function(whichWeek) {
 
         if (whichWeek == 0) {
@@ -117,9 +117,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         }
         else {
             $scope.week += whichWeek;
-           // console.log("scope.week", $scope.week);
         }
-
 
         return Highcharts.chart('stat', {
             chart: {
@@ -207,8 +205,9 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         }
         else {
             $scope.week += whichWeek;
-            //console.log("scope.week", $scope.week);
         }
+
+        start, end = $scope.titleDates($scope.week);
 
 
         Highcharts.setOptions({
@@ -221,7 +220,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                 type: 'column'
             },
             title: {
-                text: 'Weekly overview'
+                text: start + ' - ' + end
             },
             credits: {
                 enabled: false
@@ -270,6 +269,31 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
 
         return months[titleMonth%12];
     }
+
+    $scope.titleDates = function(whichWeek) {
+    
+        now = new Date();
+        year = now.getFullYear();
+        month = now.getMonth();
+        day = now.getDate();
+        weekday = now.getDay();
+
+        if (weekday == 0) { // since sunday returns 0 from getDay()
+            weekday = 7;
+        }
+        
+        startDate = new Date (year, month, day-weekday+1+(7*whichWeek), 0, 0, 0, 0);
+        startMs = startDate.getTime();
+
+        ms = 6 * 86400000;
+        endDate = new Date(startMs + ms);
+
+        start = startDate.toDateString();
+        end = endDate.toDateString();
+
+        return start, end;
+    }
+
 
     // stats for current week
     $scope.showMonth = function(whichMonth) {
