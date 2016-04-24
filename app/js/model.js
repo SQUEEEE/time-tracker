@@ -77,11 +77,11 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 				for (j in categoryArray) {
 					if (categoryArray[j].name == category.name){
 						for(e in data){
-							if(data[e].calender == calendarArray[i].id){
+							if(data[e].calenderId == calendarArray[i].id){
 								data[e].category = categoryArray[j].name;
 								data[e].color = categoryArray[j].color;
 								if (data[e].logged == true){
-									data[e].borderColor = category.color;
+									data[e].borderColor = categoryArray[j].color;
 								}
 							}
 						}
