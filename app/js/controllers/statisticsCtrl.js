@@ -233,7 +233,8 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                     formatter: function () {
                         return Highcharts.dateFormat('%a %e %b', this.value);
                     },
-                }
+                },
+                crosshair: true
             },
             yAxis: {
                 min: 0,
@@ -256,16 +257,31 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         });
     };
 
+    $scope.titleMonth = function() {
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        now = new Date;
+        thisMonth = now.getMonth();
+        titleMonth = thisMonth + $scope.month;
+
+        if (titleMonth < 0) {
+            titleMonth = 12+titleMonth;
+        }
+
+        return months[titleMonth%12];
+    }
+
     // stats for current week
     $scope.showMonth = function(whichMonth) {
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
         if (whichMonth == 0) {
             $scope.month = 0;
         }
         else {
             $scope.month += whichMonth;
-            //console.log("scope.month", $scope.month);
         }
+        title = $scope.titleMonth();
         
 
         Highcharts.setOptions({
@@ -278,7 +294,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                 type: 'column'
             },
             title: {
-                text: 'Monthly overview'
+                text: title + ' overview'
             },
             credits: {
                 enabled: false
@@ -290,7 +306,8 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                     formatter: function () {
                         return Highcharts.dateFormat('%a %e %b', this.value);
                     },
-                }
+                },
+                crosshair: true
             },
             yAxis: {
                 min: 0,
@@ -321,8 +338,9 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         }
         else {
             $scope.month += whichMonth;
-            //console.log("scope.month", $scope.month);
         }
+
+        title = $scope.titleMonth();
 
         return Highcharts.chart('stat', {
             chart: {
@@ -332,7 +350,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
                 type: 'pie'
             },
             title: {
-                text: 'Monthly percentage'
+                text: title + ' percentage'
             },
             credits: {
                 enabled: false
@@ -367,6 +385,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         else {
             $scope.month += whichMonth;
         }
+        title = $scope.titleMonth();
 
         return Highcharts.chart('stat', {
         chart: {
@@ -376,7 +395,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             enabled: false
         },
         title: {
-            text: 'Logged hours during one month'
+            text: 'Logged hours during ' + title
         },
         xAxis: {
             categories: $scope.categoryNames,
@@ -404,12 +423,17 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
 
     $scope.showYear = function(whichYear) {
 
-        if (whichYear== 0) {
+        if (whichYear == 0) {
             $scope.year = 0;
         }
         else {
             $scope.year += whichYear;
         }
+
+        now = new Date;
+        thisYear = now.getFullYear();
+        titleYear = thisYear + $scope.year;
+
     
         return Highcharts.chart('stat', {
         chart: {
@@ -419,7 +443,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
             enabled: false
         },
         title: {
-            text: 'One year'
+            text: titleYear
         },
         xAxis: {
             categories: [

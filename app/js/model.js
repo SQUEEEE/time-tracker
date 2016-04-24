@@ -1070,7 +1070,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		startMs = startDate.getTime();
 		endMs = startMs;
 
-		//console.log(daysInMonth[(month+whichMonth)%12]);
 		newMonth = (month+whichMonth)%12;
 
 
@@ -1109,7 +1108,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			dataList = [];
 			for (j = 0; j < 12; j++) {
 
-				startDate = new Date(year, j, 1, 0, 0, 0, 0)
+				startDate = new Date(year + whichYear, j, 1, 0, 0, 0, 0)
 				startMs = startDate.getTime();
 				endMs = startMs;
 
