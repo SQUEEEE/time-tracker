@@ -1,20 +1,19 @@
+
+
+<perfect-scrollbar class="scroller" wheel-propagation="true" scroll.padding="15" wheel-speed="5" include-padding='true'>
 <div class="container" id="calendarView">
 	<br>
 	<div class="col-md-12">
 		<span class="mediumTitle">Calendar</span><hr> <!-- the title -->
 	</div>
-
     <html lang="en" ng-app="myCalendarApp" id="top">
-    <center>
-    <div class="calendar" id="calendar" ng-model="eventSources" ng-change="uiConfig.calendar" calendar="myCalendar" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
-    </center>
-    <!--<center><div id='calendar'></center> the calendar inserts here -->
-    <!--</div>--> 
-	
-
-</html>
+        <center>
+            <div class="calendar" id="calendar" ng-model="eventSources" ng-change="uiConfig.calendar" calendar="myCalendar" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+        </center>
+    </html>
+    
 </div>
-</div>
+</perfect-scrollbar>
 
 
 <div id="fullCalModal" class="modal fade">

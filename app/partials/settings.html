@@ -2,11 +2,11 @@
 <br>
 	
 	<div class="col-md-6">
-
+		
 		<span class="mediumTitle">Calendars</span>
 		
 		<hr>
-		<div class="wrapper">
+		<perfect-scrollbar class="scroller" wheel-propagation="true" scroll.padding="15" wheel-speed="5" include-padding='true' suppressScrollX="true">
 
 
 		<button class="btn btn-default" ng-click="updateCalendars()">Update calendars</button>
@@ -70,9 +70,12 @@
 					</div>
 				</div>
   			</div>
-		</div></div>
-
-	</div>
+		</div>
+		
+		</perfect-scrollbar>
+		</div>
+		
+	
 
 
 	<!-- <button type="button" id="listSettings" class="list-group-item">-->
@@ -80,7 +83,8 @@
 	<div class="col-md-6">
 		<span class="mediumTitle">Categories</span>
 		<hr>
-		<div class="wrapper">
+		<perfect-scrollbar class="scroller" wheel-propagation="true" scroll.padding="15" wheel-speed="5" include-padding='true' suppressScrollX="true">
+		
 
 		<form class="form-inline" role="form">
             <div class="form-group">
@@ -192,7 +196,9 @@
 
 
 		
-	</div></div>
+	</div>
+	</perfect-scrollbar>
+	</div>
 
 </div>
 
