@@ -1,3 +1,5 @@
+
+
 timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) {
 	
 	$scope.categories = TimeTracker.getCategories();
@@ -65,17 +67,25 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 
 
 //ALL THE ERROR HANDLING FUNCTIONS
+	
 
 	$scope.checkDuration = function(){	//checks validity for the duration
+		console.log($scope.hour)
+		console.log($scope.minute)
+		console.log($scope.second)
 		if($scope.hour>=0 && $scope.minute>=0 && $scope.second>=0){
 			if($scope.hour>0 || $scope.minute>0 || $scope.second>0){
 				$scope.duration = true;
+				console.log("duration is true")
 			}
 			else{
+				
+				console.log("duration är inte skrivet i någon av dem")
 				$scope.duration = false;
 			}
 		}
 		else{
+			console.log("duration, något är mindre än noll")
 			$scope.duration = false;
 		}
 
@@ -84,6 +94,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.checkDate = function(){	//checks validity for the date
 		if($scope.year>=2000 && $scope.year<2200 && $scope.month>0 && $scope.month<=12 && $scope.day>0 && $scope.day<=$scope.getNumberOfDays()){
 			$scope.date = true;
+			console.log("date is true")
 		}
 		else{
 			$scope.date = false;
@@ -93,6 +104,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	$scope.checkStart = function(){	//checks validity for the starttime
 		if($scope.startHour>=0 && $scope.startHour<24 && $scope.startMinute>=0 && $scope.startMinute<60){
 			$scope.start = true;
+			console.log("start is true")
 		}
     	else{
     		$scope.start = false;
@@ -105,6 +117,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
     	$scope.checkDate();
     	$scope.checkStart();
     	if($scope.duration && $scope.date && $scope.start && $scope.name.length>0 && $scope.name!=null){
+    		console.log("everything is great")
     		$scope.pressButton = true;
     	}
     	else{
@@ -172,8 +185,10 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 
 	//adds a new event by calling addnewevent in the model with the times from the form
 	$scope.addNewEvent = function() {
+		console.log("in new event")
 		$scope.checkEverything();
 		if($scope.pressButton){
+			console.log("pressButton is true")
 			start = new Date($scope.year, $scope.month-1, $scope.day, $scope.startHour, $scope.startMinute);
 			startMilli = start.getTime();
 
@@ -187,6 +202,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	        return false;
     	}
     	else{
+    		console.log("pressButton is false")
     		return true;
     	}	
     

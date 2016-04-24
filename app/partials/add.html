@@ -3,7 +3,7 @@
 	<div class="col-md-12">
 		<span class="mediumTitle">Add - by using the stop watch or manually</span><hr><br>
 
-  <!--<perfect-scrollbar class="scroller" wheel-propagation="true" wheel-speed="5" include-padding='true'>-->
+  
 		
       <div class="col-md-2"></div>
       <div class="col-md-4">
@@ -33,8 +33,8 @@
       </div>
 
 
-
-      <div class="col-md-4" >
+      <perfect-scrollbar class="scroller" wheel-propagation="true" scroll.padding="15" wheel-speed="5" include-padding='true'>
+      <div class="col-md-7" > <!-- 7 -->
 
 		<!--     Timer and timer buttons      -->
 		        
@@ -57,15 +57,15 @@
           <div class ="form-group">
 				    <div class="col-xs-4">
               <label for="hour">Hour:</label>
-              <input class="form-control" ng-model="hour" type="number" name="hour" min="0" placeholder="0" ng-required="!(hour>0 || minute>0 || second>0)"/>
+              <input class="form-control" ng-model="hour" type="number" name="hour" min="0" placeholder="0"/>
 				    </div>
 				    <div class="col-xs-4">
               <label for="minute">Minute:</label>
-              <input class="form-control" ng-model="minute" name="minute" type="number" min="0" max="59" placeholder="0" ng-required="!(hour>0 || minute>0 || second>0)" />
+              <input class="form-control" ng-model="minute" name="minute" type="number" min="0" max="59" placeholder="0" />
 				    </div>
 				    <div class="col-xs-4">
               <label for="second">Sec:</label>
-              <input class="form-control" ng-model="second" name="second" type="number" min="0" max="59" placeholder="0" ng-required="!(hour>0 || minute>0 || second>0)"/>
+              <input class="form-control" ng-model="second"  name="second" type="number" min="0" max="59" placeholder="0" />
 				    </div>
           </div>
 
@@ -124,14 +124,14 @@
           <div ng-show="(startHour>=0 && startHour<24 && startMinute>=0 && startMinute<60 && startHour!=null && startMinute!=null) && pressButton"><br></div>
           <br><br>
 
-          <button class="btn btn-default btn" type="submit" ng-click="addNewEvent()">Create event</button>
+          <button class="btn btn-default btn" type="submit" ng-click="addNewEvent()">Create event</button><br><br><br>
 
 
 
 				
 				</form>
 			</div>
-      <!--</perfect-scrollbar>-->
+      </perfect-scrollbar>
 	   </div>
     <div class="col-md-2"></div>
 </div>
