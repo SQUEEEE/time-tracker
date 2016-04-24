@@ -1,8 +1,8 @@
-timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, currentAuth) {
+timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, currentAuth, DataLoader) {
 
 	if(!TimeTracker.getLoadedData()){
-		DataHandler.loadData();
-		TimeTracker.changeLoadedData();
+		DataLoader.loadData();
+		
 	}
 	
 	$scope.categories = TimeTracker.getCategories();
