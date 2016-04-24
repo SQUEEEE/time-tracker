@@ -16,6 +16,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 
 	var calendarArray = [];
+	var categoryArray = [];
 
 		// generates a new ID to use for an event
 	this.createID = function() {
@@ -243,7 +244,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	}
 
 
-	var categoryArray = [new CategoryClass("Undefined", true, this.colorsWithoutDublett(null)), new CategoryClass("KTH", true, this.colorsWithoutDublett(null)), new CategoryClass("Work", true, this.colorsWithoutDublett(null)), new CategoryClass("Other", true, this.colorsWithoutDublett(null))];	//the real list of categories
+	//var categoryArray = [new CategoryClass("Undefined", true, this.colorsWithoutDublett(null)), new CategoryClass("KTH", true, this.colorsWithoutDublett(null)), new CategoryClass("Work", true, this.colorsWithoutDublett(null)), new CategoryClass("Other", true, this.colorsWithoutDublett(null))];	//the real list of categories
 
 
 	/*****Eventclass **/
