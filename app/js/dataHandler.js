@@ -193,7 +193,19 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, TimeTracker){
 		console.log("saving TimeTracker data to Firebase")
 		this.testCategories.set(TimeTracker.getCategories()); 
 		this.testCalendars.set(TimeTracker.getTestCalendars()); 
-		this.testEvents.set(TimeTracker.getTestData()); //this needs to overwrite and not add
+		this.testEvents.set(TimeTracker.getTestData()); 
+	}
+
+	this.getData = function(){
+		console.log("getting TimeTracker data from Firebase");
+
+
+		this.testCategories.once("value", function(snapshot){
+			console.log("Firebase data:", snapshot.val());
+			console.log("TimeTracker data:", TimeTracker.getCategories());
+			
+		});
+
 	}
 
 	return this;

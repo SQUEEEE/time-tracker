@@ -91,6 +91,7 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
         }
 
         DataHandler.save();
+        DataHandler.getData();
        
       });
 
