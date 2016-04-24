@@ -1,6 +1,9 @@
-
-
 timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, currentAuth) {
+
+	if(!TimeTracker.getLoadedData()){
+		DataHandler.loadData();
+		TimeTracker.changeLoadedData();
+	}
 	
 	$scope.categories = TimeTracker.getCategories();
 	$scope.timerRunning = false;	// bool if timer is running

@@ -8,6 +8,10 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 
 	*/
 
+	if(!TimeTracker.getLoadedData()){
+		DataHandler.loadData();
+		TimeTracker.changeLoadedData();
+	}
 
 	$scope.categoryArray = TimeTracker.getCategories();		// list of categories
 	//$scope.categoryArray = DataHandler.categories; //use the categories from the firebase! :D

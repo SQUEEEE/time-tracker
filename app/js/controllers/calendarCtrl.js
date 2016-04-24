@@ -1,5 +1,10 @@
 timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, DataHandler) {
 
+    if(!TimeTracker.getLoadedData()){
+        DataHandler.loadData();
+        TimeTracker.changeLoadedData();
+    }
+
 	$scope.testData = TimeTracker.getTestData();		//a list of data
 
     $scope.categoryNames = TimeTracker.getCategoryNames(); // names of the categories
