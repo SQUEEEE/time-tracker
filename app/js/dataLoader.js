@@ -19,7 +19,7 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
     }
 
 
-    this.handleAuthClick = function(event) {
+    this.handleAuthClick = function() {
       gapi.auth.authorize(
         {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
         handleAuthResult());
@@ -130,9 +130,9 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
 
     this.loadData = function(){
       console.log("Loading data!");
-      //this.checkAuth();
-      //this.handleAuthClick();
-      //TimeTracker.changeLoadedData();
+      this.checkAuth();
+      this.handleAuthClick();
+      TimeTracker.changeLoadedData();
     }
 
 
