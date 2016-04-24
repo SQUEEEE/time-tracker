@@ -143,6 +143,8 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
             		data[index].logged = false;
             		data[index].borderColor = 'black';
         		}
+
+        		this.autoReportAll();
 			}
 		}
 	}
