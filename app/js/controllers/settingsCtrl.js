@@ -1,13 +1,28 @@
-timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoader) {
+timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoader, DataHandler) {
+	/*
+		TO ADD:
+			something that gets information about a category
+
+		TO CHANGE:
+			make everything firebase-adjusted
+
+	*/
+
 
 	$scope.categoryArray = TimeTracker.getCategories();		// list of categories
+	//$scope.categoryArray = DataHandler.categories; //use the categories from the firebase! :D
 	$scope.calendarArray = TimeTracker.getTestCalendars();	// list of names of the calendars
+
+	//$scope.calendarArray = DataHandler.calendarList;
 	$scope.colors = TimeTracker.getAllColors();				// all colors available
 
 
 	$scope.showAutoReportInfo = false;		// bool to decide if info about auto report is shown or not
 	$scope.showSyncInfo = false;			// bool to decide if info about sync is shown or not
 
+	var save = function(){
+		DataHandler.save();
+	}
 	// creates a new category
 	$scope.newCategory = function(name, autoReport){
 		if (name != null && name != "") {
@@ -18,6 +33,10 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 			}
 
 			$scope.categoryArray.push(TimeTracker.createCategory(name, autoReport));
+
+			//console.log($scope.categoryArray)
+			save();
+
 		}
 	}
 
@@ -26,23 +45,26 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 		newColor = TimeTracker.colorsWithoutDublett(category);
 		category.color = newColor;
 		TimeTracker.changeColor(category);
-		
+		save();
 		
 	}
 
 	// removes a category
 	$scope.removeCategory = function(category) {
 		TimeTracker.removeCategory(category);
+		save();
 	}
 
 	// change if a category should be auto reported or not
 	$scope.changeAutoreport = function(category) {
 		TimeTracker.changeAutoReport(category);
+
 	}
 
 	// change if a category should be auto reported or not
 	$scope.changeSync = function(calendar) {
 		TimeTracker.changeSync(calendar);
+		save();
 	}
 
 	$scope.autoReportNow = function() {
@@ -71,5 +93,6 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 
 		console.log("test", TimeTracker.getTestData());
 	}
+
 
 });

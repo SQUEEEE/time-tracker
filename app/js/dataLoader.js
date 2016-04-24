@@ -1,5 +1,5 @@
 //model for auth
-timeTrackerApp.factory("DataLoader", function($http, DataHandler){
+timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
     
     var CLIENT_ID = '122923477419-e3s0kltaumck69gqfn8d0he948lhpd8q.apps.googleusercontent.com';
 
@@ -68,21 +68,23 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
 
       request.execute(function(resp) {
         var calendars = resp.items;
+        console.log(calendars);
 
+        DataHandler.updateCalendars(calendars);
         /*
           Call to a function in the 
           DataHandler that will only add new events and update the information with 
           TimeTracker-specific data.
         */
 
-       // DataHandler.updateCalendarList(calendars); 
 
-        //calendars to get events from
-        calendarsToSync = DataHandler.getSyncedCalendars();
 
-      //hard coding of calendars to sync 
-        //calendarsToSync = ["cl.styrelsen@gmail.com", "v6ek23rfiak5gaiq7e2qa8oegg@group.calendar.google.com", "squeeeetheswede@gmail.com"];
-        console.log("Sync the following", calendarsToSync);
+      
+
+
+        //calendars to get events from - change to TimeTracker-data
+
+        calendarsToSync = TimeTracker.getSyncedCalendars();
 
 
         /*
@@ -93,6 +95,9 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
           loadEvents(calendarsToSync[i]);
           console.log("sync calendar ", calendarsToSync[i]);
         }
+
+        //DataHandler.save();
+
        
       });
 
@@ -103,24 +108,23 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
       api request for events from a specific calendar
       check if you can do something here to specify if the events have changed since a specific time? - updateMin could be something useful
     */
-    var loadEvents = function(calendarId){
-      console.log("loading events from ", calendarId);
+    var loadEvents = function(calendar){
+      console.log("loading events from ", calendar.id);
       var request = gapi.client.calendar.events.list({
-        'calendarId': calendarId,
+        'calendarId': calendar.id,
         //'timeMin': (new Date()).toISOString(),
-        'timeMin': (new Date(2015,1,1)).toISOString(),
+        'timeMin': (new Date(2016,4,1)).toISOString(),
         'showDeleted': false,
         'singleEvents': true,
         'maxResults': 10,
-        'orderBy': 'startTime'
+        'orderBy': 'startTime',
+        'fields': 'items(end,id,start,summary,updated)'
       });
 
       request.execute(function(resp) {
-        console.log(resp);
-
         //call the DataHandler.updateEvents-function
 
-        DataHandler.updateEvents(calendarId, resp.items);
+        DataHandler.updateEvents(calendar, resp.items);
 
       });
     }

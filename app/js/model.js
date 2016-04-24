@@ -1,10 +1,8 @@
-timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
+timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	var data = []; // a list of events with the right attributes
 	//var dataIndex;
 
-	//var testData = DataHandler;
-	//console.log("test", DataHandler);
 
 	
 	var colors = ['lightblue', 'green', 'pink', 'AntiqueWhite', 'Aquamarine', 'CadetBlue', 'Chartreuse', 'Coral',
@@ -51,7 +49,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	}
 
 	
-	var testData = [			//a list of events imported from the api
+	/*var testData = [			//a list of events imported from the api
 	{
 	   "kind": "calendar#event",
 	   "etag": "\"2756392697640000\"",
@@ -253,28 +251,29 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	    "useDefault": true
 	   }
 	}
-	];
+	];*/
 
 
 	
 
 	/*********** Calendar class *************/
-	var CalendarClass = function(name, category, sync) {
+	var CalendarClass = function(id, name, category, sync) {
+		this.id = id;
 		this.name = name;
 		this.sync = sync;
 		this.category = category;
 	}
 	
 	// creates a new calendar object
-	this.createCalendar = function(name, category, sync) {
-		return new CalendarClass(name, category, sync);
+	this.createCalendar = function(id, name, category, sync) {
+		return new CalendarClass(id, name, category, sync);
 	}
 
 	this.createTestCalendarArray = function() {
-		calendarArray.push(this.createCalendar("KTH calendar", categoryArray[1], true));
-		calendarArray.push(this.createCalendar("Work calendar", categoryArray[2], true));
-		calendarArray.push(this.createCalendar("Other calendar", categoryArray[3], true));
-		calendarArray.push(this.createCalendar("Private calendar", null, false));
+		calendarArray.push(this.createCalendar("fakeID1", "KTH calendar", categoryArray[1], true));
+		calendarArray.push(this.createCalendar("fakeID2", "Work calendar", categoryArray[2], true));
+		calendarArray.push(this.createCalendar("fakeID3", "Other calendar", categoryArray[3], true));
+		calendarArray.push(this.createCalendar("fakeID4", "Private calendar", null, false));
 	}
 
 	this.changeCalendarCategory = function(calendar, category) {
@@ -297,6 +296,11 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		return calendarArray;
 	}
 
+	this.setCalendars = function(calendars){
+		console.log("in setCategories");
+		calendarArray = calendars;
+	}
+
 	// changes sync for a calendar
 	this.changeSync = function(calendar) {
 		for (index in calendarArray) {
@@ -304,6 +308,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 				calendarArray[index].sync == calendar.sync;
 			}
 		}
+
 	}
 
 
@@ -594,8 +599,11 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 	//creates "our" objects of all objects in the imported list
 	//can be used for automatic logging when a whole calendar should have the same category
-	var iterateData = this.iterateData = function(){
-		//var iteratedData = [];
+
+
+	var iterateData = this.iterateData = function(testData, category){
+		var iteratedData = [];
+
 		for(index in testData){
 			var current = testData[index];
 			randNum = Math.floor((Math.random() * categoryArray.length));
@@ -603,11 +611,13 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			current.end = end;
 			start = current.start.dateTime;
 			current.start = start;
-			var eventObject = new EventClass(current, categoryArray[randNum], false, data);
+
+			var eventObject = new EventClass(current, category, false, iteratedData);
+			iteratedData.push(eventObject);
 			data.push(eventObject);
 		}
-		//data = iteratedData;
-		//console.log("data:", data);
+		//data.push(iteratedData);
+		console.log("data:", data);
 		autoReportAll();
 		//return data;
 	};
@@ -660,6 +670,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	
 	//returns the data
 	this.getTestData = function() {
+		console.log("in getTestData()");
 		return data;
 	};
 
@@ -670,6 +681,12 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	// returns all categories
 	this.getCategories = function(){
 		return categoryArray;
+	}
+
+	this.setCategories = function(categories){
+		//for setting the categories from the firebase
+		console.log("in setCategories");
+		categoryArray = categories;
 	}
 	// returns all category names in a list
 	this.getCategoryNames = function(){
@@ -1034,7 +1051,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		return dataList;
 	}
 
-
 	// returns a list with logged time the current month
 	this.statMonthSeries = function(whichMonth) {
 		monthList = [];
@@ -1126,9 +1142,38 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 	}
 	
 
-	this.iterateData();
-	this.createTestCalendarArray();
-	this.autoReportAll();
+	this.initiateData = function(){
+		//this.iterateData();
+		//this.createTestCalendarArray();
+		//this.autoReportAll();
+	}
+
+
+	this.setEventData = function(events){
+		console.log("setting eventdata")
+		data = events;
+		//autoReportAll();
+	}
+
+	this.getSyncedCalendars = function(){
+		console.log("getting synced calendars from TimeTracker");
+		var toSync = [];
+
+		for(i in calendarArray){
+			cal = calendarArray[i];
+			//console.log(cal);
+			if(cal.sync){
+				toSync.push(cal);
+			}
+		}
+
+		return toSync;
+	}
+
+	this.addCalendar = function(calendar){
+		//adds calendar from google-response - defaults to sync and no category
+		calendarArray.push(this.createCalendar(calendar.id, calendar.summary, categoryArray[1], true));
+	}
 
 	return this;
 
