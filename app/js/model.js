@@ -357,9 +357,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 			if(data[index].id == calEvent.id){
 				//console.log(data[index].name)
 				data.splice(index, 1);
-
 			}
-
 		}
 	}
 
@@ -440,7 +438,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 				data[i].category = newName;
 			}
 		}
-
 	}
 	// change color for all events in one category when the category color has been changed
 	this.changeColor = function(category) {

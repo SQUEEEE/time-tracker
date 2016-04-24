@@ -15,7 +15,7 @@
 
 		<div class="row">
 		<div class="col-md-4"><span class="smallTitle">Your calendars</span></div>
-		<div class="col-md-2">Sync <a href="" class="glyphicon glyphicon-info-sign infoLink" ng-click="showSyncInfo = !showSyncInfo" style="height:5px;width:5px;"></a></div>
+		<div class="col-md-2"><center>Sync <a href="" class="glyphicon glyphicon-info-sign infoLink" ng-click="showSyncInfo = !showSyncInfo" style="height:5px;width:5px;"></a></center></div>
 		<div class="col-md-3">Category</div>
 		<div class="col-md-2">Edit</div>
 		</div>
@@ -31,9 +31,10 @@
   					<div class="col-md-4">{{calendar.name}}</div>
 
   					<div class="col-md-2">
-	  					<div class="checkbox-inline">
-			  				<label><input type="checkbox" ng-model="calendar.sync" ng-change="changeSync(calendar)"></label>
-						</div>
+  						<center>
+			  			<span ng-if="calendar.sync"><span class="glyphicon glyphicon-check"></span></span>
+		  				<span ng-if="!calendar.sync"><span class="glyphicon glyphicon-unchecked"></span></span>
+		  			</center>
 					</div>
 
   					<div class="col-md-3"><span class="btn btn-custom" disabled ng-attr-id="{{calendar.category.color}}"></span> {{calendar.category.name}} </div>
@@ -45,14 +46,28 @@
 
   				</li>
   				<div ng-show="edit">
-				<div class="well well-sm">
-					Change category:
-					
-						<select class='form-control' ng-model="selected" ng-options="choice.name for choice in categoryArray">
-            			<option value="">Select Category</option></select>
-
-            			<button class="btn btn-default" ng-click="saveCalendarChanges(calendar,selected)">Save</button>
-				</div>
+					<div class="well well-sm">
+						<div class="row">
+		  					<div class="col-md-4">
+								
+		            		</div>
+		            		<div class="col-md-2">
+		            			<center>Sync:<br>
+		            			<div class="checkbox-inline">
+					  				<label><input type="checkbox" ng-model="calendar.sync" ng-change="changeSync(calendar)"></label>
+					  			</div></center>
+					  		</div>
+					  		<div class="col-md-4">
+					  		Change category:
+							<div class="input-group">
+								<select class='form-control' style="width:240px;" ng-model="selected" ng-options="choice.name for choice in categoryArray">
+		            			<option value="">Select Category</option></select>
+		            			<span class="input-group-btn">
+		            			<button class="btn btn-default" ng-click="saveCalendarChanges(calendar,selected)">Save</button><span>
+		            		</div>
+		            		</div>
+				  		</div>
+					</div>
 				</div>
   			</div>
 		</div></div>
@@ -109,9 +124,10 @@
 						</div>
 						
 						<div class="col-md-2">
-							<center><div class="checkbox-inline">
-		  						<label><input type="checkbox" ng-model="category.autoReport" ng-change="changeAutoreport(category)"></label>
-							</div></center>
+							<center>
+		  						<span ng-if="category.autoReport"><span class="glyphicon glyphicon-check"></span></span>
+		  						<span ng-if="!category.autoReport"><span class="glyphicon glyphicon-unchecked"></span></span>
+							</center>
 						</div>
 
 						<div class="col-md-1">
