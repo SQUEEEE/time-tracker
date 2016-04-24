@@ -57,7 +57,7 @@
     "tag": "v2.6.1",
     "commit": "f4708da34c7b1207885290389202df6c4a59e4c1"
   },
-  "_source": "git://github.com/arshaw/fullcalendar.git",
+  "_source": "https://github.com/arshaw/fullcalendar.git",
   "_target": "2.6.1",
   "_originalSource": "fullcalendar"
 }

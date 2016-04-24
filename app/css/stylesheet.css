@@ -1,4 +1,18 @@
-
+.scroller {
+    white-space: pre-line;
+    /*height: 500px;*/
+    overflow-y: hidden;
+    position: relative;
+    /*overflow-y:scroll; */ 
+    overflow-x:hidden;
+    /*position:relative;*/
+    height: 60vh;
+    align: center;
+}
+#container {
+    position: relative;
+    height: 100%; /* Or whatever you want (eg. 400px) */
+  }
 /*********** TITLES ************/
 
 .mediumTitle {
@@ -42,13 +56,14 @@
 	font-size: 50px;
 }
 
+/*
 .wrapper{ 
     overflow-y:scroll; 
     overflow-x:hidden;
     position:relative;
     height: 60vh;
     align: center;
-}
+}*/
 
 
 /*********** SETTINGS ************/

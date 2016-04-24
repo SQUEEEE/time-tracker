@@ -9,9 +9,16 @@
     "Eileen Li (https://github.com/eileen3)",
     "Tommy Brunn (https://github.com/Nevon)",
     "Giovanni Pellerano (https://github.com/evilaliv3)",
-    "Rahma Sghaier (https://twitter.com/sghaierrahma)"
+    "Rahma Sghaier (https://twitter.com/sghaierrahma)",
+    "Evgenios Kastanias (https://github.com/evgenios)",
+    "Oleksii Mylotskyi (https://github.com/spalax)",
+    "Matthew Brandly (https://github.com/brandly)",
+    "Patrik Simek (https://github.com/patriksimek)",
+    "Toni Helminen (https://github.com/tonihelminen)",
+    "Vidmantas Drasutis (https://github.com/drasius2)",
+    "Manh Tuan (https://github.com/J2TeaM)"
   ],
-  "version": "2.8.0",
+  "version": "3.7.0",
   "description": "Convert millisecond durations to English and many other languages.",
   "main": "humanize-duration.js",
   "homepage": "https://github.com/EvanHahn/HumanizeDuration.js",
@@ -26,7 +33,7 @@
     "years",
     "months"
   ],
-  "license": "WTFPL",
+  "license": "Unlicense",
   "ignore": [
     "**/.*",
     "node_modules",

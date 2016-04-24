@@ -2,38 +2,47 @@
 	<br>
 	<div class="col-md-12">
 		<span class="mediumTitle">Add - by using the stop watch or manually</span><hr><br>
-		<div class="wrapper"><div class="col-md-2"></div>
-        <div class="col-md-4">
-      <div class="col-md-8">By using the stop watch you make a duration for the form to the right</div>
-      <span class="timer"><timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}<br></span>
+
+  <!--<perfect-scrollbar class="scroller" wheel-propagation="true" wheel-speed="5" include-padding='true'>-->
+		
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <div class="col-md-8">By using the stop watch you make a duration for the form to the right</div>
+        <span class="timer">
+          <timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}<br>
 
     
-      <button class="btn btn-default btn-md" ng-show="!timerRunning" ng-click="startTimer()" ng-disabled="timerRunning"><span class="glyphicon glyphicon-play timerIcons"></span></button>
-          <button class="btn btn-default btn-md" ng-show="timerRunning" ng-click="pauseTimer()" ng-disabled="!timerRunning"><span class="glyphicon glyphicon-pause timerIcons"></span></button>
-          <button class="btn btn-default btn-md" ng-disabled="timerRunning" ng-click="resetTimer()"><span class="glyphicon glyphicon-stop timerIcons"></span></button>
+            <button class="btn btn-default btn-md" ng-show="!timerRunning" ng-click="startTimer()" ng-disabled="timerRunning">
+              <span class="glyphicon glyphicon-play timerIcons"></span></button>
+            <button class="btn btn-default btn-md" ng-show="timerRunning" ng-click="pauseTimer()" ng-disabled="!timerRunning">
+              <span class="glyphicon glyphicon-pause timerIcons"></span></button>
+            <button class="btn btn-default btn-md" ng-disabled="timerRunning" ng-click="resetTimer()">
+              <span class="glyphicon glyphicon-stop timerIcons"></span></button>
        
-          <button class="btn btn-default btn-md" ng-hide="timerRunning || (!timeStarted)" ng-click="setTimer(hhours, mminutes, sseconds)">Set as duration</button>
-          </timer><br><br>
-          <br><br>
-          <div class="col-md-2">
-          </div>
-          <div class="col-md-8">
-          <button class="btn btn-success btn-lg" type="submit" ng-click="addNewEvent()" data-loading-text="Submitting...">Create event</button></span><br><br>
-          </div>
+            <button class="btn btn-default btn-md" ng-hide="timerRunning || (!timeStarted)" ng-click="setTimer(hhours, mminutes, sseconds)">Set as duration</button>
+          </timer>
+        </span>
 
+          
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+          <button class="btn btn-success btn-lg" type="submit" ng-click="addNewEvent()" data-loading-text="Submitting...">Create event</button>
         </div>
 
+      </div>
 
 
-        <div class="col-md-4" >
+
+      <div class="col-md-4" >
 
 		<!--     Timer and timer buttons      -->
 		        
-        	<form name="form" class="css-form" novalidate>
+        <form name="form" class="css-form" novalidate>
 
           Category:
-              <select class='form-control' id="categorySelector" ng-model="category" ng-change="selectCategory(category)" ng-options="choice.name for choice in categories">
-              </select><br><br>
+          <select class='form-control' id="categorySelector" ng-model="category" ng-change="selectCategory(category)" ng-options="choice.name for choice in categories">
+          </select><br><br>
 
         	Title:
         	<input class="form-control" ng-model="name" name="name" type="text" required="" />
@@ -41,39 +50,35 @@
         	<div ng-show="(name.length<1 || name == null) && !pressButton"> <!-- if there is no name written -->
       			<span style="color:red;">Please choose a title for the event</span>
     		  </div>
-            <br>
+          <br>
           
           
+          Duration:
+          <div class ="form-group">
+				    <div class="col-xs-4">
+              <label for="hour">Hour:</label>
+              <input class="form-control" ng-model="hour" type="number" name="hour" min="0" placeholder="0" ng-required="!(hour>0 || minute>0 || second>0)"/>
+				    </div>
+				    <div class="col-xs-4">
+              <label for="minute">Minute:</label>
+              <input class="form-control" ng-model="minute" name="minute" type="number" min="0" max="59" placeholder="0" ng-required="!(hour>0 || minute>0 || second>0)" />
+				    </div>
+				    <div class="col-xs-4">
+              <label for="second">Sec:</label>
+              <input class="form-control" ng-model="second" name="second" type="number" min="0" max="59" placeholder="0" ng-required="!(hour>0 || minute>0 || second>0)"/>
+				    </div>
+          </div>
 
-	        Duration:
-			<div class ="form-group">
-				<div class="col-xs-4">
-					<label for="hour">Hour:</label>
-					<input class="form-control" ng-model="hour" type="number" name="hour" min="0" placeholder="0" ng-required="!(hour>0 || minute>0 || second>0)"/>
-				</div>
-				<div class="col-xs-4">
-					<label for="minute">Minute:</label>
-					<input class="form-control" ng-model="minute" name="minute" type="number" min="0" max="59" placeholder="0" ng-required="!(hour>0 || minute>0 || second>0)" />
-				</div>
-				<div class="col-xs-4">
-					<label for="second">Sec:</label>
-					<input class="form-control" ng-model="second" name="second" type="number" min="0" max="59" placeholder="0" ng-required="!(hour>0 || minute>0 || second>0)"/>
-				</div>
-			</div>
-			<div ng-show="!(hour>=0 && minute>=0 && second>=0 && (hour>0 || $scope.minute>0 || $scope.second>0)) && !pressButton"> <!-- if the duration is not valid -->
+          <div ng-show="!(hour>=0 && minute>=0 && second>=0 && (hour>0 || minute>0 || second>0)) && !pressButton"> <!-- if the duration is not valid -->
       			<span style="color:red;">Choose a duration for the event or use the stop watch</span>
-    	</div>
-       <div ng-show="!(hour>=0 && minute>=0 && second>=0 && (hour>0 || $scope.minute>0 || $scope.second>0)) && pressButton"><br></div>
-          <div ng-show="(hour>=0 && minute>=0 && second>=0 && (hour>0 || $scope.minute>0 || $scope.second>0)) && !pressButton"><br></div>
-          <div ng-show="(hour>=0 && minute>=0 && second>=0 && (hour>0 || $scope.minute>0 || $scope.second>0)) && pressButton"><br></div>
-      <br><br>
-      <!--<div ng-show="pressButton"><br></div>-->
-      
-        
-			<!--<br><br><br>-->
-       		<!--  <input class="form-control" ng-model="date"/><br> type="date" -->
+    	     </div>
+          <div ng-show="!(hour>=0 && minute>=0 && second>=0 && (hour>0 || minute>0 || second>0)) && pressButton"><br></div>
+          <div ng-show="(hour>=0 && minute>=0 && second>=0 && (hour>0 || minute>0 || second>0)) && !pressButton"><br></div>
+          <div ng-show="(hour>=0 && minute>=0 && second>=0 && (hour>0 || minute>0 || second>0)) && pressButton"><br></div>
+          <br><br>
+
 			
-			Date:<br>
+			     Date:<br>
        		<div class ="form-group">
        			<div class="col-xs-4">
        				<label for="year">Year:</label>
@@ -92,25 +97,25 @@
       			<div style="color:red;">Choose a real date between year 2000 and 2200</div>
     		</div>
         <div ng-show="!(year>=2000 && year<2200 && month>0 && month<=12 && day>0 && day<=getNumberOfDays()) && pressButton"><br></div>
-          <div ng-show="(year>=2000 && year<2200 && month>0 && month<=12 && day>0 && day<=getNumberOfDays()) && !pressButton"><br></div>
-          <div ng-show="(year>=2000 && year<2200 && month>0 && month<=12 && day>0 && day<=getNumberOfDays()) && pressButton"><br></div>
+        <div ng-show="(year>=2000 && year<2200 && month>0 && month<=12 && day>0 && day<=getNumberOfDays()) && !pressButton"><br></div>
+        <div ng-show="(year>=2000 && year<2200 && month>0 && month<=12 && day>0 && day<=getNumberOfDays()) && pressButton"><br></div>
         <br><br>
-        <!--<div ng-show="pressButton"></div>-->
+
     		
         	
 
         	Start time:<br>
-        	<!-- <input class="form-control" ng-model="startTime" type="time"/> !-->
         	<div class ="form-group">
         		<div class="col-xs-4">
-					<label for="hour">Hour:</label>
+              <label for="hour">Hour:</label>
         			<input class="form-control" type="number" min="0" name="startHour" max="23" ng-model="startHour" ng-init="startHour" />
         		</div>
         		<div class="col-xs-4">
-					<label for="minute">Minute:</label>
+              <label for="minute">Minute:</label>
         			<input class="form-control" type="number" min="0" name="startMinute" max="59" ng-model="startMinute"  ng-init="startMinute"/>
         		</div>
         	</div>
+
         	<div ng-show="!(startHour>=0 && startHour<24 && startMinute>=0 && startMinute<60 && startHour!=null && startMinute!=null) && !pressButton" > <!-- if the start time is not valid -->
       		  <div style="color:red;">Choose a real time of start</div>
     		  </div>
@@ -119,20 +124,18 @@
           <div ng-show="(startHour>=0 && startHour<24 && startMinute>=0 && startMinute<60 && startHour!=null && startMinute!=null) && pressButton"><br></div>
           <br><br>
 
+          <button class="btn btn-default btn" type="submit" ng-click="addNewEvent()">Create event</button>
 
-		        
-			
-			<!-- the button is disabled if something is wrong in the form -->
+
+
 				
 				</form>
 			</div>
-	        </div><div class="col-md-2"></div>
-			
-		</div>
-		</div>
-
-	</div>
+      <!--</perfect-scrollbar>-->
+	   </div>
+    <div class="col-md-2"></div>
 </div>
+
 
 <!-- The pop up box -->
 <div id="popUpModal" class="modal fade">

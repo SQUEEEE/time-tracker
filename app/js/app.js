@@ -1,6 +1,6 @@
 
 
-var timeTrackerApp = angular.module('timeTracker', ['ngRoute', 'ngResource', 'timer', 'firebase', 'ui.calendar']);
+var timeTrackerApp = angular.module('timeTracker', ['ngRoute', 'ngResource', 'timer', 'firebase', 'ui.calendar', 'perfect_scrollbar']);
 
 //auth routing
 timeTrackerApp.run(["$rootScope", "$location", function($rootScope, $location) {

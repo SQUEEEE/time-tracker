@@ -13,7 +13,7 @@
     "tag": "v4.2.3",
     "commit": "58bc6956f6febf2c05fcc320466f3965873a6e8e"
   },
-  "_source": "git://github.com/highcharts/highcharts-dist.git",
+  "_source": "https://github.com/highcharts/highcharts-dist.git",
   "_target": "4.2.3",
   "_originalSource": "highcharts"
 }
