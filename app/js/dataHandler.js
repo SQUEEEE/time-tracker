@@ -83,6 +83,8 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		var sync = true;
 		var calendarList = this.calendarList;*/
 
+		console.log("Updating calendars")
+
 		var existingCals = TimeTracker.getTestCalendars();
 
 		for(i in calendars){
@@ -155,19 +157,20 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		+ indicator of when updated in firebase
 
 	*/
-	this.updateEvents = function(calendarId, resp){
+	this.updateEvents = function(calendar, resp){
 		var events = this.events;
-		var calendarCategory = this.getCategory(calendarId); //this doesn't get returned fast enough :(
+		var calendarCategory = calendar.category; //this doesn't get returned fast enough :(
 		//look at this when not super tired https://www.firebase.com/blog/2016-01-21-keeping-our-promises.html
 		//things to resolve: check which category the calendar has
 
+		TimeTracker.iterateData(resp, calendar.category);
 		
 		//might make an addEvent-function later for this as it will be used in other contexts as well
 			
-		this.eventsRef.once("value", function(snapshot){
+		/*this.eventsRef.once("value", function(snapshot){
 				var existingEvents = snapshot.val();
 
-				/*loop through the incoming calendarList and see if there is a matching id in the existingList */
+				loop through the incoming calendarList and see if there is a matching id in the existingList 
 				for(i in resp){
 					var newEvent = resp[i];
 					var category = 'Undefined';
@@ -189,7 +192,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 				}
 
-		});
+		});*/
 	}
 
 	this.getCategory = function(calendarId){
@@ -212,14 +215,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	}
 
 	this.save = function(){
-		console.log("saving TimeTracker data to Firebase")
-		/*console.log("TESTING...Data as is:", TimeTracker.getCategories());
-		var data = angular.toJson(TimeTracker.getCategories());
-		console.log("TESTING...angular.toJson:", data);
-		var data2 = angular.fromJson(data);
-		console.log("TESTING...angular.fromJson:", data2)*/
-
-		//console.log("TESTING...cleanUp():", cleanUp(TimeTracker.getCategories()));
+		console.log("saving TimeTracker data to Firebase");
 
 		this.testCategories.set(cleanUp(TimeTracker.getCategories())); 
 		this.testCalendars.set(cleanUp(TimeTracker.getTestCalendars())); 
@@ -241,12 +237,11 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 
 		this.testCategories.once("value", function(snapshot){
-			console.log("Firebase categories:", snapshot.val());
+			//console.log("Firebase categories:", snapshot.val());
 			console.log("setting the categoryArray to firebase data");
 			
 			//if the firebase was empty, we set the data to an empty array 
 			res = snapshot.val();
-			console.log("LOOK HERE", res);
 			if(res===null){
 				res = [];
 			}
@@ -257,7 +252,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		});
 
 		this.testCalendars.once("value", function(snapshot){
-			console.log("Firebase calendars:", snapshot.val());
+			//console.log("Firebase calendars:", snapshot.val());
 			
 
 			res = snapshot.val();
@@ -270,7 +265,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		});
 
 		this.testEvents.once("value", function(snapshot){
-			console.log("Firebase events:", snapshot.val());
+			//console.log("Firebase events:", snapshot.val());
 			
 
 			console.log("setting the calendarArray to firebase data");
@@ -283,9 +278,9 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			
 		});
 
-		console.log("TimeTracker categories:", TimeTracker.getCategories());
+		/*console.log("TimeTracker categories:", TimeTracker.getCategories());
 		console.log("TimeTracker calendars:", TimeTracker.getTestCalendars());
-		console.log("TimeTracker events:", TimeTracker.getTestData());
+		console.log("TimeTracker events:", TimeTracker.getTestData());*/
 	}
 
 	return this;

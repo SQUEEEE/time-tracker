@@ -77,24 +77,24 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
           TimeTracker-specific data.
         */
 
-       // DataHandler.updateCalendarList(calendars); //change to TimeTracker
+
 
       
 
 
         //calendars to get events from - change to TimeTracker-data
 
-      //  calendarsToSync = DataHandler.getSyncedCalendars();
+        calendarsToSync = TimeTracker.getSyncedCalendars();
 
 
         /*
           loop through the calendarsToSync-list and then call the loadEvents function for every one 
         */
 
-        /*for(i in calendarsToSync){
-          //loadEvents(calendarsToSync[i]);
+        for(i in calendarsToSync){
+          loadEvents(calendarsToSync[i]);
           console.log("sync calendar ", calendarsToSync[i]);
-        }*/
+        }
 
         //DataHandler.save();
 
@@ -108,12 +108,12 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
       api request for events from a specific calendar
       check if you can do something here to specify if the events have changed since a specific time? - updateMin could be something useful
     */
-    var loadEvents = function(calendarId){
-      console.log("loading events from ", calendarId);
+    var loadEvents = function(calendar){
+      console.log("loading events from ", calendar.id);
       var request = gapi.client.calendar.events.list({
-        'calendarId': calendarId,
+        'calendarId': calendar.id,
         //'timeMin': (new Date()).toISOString(),
-        'timeMin': (new Date(2015,1,1)).toISOString(),
+        'timeMin': (new Date(2016,4,1)).toISOString(),
         'showDeleted': false,
         'singleEvents': true,
         'maxResults': 10,
@@ -124,7 +124,7 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
       request.execute(function(resp) {
         //call the DataHandler.updateEvents-function
 
-        DataHandler.updateEvents(calendarId, resp.items);
+        DataHandler.updateEvents(calendar, resp.items);
 
       });
     }

@@ -16,7 +16,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	var calendarArray = [];
 	
-	var testData = [			//a list of events imported from the api
+	/*var testData = [			//a list of events imported from the api
 	{
 	   "kind": "calendar#event",
 	   "etag": "\"2756392697640000\"",
@@ -218,7 +218,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	    "useDefault": true
 	   }
 	}
-	];
+	];*/
 
 
 	
@@ -573,7 +573,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	//creates "our" objects of all objects in the imported list
 	//can be used for automatic logging when a whole calendar should have the same category
-	var iterateData = this.iterateData = function(){
+	var iterateData = this.iterateData = function(testData, category){
 		var iteratedData = [];
 		for(index in testData){
 			var current = testData[index];
@@ -582,10 +582,11 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 			current.end = end;
 			start = current.start.dateTime;
 			current.start = start;
-			var eventObject = new EventClass(current, categoryArray[randNum], false, iteratedData);
+			var eventObject = new EventClass(current, category, false, iteratedData);
 			iteratedData.push(eventObject);
+			data.push(eventObject);
 		}
-		data = iteratedData;
+		//data.push(iteratedData);
 		console.log("data:", data);
 		autoReportAll();
 		return data;
@@ -639,6 +640,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	
 	//returns the data
 	this.getTestData = function() {
+		console.log("in getTestData()");
 		return data;
 	};
 
@@ -939,11 +941,15 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		console.log("getting synced calendars from TimeTracker");
 		var toSync = [];
 
-		for(cal in calendarArray){
+		for(i in calendarArray){
+			cal = calendarArray[i];
+			//console.log(cal);
 			if(cal.sync){
-				toSync.push(cal.id);
+				toSync.push(cal);
 			}
 		}
+
+		return toSync;
 	}
 
 	this.addCalendar = function(calendar){
