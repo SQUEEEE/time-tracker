@@ -1094,6 +1094,37 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 		return objList;
 	}
 
+	this.statYearOverview = function (whichYear) {
+		objList = [];
+		daysInMonth=[31,28,31,30,31,30,31,31,30,31,30,31];
+
+		now = new Date();
+		year = now.getFullYear();
+
+		if (year % 4 == 0) {
+			daysInMonth[1] = 29;
+		}
+
+		for (index in categoryArray) {
+			dataList = [];
+			for (j = 0; j < 12; j++) {
+
+				startDate = new Date(year, j, 1, 0, 0, 0, 0)
+				startMs = startDate.getTime();
+				endMs = startMs;
+
+				for	(k = 1; k < daysInMonth[j]; k++) {
+					ms = 86400000;
+					endMs += ms
+				}
+				value = this.calcPeriodCategory(categoryArray[index].name, startMs, endMs);
+				dataList.push(value);
+			}
+			obj = {name: categoryArray[index].name, data: dataList, color: categoryArray[index].color};
+			objList.push(obj);
+		}
+		return objList;
+	}
 	
 
 	this.iterateData();

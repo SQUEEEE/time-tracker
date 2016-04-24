@@ -7,8 +7,8 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
 	$scope.totalSum = TimeTracker.calcTimeAllCategories();
 
     $scope.month = 0;
-
     $scope.week = 0;
+    $scope.year = 0;
 
     // info for week Statistics
     $scope.weekData = TimeTracker.statWeekSeries($scope.week);
@@ -402,7 +402,64 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         });
     };
 
+    $scope.showYear = function(whichYear) {
 
-
+        if (whichYear== 0) {
+            $scope.year = 0;
+        }
+        else {
+            $scope.year += whichYear;
+        }
+    
+        return Highcharts.chart('stat', {
+        chart: {
+            type: 'column'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'One year'
+        },
+        xAxis: {
+            categories: [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Amount of hours'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} hours</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: TimeTracker.statYearOverview($scope.year)
+        });
+    }
 
 });
