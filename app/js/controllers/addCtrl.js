@@ -16,7 +16,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, 
 	$scope.startTime = {startHour:today.getHours(), startMinute:today.getMinutes()};
 
 	$scope.user = currentAuth.google.displayName;
-	$scope.category = $scope.categories[0];
+	$scope.categoryChoice = {category:$scope.categories[0]};
 	$scope.name = {title:""};
 
 	//for the error handling these help with tellinf it there are errors or not
@@ -107,8 +107,6 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, 
     	
     }
 
-
-
 	$scope.setTimer = function(_hour,_minute,_second){		//puts the data from the timer in the selectedDuration
 		$scope.selectedDuration.hour = $scope.hours;
 		$scope.selectedDuration.minute = $scope.min;
@@ -117,14 +115,18 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, 
 	}
 	
 	
-		// selecting category in list
+/*		// selecting category in list
 	$scope.selectCategory = function(selected) {
+
+		console.log("categories", $scope.categories);
+		console.log("sel", selected);
         for (index in $scope.categories) {
             if (selected == $scope.categories[index].name) { 
-                $scope.category = selected;
+                $scope.categoryChoice.category = selected;
+                console.log("ändrat", $scope.categoryChoice.category);
             }
         }
-    }
+    }*/
 
 	// saves the timers time when it stops
 	$scope.$on('timer-stopped', function (event, data){
@@ -165,16 +167,17 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, 
 	$scope.addNewEvent = function() {
 		$scope.checkEverything();
 		if($scope.pressButton){
-			console.log("end time:")
-
+			//console.log("end time:")
+			//console.log("category1", $scope.categoryChoice.category);
 			start = new Date($scope.selectedDate.year, $scope.selectedDate.month-1, $scope.selectedDate.day, $scope.startTime.startHour, $scope.startTime.startMinute);
 			startMilli = start.getTime();
-			console.log(startMilli)
+			//console.log(startMilli)
 			milliTotal = ($scope.selectedDuration.hour*60*60*1000) + ($scope.selectedDuration.minute*60*1000) + ($scope.selectedDuration.second*1000);
-			console.log(milliTotal)
+			//console.log(milliTotal)
 			end = new Date(startMilli+milliTotal);
 
-			$scope.modalEvent = TimeTracker.addNewEvent($scope.name.title, start, end, $scope.category);	
+			$scope.modalEvent = TimeTracker.addNewEvent($scope.name.title, start, end, $scope.categoryChoice.category);
+			//console.log($scope.modalEvent);
 	        $('#popUpModal').modal();                     //starts the modal box
 	        DataHandler.save();
 	        return false;
