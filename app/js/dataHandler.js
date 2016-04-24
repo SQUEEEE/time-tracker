@@ -10,8 +10,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		this.userId = userId; //if we need to save this?
 		this.firebaseRef = new Firebase("https://time-trackertest.firebaseio.com/" + userId);
 		
-
-		this.test = $firebaseArray(this.testPath);
 		this.testCategories = this.firebaseRef.child('categories');
 		this.testCalendars = this.firebaseRef.child('calendars');
 		this.testEvents = this.firebaseRef.child('events');
