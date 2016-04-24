@@ -2,7 +2,6 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, 
 
 	if(!TimeTracker.getLoadedData()){
 		DataLoader.loadData();
-		
 	}
 	
 	$scope.categories = TimeTracker.getCategories();
@@ -166,12 +165,15 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, 
 	$scope.addNewEvent = function() {
 		$scope.checkEverything();
 		if($scope.pressButton){
+			console.log("end time:")
+
 			start = new Date($scope.selectedDate.year, $scope.selectedDate.month-1, $scope.selectedDate.day, $scope.startTime.startHour, $scope.startTime.startMinute);
 			startMilli = start.getTime();
-
-			milliTotal = ($scope.hour*60*60*1000) + ($scope.minute*60*1000) + ($scope.second*1000);
+			console.log(startMilli)
+			milliTotal = ($scope.selectedDuration.hour*60*60*1000) + ($scope.selectedDuration.minute*60*1000) + ($scope.selectedDuration.second*1000);
+			console.log(milliTotal)
 			end = new Date(startMilli+milliTotal);
-		
+
 			$scope.modalEvent = TimeTracker.addNewEvent($scope.name.title, start, end, $scope.category);	
 	        $('#popUpModal').modal();                     //starts the modal box
 	        DataHandler.save();

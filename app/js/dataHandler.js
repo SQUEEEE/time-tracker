@@ -30,7 +30,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 				return i;
 			}
 		}
-
 		return false;
 	}
 
@@ -76,9 +75,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 		});
 
-		return syncedCalendars;
-
-		
+		return syncedCalendars;	
 	}
 
 
@@ -95,17 +92,44 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		var calendarCategory = calendar.category; 
 
 		var newEvents = [];
-
+		console.log("############################");
+		console.log(resp);
 		for(i in resp){
 			var newEvent = resp[i];
-			var exists = existsInList(newEvent, currentEvents);
-			if(!exists && newEvent.start.dateTime){
+
+			retValue = existsInList(newEvent, currentEvents);
+			console.log("retValue: ", retValue);
+
+			if (retValue != false) {	// exists in currentEvents
+				//current event updated tid > våran updated tid:
+				// den med senast updated tiden, skriver över tiderna, 
+				// namnet skrivs alltid över på det event som redan finns
+				
+				console.log("currentEvents[retValue]", currentEvents[retValue]);
+				console.log("updated", currentEvents[retValue].updated);
+				console.log("Funkar detta?", Date.parse(currentEvents[retValue].updated));
+
+
+			}
+			else if (retValue == false && newEvent.start.dateTime) { // not in current Events, a new event
 				newEvents.push(newEvent);
 				console.log("new event! last updated:", newEvent);
 			}
+			else {
+				console.log("släng detta event - heldag?")
+			}
+
+			/*
+			var exists = existsInList(newEvent, currentEvents);
+			if(!exists && newEvent.start.dateTime){
+
+			if(!existsInList(newEvent, currentEvents) && newEvent.start.dateTime){
+				newEvents.push(newEvent);
+				console.log("new event!");
+			}	
 			else{
 				console.log("event already exists");
-			}
+			}*/
 		}
 
 
