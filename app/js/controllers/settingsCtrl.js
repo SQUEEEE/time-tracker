@@ -46,6 +46,7 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 		newColor = TimeTracker.colorsWithoutDublett(category);
 		category.color = newColor;
 		TimeTracker.changeColor(category);
+		TimeTracker.changeColorCalendar(category);
 		$scope.save();
 	}
 
