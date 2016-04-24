@@ -196,6 +196,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		return new CategoryClass(name, autoReport, this.colorsWithoutDublett(null));
 	}
 
+	this.recreateCategory = function(name, autoReport, color){
+		return new CategoryClass(name, autoReport, color;
+	}
+
 
 	// removes a category
 	this.removeCategory = function(category) {
