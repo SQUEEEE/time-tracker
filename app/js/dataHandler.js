@@ -36,10 +36,12 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	var existsInList = function(item, list){
 		for(i in list){
 			if(list[i].id === item.id){
-				return true;
+				return i;
 			}
 
 		}
+
+		return false;
 	}
 
 
@@ -136,7 +138,8 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 		for(i in resp){
 			var newEvent = resp[i];
-			if(!existsInList(newEvent, currentEvents) && newEvent.start.dateTime){
+			var exists = existsInList(newEvent, currentEvents);
+			if(!exists && newEvent.start.dateTime){
 				newEvents.push(newEvent);
 				console.log("new event! last updated:", newEvent);
 			}
