@@ -1,6 +1,6 @@
 timeTrackerApp.controller("authCtrl", function($scope, Auth, TimeTracker, DataLoader, DataHandler){
 
-	if(!TimeTracker.getLoadedData()){
+	if(TimeTracker.getLoadedData() == false){
 		DataLoader.loadData();
 	}
 
