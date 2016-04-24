@@ -1,6 +1,6 @@
 timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
-	var data = []; // a list of events with the right attributes
+	var data = this.data = []; // a list of events with the right attributes
 
 
 	

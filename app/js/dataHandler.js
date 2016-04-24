@@ -203,6 +203,27 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, TimeTracker){
 		this.testCategories.once("value", function(snapshot){
 			console.log("Firebase data:", snapshot.val());
 			console.log("TimeTracker data:", TimeTracker.getCategories());
+
+			console.log("setting the categoryArray to firebase data");
+			TimeTracker.categoryArray = snapshot.val();
+			
+		});
+
+		this.testCalendars.once("value", function(snapshot){
+			console.log("Firebase data:", snapshot.val());
+			console.log("TimeTracker data:", TimeTracker.getTestCalendars());
+
+			console.log("setting the categoryArray to firebase data");
+			TimeTracker.calendarArray = snapshot.val();
+			
+		});
+
+		this.testEvents.once("value", function(snapshot){
+			console.log("Firebase data:", snapshot.val());
+			console.log("TimeTracker data:", TimeTracker.getTestData());
+
+			console.log("setting the categoryArray to firebase data");
+			TimeTracker.data = snapshot.val();
 			
 		});
 
