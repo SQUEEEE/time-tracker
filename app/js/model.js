@@ -217,8 +217,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		if (category != "Undefined") {
 			for (index in categoryArray) {
 				if (categoryArray[index].name == category) {
-					categoryArray.splice(index, 1);
+					
 					this.changeCategoryToUndefined(category);
+					categoryArray.splice(index, 1);
 				}
 			}
 		}
@@ -230,6 +231,13 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 			if (data[i].category == category) {
 				data[i].category = categoryArray[0].name;
 				data[i].color = categoryArray[0].color;
+				data[i].autoReport = categoryArray[0].autoReport;
+			}
+		}
+
+		for (j in calendarArray) {
+			if (calendarArray[j].category.name == category) {
+				calendarArray[j].category = categoryArray[0];
 			}
 		}
 	}
