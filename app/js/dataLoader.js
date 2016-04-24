@@ -62,12 +62,12 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
 
         //https://developers.google.com/apis-explorer/#p/calendar/v3/calendar.calendarList.list
 
-      var request = gapi.client.calendar.calendarList.list({
+    /*  var request = gapi.client.calendar.calendarList.list({
         'fields': 'items(id, summary)'
-      });
+      });*/
 
-      request.execute(function(resp) {
-        var calendars = resp.items;
+      /*request.execute(function(resp) {
+        var calendars = resp.items;*/
 
         /*
           Call to a function in the 
@@ -78,22 +78,22 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler){
        // DataHandler.updateCalendarList(calendars); 
 
         //calendars to get events from
-       calendarsToSync = DataHandler.getSyncedCalendars();
+       //calendarsToSync = DataHandler.getSyncedCalendars();
 
 
         /*
           loop through the calendarsToSync-list and then call the loadEvents function for every one 
         */
 
-        for(i in calendarsToSync){
+    /*    for(i in calendarsToSync){
           //loadEvents(calendarsToSync[i]);
           console.log("sync calendar ", calendarsToSync[i]);
         }
+*/
+       // DataHandler.save();
 
-        DataHandler.save();
-        DataHandler.getData();
        
-      });
+      //});
 
     }
 

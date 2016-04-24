@@ -1,5 +1,5 @@
 //model for auth
-timeTrackerApp.factory("DataHandler", function($firebaseArray, TimeTracker){
+timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, TimeTracker){
 
 	/*
 		when the user is authorized we initiate the firebase connections
@@ -23,6 +23,14 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, TimeTracker){
 		this.testCategories = this.testPath.child('categories');
 		this.testCalendars = this.testPath.child('calendars');
 		this.testEvents = this.testPath.child('events');
+
+
+		//this.testCategories.onDisconnect().set(TimeTracker.getCategories()); //this doesn't work?
+		
+		this.setTimeTrackerData();
+		/*$firebaseObject(this.testCategories).$loaded().then(function(data){
+			console.log("categories loaded from firebase", data.val());
+		})*/
 
 
 		/*
@@ -196,16 +204,19 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, TimeTracker){
 		this.testEvents.set(TimeTracker.getTestData()); 
 	}
 
-	this.getData = function(){
+	this.setTimeTrackerData = function(){
+
+		//have some syncronization problems here, needs to be checked out
 		console.log("getting TimeTracker data from Firebase");
 
 
 		this.testCategories.once("value", function(snapshot){
 			console.log("Firebase data:", snapshot.val());
-			console.log("TimeTracker data:", TimeTracker.getCategories());
+			
 
 			console.log("setting the categoryArray to firebase data");
 			TimeTracker.categoryArray = snapshot.val();
+			console.log("TimeTracker data:", TimeTracker.getCategories());
 			
 		});
 
@@ -213,17 +224,19 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, TimeTracker){
 			console.log("Firebase data:", snapshot.val());
 			console.log("TimeTracker data:", TimeTracker.getTestCalendars());
 
-			console.log("setting the categoryArray to firebase data");
+			
 			TimeTracker.calendarArray = snapshot.val();
+			console.log("setting the calendarArray to firebase data");
 			
 		});
 
 		this.testEvents.once("value", function(snapshot){
 			console.log("Firebase data:", snapshot.val());
-			console.log("TimeTracker data:", TimeTracker.getTestData());
+			
 
-			console.log("setting the categoryArray to firebase data");
+			console.log("setting the calendarArray to firebase data");
 			TimeTracker.data = snapshot.val();
+			console.log("TimeTracker data:", TimeTracker.getTestData());
 			
 		});
 
