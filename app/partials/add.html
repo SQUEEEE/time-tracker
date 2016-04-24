@@ -8,7 +8,7 @@
       <div class="col-md-2"></div>
       <div class="col-md-4">
         <div class="col-md-8">By using the stop watch you make a duration for the form to the right</div>
-        <span class="timer">
+        <span class="timer"><!--     Timer and timer buttons      -->
           <timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}<br>
 
     
@@ -36,8 +36,7 @@
       <perfect-scrollbar class="scroller" wheel-propagation="true" scroll.padding="15" wheel-speed="5" include-padding='true'>
       <div class="col-md-7" > <!-- 7 -->
 
-		<!--     Timer and timer buttons      -->
-		        
+		
         <form name="form" class="css-form" novalidate>
 
           Category:
@@ -45,9 +44,9 @@
           </select><br><br>
 
         	Title:
-        	<input class="form-control" ng-model="name" name="name" type="text" required="" />
+        	<input class="form-control" ng-model="name.title" name="name" type="text" required="" />
         	
-        	<div ng-show="(name.length<1 || name == null) && !pressButton"> <!-- if there is no name written -->
+        	<div ng-show="(name.title.length<1 || name.title == null) && !pressButton"> <!-- if there is no name written -->
       			<span style="color:red;">Please choose a title for the event</span>
     		  </div>
           <br>
@@ -57,48 +56,48 @@
           <div class ="form-group">
 				    <div class="col-xs-4">
               <label for="hour">Hour:</label>
-              <input class="form-control" ng-model="hour" type="number" name="hour" min="0" placeholder="0"/>
+              <input class="form-control" ng-model="selectedDuration.hour" type="number" name="selectedDuration.hour" min="0" placeholder="0"/>
 				    </div>
 				    <div class="col-xs-4">
               <label for="minute">Minute:</label>
-              <input class="form-control" ng-model="minute" name="minute" type="number" min="0" max="59" placeholder="0" />
+              <input class="form-control" ng-model="selectedDuration.minute" name="selectedDuration.minute" type="number" min="0" max="59" placeholder="0" />
 				    </div>
 				    <div class="col-xs-4">
               <label for="second">Sec:</label>
-              <input class="form-control" ng-model="second"  name="second" type="number" min="0" max="59" placeholder="0" />
+              <input class="form-control" ng-model="selectedDuration.second"  name="selectedDuration.second" type="number" min="0" max="59" placeholder="0" />
 				    </div>
           </div>
 
-          <div ng-show="!(hour>=0 && minute>=0 && second>=0 && (hour>0 || minute>0 || second>0)) && !pressButton"> <!-- if the duration is not valid -->
+          <div ng-show="!(selectedDuration.hour>=0 && selectedDuration.minute>=0 && selectedDuration.second>=0 && (selectedDuration.hour>0 || selectedDuration.minute>0 || selectedDuration.second>0)) && !pressButton"> <!-- if the duration is not valid -->
       			<span style="color:red;">Choose a duration for the event or use the stop watch</span>
     	     </div>
-          <div ng-show="!(hour>=0 && minute>=0 && second>=0 && (hour>0 || minute>0 || second>0)) && pressButton"><br></div>
-          <div ng-show="(hour>=0 && minute>=0 && second>=0 && (hour>0 || minute>0 || second>0)) && !pressButton"><br></div>
-          <div ng-show="(hour>=0 && minute>=0 && second>=0 && (hour>0 || minute>0 || second>0)) && pressButton"><br></div>
+          <div ng-show="!(selectedDuration.hour>=0 && selectedDuration.minute>=0 && selectedDuration.second>=0 && (selectedDuration.hour>0 || selectedDuration.minute>0 || selectedDuration.second>0)) && pressButton"><br></div>
+          <div ng-show="(selectedDuration.hour>=0 && selectedDuration.minute>=0 && selectedDuration.second>=0 && (selectedDuration.hour>0 || selectedDuration.minute>0 || selectedDuration.second>0)) && !pressButton"><br></div>
+          <div ng-show="(selectedDuration.hour>=0 && selectedDuration.minute>=0 && selectedDuration.second>=0 && (selectedDuration.hour>0 || selectedDuration.minute>0 || selectedDuration.second>0)) && pressButton"><br></div>
           <br><br>
 
 			
 			     Date:<br>
        		<div class ="form-group">
        			<div class="col-xs-4">
-       				<label for="year">Year:</label>
-       				<input class="form-control" type="number" name="year" min="2000" ng-model="year" ng-init="year" />
+       				<label for="selectedDate.year">Year:</label>
+       				<input class="form-control" type="number" name="selectedDate.year" min="2000" ng-model="selectedDate.year" ng-init="selectedDate.year" />
        			</div>
        			<div class="col-xs-4">
-       				<label for="month">Month:</label>
-       				<input class="form-control"  type="number" name="month" min="1" max="12" ng-model="month" ng-init="month"/>
+       				<label for="selectedDate.month">Month:</label>
+       				<input class="form-control"  type="number" name="selectedDate.month" min="1" max="12" ng-model="selectedDate.month" ng-init="selectedDate.month"/>
        			</div>
        			<div class="col-xs-4">
-       				<label for="day">Day:</label>
-       				<input class="form-control"  type="number" name="day" min="1" max={{getNumberOfDays()}} ng-model="day" ng-init="day"/>
+       				<label for="selectedDate.day">Day:</label>
+       				<input class="form-control"  type="number" name="selectedDate.day" min="1" max={{getNumberOfDays()}} ng-model="selectedDate.day" ng-init="selectedDate.day"/>
        			</div>
        		</div>
-       		<div ng-show="!(year>=2000 && year<2200 && month>0 && month<=12 && day>0 && day<=getNumberOfDays()) && !pressButton"> <!-- if the date is not valid -->
+       		<div ng-show="!(selectedDate.year>=2000 && selectedDate.year<2200 && selectedDate.month>0 && selectedDate.month<=12 && selectedDate.day>0 && selectedDate.day<=getNumberOfDays()) && !pressButton"> <!-- if the date is not valid -->
       			<div style="color:red;">Choose a real date between year 2000 and 2200</div>
     		</div>
-        <div ng-show="!(year>=2000 && year<2200 && month>0 && month<=12 && day>0 && day<=getNumberOfDays()) && pressButton"><br></div>
-        <div ng-show="(year>=2000 && year<2200 && month>0 && month<=12 && day>0 && day<=getNumberOfDays()) && !pressButton"><br></div>
-        <div ng-show="(year>=2000 && year<2200 && month>0 && month<=12 && day>0 && day<=getNumberOfDays()) && pressButton"><br></div>
+        <div ng-show="!(selectedDate.year>=2000 && selectedDate.year<2200 && selectedDate.month>0 && selectedDate.month<=12 && selectedDate.day>0 && selectedDate.day<=getNumberOfDays()) && pressButton"><br></div>
+        <div ng-show="(selectedDate.year>=2000 && selectedDate.year<2200 && selectedDate.month>0 && selectedDate.month<=12 && selectedDate.day>0 && selectedDate.day<=getNumberOfDays()) && !pressButton"><br></div>
+        <div ng-show="(selectedDate.year>=2000 && selectedDate.year<2200 && selectedDate.month>0 && selectedDate.month<=12 && selectedDate.day>0 && selectedDate.day<=getNumberOfDays()) && pressButton"><br></div>
         <br><br>
 
     		
@@ -108,20 +107,20 @@
         	<div class ="form-group">
         		<div class="col-xs-4">
               <label for="hour">Hour:</label>
-        			<input class="form-control" type="number" min="0" name="startHour" max="23" ng-model="startHour" ng-init="startHour" />
+        			<input class="form-control" type="number" min="0" name="startTime.startHour" max="23" ng-model="startTime.startHour" ng-init="startTime.startHour" />
         		</div>
         		<div class="col-xs-4">
               <label for="minute">Minute:</label>
-        			<input class="form-control" type="number" min="0" name="startMinute" max="59" ng-model="startMinute"  ng-init="startMinute"/>
+        			<input class="form-control" type="number" min="0" name="startTime.startMinute" max="59" ng-model="startTime.startMinute"  ng-init="startTime.startMinute"/>
         		</div>
         	</div>
 
-        	<div ng-show="!(startHour>=0 && startHour<24 && startMinute>=0 && startMinute<60 && startHour!=null && startMinute!=null) && !pressButton" > <!-- if the start time is not valid -->
+        	<div ng-show="!(startTime.startHour>=0 && startTime.startHour<24 && startTime.startMinute>=0 && startTime.startMinute<60 && startTime.startHour!=null && startTime.startMinute!=null) && !pressButton" > <!-- if the start time is not valid -->
       		  <div style="color:red;">Choose a real time of start</div>
     		  </div>
-          <div ng-show="!(startHour>=0 && startHour<24 && startMinute>=0 && startMinute<60 && startHour!=null && startMinute!=null) && pressButton"><br></div>
-          <div ng-show="(startHour>=0 && startHour<24 && startMinute>=0 && startMinute<60 && startHour!=null && startMinute!=null) && !pressButton"><br></div>
-          <div ng-show="(startHour>=0 && startHour<24 && startMinute>=0 && startMinute<60 && startHour!=null && startMinute!=null) && pressButton"><br></div>
+          <div ng-show="!(startTime.startHour>=0 && startTime.startHour<24 && startTime.startMinute>=0 && startTime.startMinute<60 && startTime.startHour!=null && startTime.startMinute!=null) && pressButton"><br></div>
+          <div ng-show="(startTime.startHour>=0 && startTime.startHour<24 && startTime.startMinute>=0 && startTime.startMinute<60 && startTime.startHour!=null && startTime.startMinute!=null) && !pressButton"><br></div>
+          <div ng-show="(startTime.startHour>=0 && startTime.startHour<24 && startTime.startMinute>=0 && startTime.startMinute<60 && startTime.startHour!=null && startTime.startMinute!=null) && pressButton"><br></div>
           <br><br>
 
           <button class="btn btn-default btn" type="submit" ng-click="addNewEvent()">Create event</button><br><br><br>

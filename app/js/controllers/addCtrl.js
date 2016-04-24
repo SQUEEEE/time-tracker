@@ -6,24 +6,20 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 
 	$scope.timerRunning = false;	// bool if timer is running
 	$scope.timeStarted = false;		// bool if timer has ever been started/only paused not cleared
-	$scope.hour = 0;
-	$scope.minute = 0;
-	$scope.second = 0;
 
 	//lastInput = [0,0,0];
 	console.log(currentAuth);
 
+
+	$scope.selectedDuration = {hour:0, minute:0, second:0};
 	//create variables for today
 	var today = new Date();	
-	$scope.day = today.getDate();
-	$scope.month = today.getMonth()+1; //January is 0!
-	$scope.year = today.getFullYear();
-	$scope.startHour = today.getHours();
-	$scope.startMinute = today.getMinutes();
+	$scope.selectedDate = {day:today.getDate(), month:today.getMonth()+1, year:today.getFullYear()}; //January is 0!
+	$scope.startTime = {startHour:today.getHours(), startMinute:today.getMinutes()};
 
 	$scope.user = currentAuth.google.displayName;
 	$scope.category = $scope.categories[0];
-	$scope.name = "";
+	$scope.name = {title:""};
 
 	//for the error handling
 	$scope.pressButton = true;
@@ -48,9 +44,9 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 
 
 	$scope.getNumberOfDays = function(){	//returns number of days in the month we are right now
-		var month = $scope.month;		//to make it easier to refer to 
+		var month = $scope.selectedDate.month;		//to make it easier to refer to 
 		if(month==2){
-			if($scope.year%4==0){
+			if($scope.selectedDate.year%4==0){
 				return 29;
 			}
 			else{
@@ -70,11 +66,11 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	
 
 	$scope.checkDuration = function(){	//checks validity for the duration
-		console.log($scope.hour)
-		console.log($scope.minute)
-		console.log($scope.second)
-		if($scope.hour>=0 && $scope.minute>=0 && $scope.second>=0){
-			if($scope.hour>0 || $scope.minute>0 || $scope.second>0){
+		console.log($scope.selectedDuration.hour)
+		console.log($scope.selectedDuration.minute)
+		console.log($scope.selectedDuration.second)
+		if($scope.selectedDuration.hour>=0 && $scope.selectedDuration.minute>=0 && $scope.selectedDuration.second>=0){
+			if($scope.selectedDuration.hour>0 || $scope.selectedDuration.minute>0 || $scope.selectedDuration.second>0){
 				$scope.duration = true;
 				console.log("duration is true")
 			}
@@ -92,7 +88,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	}
 
 	$scope.checkDate = function(){	//checks validity for the date
-		if($scope.year>=2000 && $scope.year<2200 && $scope.month>0 && $scope.month<=12 && $scope.day>0 && $scope.day<=$scope.getNumberOfDays()){
+		if($scope.selectedDate.year>=2000 && $scope.selectedDate.year<2200 && $scope.selectedDate.month>0 && $scope.selectedDate.month<=12 && $scope.selectedDate.day>0 && $scope.selectedDate.day<=$scope.getNumberOfDays()){
 			$scope.date = true;
 			console.log("date is true")
 		}
@@ -102,7 +98,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 	}
 
 	$scope.checkStart = function(){	//checks validity for the starttime
-		if($scope.startHour>=0 && $scope.startHour<24 && $scope.startMinute>=0 && $scope.startMinute<60){
+		if($scope.startTime.startHour>=0 && $scope.startTime.startHour<24 && $scope.startTime.startMinute>=0 && $scope.startTime.startMinute<60){
 			$scope.start = true;
 			console.log("start is true")
 		}
@@ -116,7 +112,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
     	$scope.checkDuration();
     	$scope.checkDate();
     	$scope.checkStart();
-    	if($scope.duration && $scope.date && $scope.start && $scope.name.length>0 && $scope.name!=null){
+    	if($scope.duration && $scope.date && $scope.start && $scope.name.title.length>0 && $scope.name.title!=null){
     		console.log("everything is great")
     		$scope.pressButton = true;
     	}
@@ -189,13 +185,13 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, currentAuth) 
 		$scope.checkEverything();
 		if($scope.pressButton){
 			console.log("pressButton is true")
-			start = new Date($scope.year, $scope.month-1, $scope.day, $scope.startHour, $scope.startMinute);
+			start = new Date($scope.selectedDate.year, $scope.selectedDate.month-1, $scope.selectedDate.day, $scope.startTime.startHour, $scope.startTime.startMinute);
 			startMilli = start.getTime();
 
 			milliTotal = ($scope.hour*60*60*1000) + ($scope.minute*60*1000) + ($scope.second*1000);
 			end = new Date(startMilli+milliTotal);
 		
-			$scope.modalEvent = TimeTracker.addNewEvent($scope.name, start, end, $scope.category);	
+			$scope.modalEvent = TimeTracker.addNewEvent($scope.name.title, start, end, $scope.category);	
 			console.log($scope.modalEvent.end.toDateString())
 	        $('#popUpModal').modal();                     //starts the modal box
 
