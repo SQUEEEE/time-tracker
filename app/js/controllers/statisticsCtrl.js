@@ -321,7 +321,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker) {
         }
         else {
             $scope.month += whichMonth;
-            console.log("scope.month", $scope.month);
+            //console.log("scope.month", $scope.month);
         }
 
         return Highcharts.chart('stat', {

@@ -12,8 +12,6 @@
 					<li class="{{isActive('WeekPercentage')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showWeekPercentage(0);setActive('WeekPercentage')">Weekly percentage</a></li>
 					<li class="{{isActive('WeekTotal')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showWeekTotal(0);setActive('WeekTotal')">Weekly total</a></li>
 
-
-
 					<li class="{{isActive('Month')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showMonth(0);setActive('Month')">Monthly status</a></li>
 					<li class="{{isActive('MonthPercentage')}}"><a ng-href="http://localhost:8000/#/statistics" ng-click="showMonthPercentage(0);setActive('MonthPercentage')">Monthly percentage</a></li>
 				</ul>
@@ -28,6 +26,9 @@
 			<div class="row">
 				<div class="col-md-10"></div>
 				<div class="col-md-2">
+
+					<button class="btn btn-default" ng-click="showMonth(0)">Today</button>
+
 					<div class="btn-group">
 						<button class="btn btn-default" ng-click="showMonth(-1)"><span class="glyphicon glyphicon-chevron-left"></span></button>
 						<button class="btn btn-default" ng-click="showMonth(1)"><span class="glyphicon glyphicon-chevron-right"></span></button>
@@ -40,6 +41,9 @@
 			<div class="row">
 				<div class="col-md-10"></div>
 				<div class="col-md-2">
+
+					<button class="btn btn-default" ng-click="showMonthPercentage(0)">Today</button>
+
 					<div class="btn-group">
 						<button class="btn btn-default" ng-click="showMonthPercentage(-1)"><span class="glyphicon glyphicon-chevron-left"></span></button>
 						<button class="btn btn-default" ng-click="showMonthPercentage(1)"><span class="glyphicon glyphicon-chevron-right"></span></button>
@@ -52,6 +56,9 @@
 			<div class="row">
 				<div class="col-md-10"></div>
 				<div class="col-md-2">
+
+					<button class="btn btn-default" ng-click="showWeek(0)">Today</button>
+
 					<div class="btn-group">
 						<button class="btn btn-default" ng-click="showWeek(-1)"><span class="glyphicon glyphicon-chevron-left"></span></button>
 						<button class="btn btn-default" ng-click="showWeek(1)"><span class="glyphicon glyphicon-chevron-right"></span></button>
@@ -64,6 +71,9 @@
 			<div class="row">
 				<div class="col-md-10"></div>
 				<div class="col-md-2">
+
+					<button class="btn btn-default" ng-click="showWeekPercentage(0)">Today</button>
+
 					<div class="btn-group">
 						<button class="btn btn-default" ng-click="showWeekPercentage(-1)"><span class="glyphicon glyphicon-chevron-left"></span></button>
 						<button class="btn btn-default" ng-click="showWeekPercentage(1)"><span class="glyphicon glyphicon-chevron-right"></span></button>
@@ -76,6 +86,9 @@
 			<div class="row">
 				<div class="col-md-10"></div>
 				<div class="col-md-2">
+
+					<button class="btn btn-default" ng-click="showWeekTotal(0)">Today</button>
+
 					<div class="btn-group">
 						<button class="btn btn-default" ng-click="showWeekTotal(-1)"><span class="glyphicon glyphicon-chevron-left"></span></button>
 						<button class="btn btn-default" ng-click="showWeekTotal(1)"><span class="glyphicon glyphicon-chevron-right"></span></button>

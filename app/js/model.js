@@ -889,12 +889,6 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 	// returns a list of spent time in category order
 	this.statWeekTotalList = function(whichWeek) {
-		/*valueList = [];
-		for (k in categoryArray) {
-			valueList.push({name: categoryArray[k].name, y: this.calcTimeCategory(categoryArray[k].name), color: categoryArray[k].color});
-		}
-		return valueList;*/
-
 
 		now = new Date();
 		year = now.getFullYear();
@@ -937,7 +931,20 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 		startMs = startDate.getTime();
 
-		for	(k = 0; k < daysInMonth[month]-1; k++) {
+		if (startDate.getFullYear() % 4 == 0) {
+			daysInMonth[1] = 29;
+		}
+		
+
+		newMonth = month%12;
+
+		if (newMonth < 0) {
+			newMonth = 12+newMonth;
+		}	
+		//console.log(newMonth);
+		//console.log("dagar:", daysInMonth[newMonth]);
+
+		for	(k = 0; k < daysInMonth[newMonth]-1; k++) {
 			n = parseInt(k)+1;
 			ms = n * 86400000;
 			date = new Date(startMs + ms);
@@ -1009,7 +1016,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 		for (index in categoryArray) {	// for every category
 			
-			list = this.createMonthList(startDate, categoryArray[index].name, month);
+			list = this.createMonthList(startDate, categoryArray[index].name, month+whichMonth);
 
 			obj = {name: categoryArray[index].name, data: list, color: categoryArray[index].color, pointInterval: 24 * 3600 * 1000, pointStart: startDate.getTime()};
 			monthList.push(obj);
@@ -1023,15 +1030,27 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http, DataHandler) {
 
 		now = new Date();
 		year = now.getFullYear();
+
+		if (year % 4 == 0) {
+			daysInMonth[1] = 29;
+		}
+
 		month = now.getMonth();
 		startDate = new Date (year, month+whichMonth, 1, 0, 0, 0, 0);
 		startMs = startDate.getTime();
 		endMs = startMs;
 
-		console.log(daysInMonth[(month+whichMonth)%12]);
+		//console.log(daysInMonth[(month+whichMonth)%12]);
+		newMonth = (month+whichMonth)%12;
 
-		for	(k = 1; k < daysInMonth[(month+whichMonth)%12]; k++) {
 
+		if (newMonth < 0) {
+			newMonth = 12+newMonth;
+		}	
+		//console.log(newMonth);	
+		//console.log(daysInMonth[newMonth]);
+
+		for	(k = 1; k < daysInMonth[newMonth]; k++) {
 			ms = 86400000;
 			endMs += ms
 		}
