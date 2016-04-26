@@ -30,9 +30,6 @@ timeTrackerApp.controller("authCtrl", function($scope, Auth, TimeTracker, DataLo
 
 	$scope.loadData = function(){
 		console.log("Loading data!");
-      	//DataLoader.checkAuth();
-      	//DataLoader.handleAuthClick();
-      	//TimeTracker.changeLoadedData();
 		DataLoader.loadData();
 	}
 })
