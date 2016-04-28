@@ -6,7 +6,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	*/
 
 	this.initiateUser = function(userId){
-		//console.log("initializing user ", userId);
+		console.log("initializing user ", userId);
 		this.userId = userId; //if we need to save this?
 		this.firebaseRef = new Firebase("https://time-trackertest.firebaseio.com/" + userId);
 
@@ -16,7 +16,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 
 		//this.testCategories.onDisconnect().set(TimeTracker.getCategories()); //this doesn't work?
-		
 		this.setTimeTrackerData();
 
 	}
@@ -83,6 +82,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 	*/
 	this.updateEvents = function(calendar, resp){
+		console.log(calendar, calendar.category)
 		var currentEvents = TimeTracker.getTestData();
 		var calendarCategory = calendar.category; 
 
@@ -127,7 +127,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			}*/
 		}
 
-
 		TimeTracker.iterateData(newEvents, calendar);
 		TimeTracker.autoReportAll();
 		this.save();
@@ -169,7 +168,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	}
 
 	this.setTimeTrackerData = function(){
-
+		console.log("in setTimeTrackerData")
 		this.testCategories.once("value", function(snapshot){
 			
 			//if the firebase was empty, we set it to the default Undefined category
@@ -179,6 +178,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 			}
 
 			TimeTracker.setCategories(res);
+
 			
 			
 		});
