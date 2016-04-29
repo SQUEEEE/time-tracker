@@ -29,14 +29,29 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
 
     var handleAuthResult = function (authResult) {
       //var authorizeDiv = document.getElementById('authorize-div');
+
       if (authResult && !authResult.error) {
         //see if something can be done here to omit the firebase authentication
 
         //load the userID and then call the function that loads the api
         gapi.client.load('oauth2','v2',function(){
           gapi.client.oauth2.userinfo.get().execute(function(resp){
-            DataHandler.initiateUser(resp.id)
-            setTimeout(loadCalendarApi, 200); //make sure loadCalendarApi call doesnt happen to fast
+            data = DataHandler.initiateUser(resp.id)
+            data.$loaded()
+            .then(function() {
+            console.log("its loaded now" , data);
+            DataHandler.setTimeTrackerData();
+            loadCalendarApi()
+            })
+            .catch(function(err) {
+            console.error(err);
+            }); 
+
+
+    //this.testCategories.onDisconnect().set(TimeTracker.getCategories()); //this doesn't work?
+    
+
+            //setTimeout(loadCalendarApi, 200); //make sure loadCalendarApi call doesnt happen to fast
           });
         });
           

@@ -14,9 +14,11 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 		this.testCalendars = this.firebaseRef.child('calendars');
 		this.testEvents = this.firebaseRef.child('events');
 
+		// this waits for the data to load and then logs the output. Therefore,
+		// data from the server will now appear in the logged output. Use this with care!
+		data = $firebaseObject(this.firebaseRef)
 
-		//this.testCategories.onDisconnect().set(TimeTracker.getCategories()); //this doesn't work?
-		this.setTimeTrackerData();
+		return data;
 
 	}
 
