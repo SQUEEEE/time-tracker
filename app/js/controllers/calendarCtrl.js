@@ -50,7 +50,10 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
             calEvent.category = $scope.currentCat;
             calEvent.color = TimeTracker.getColorByCategory(calEvent.category);
             if (calEvent.logged == true) {
-                calEvent.borderColor = TimeTracker.getColorByCategory(calEvent.category);
+                calEvent.borderColor = calEvent.color;
+            }
+            else{
+                calEvent.borderColor = "black"
             }
             $scope.modalEvent = calEvent;
 
