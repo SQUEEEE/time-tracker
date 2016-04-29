@@ -139,8 +139,6 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
     //with this you can handle the click on the events
     $scope.eventClick = function(calEvent, jsEvent, view){  //when click on an event
         $scope.modalEvent = calEvent;
-        console.log("you have clicked a event")
-        console.log(calEvent)
         $('#fullCalModal').modal();                     //starts the modal box
 
         return false;
