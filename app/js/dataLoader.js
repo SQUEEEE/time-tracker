@@ -39,12 +39,10 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
             data = DataHandler.initiateUser(resp.id)
             data.$loaded()
             .then(function() {
-            console.log("its loaded now" , data);
             DataHandler.setTimeTrackerData();
             loadCalendarApi()
             })
             .catch(function(err) {
-            console.error(err);
             }); 
 
 
@@ -60,7 +58,6 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
 
     //load the calendar api and call the function that gets the data
     var loadCalendarApi = function() {
-      console.log("in the loadCalendarApi")
         gapi.client.load('calendar', 'v3', loadCalendars);
     }
 
@@ -97,7 +94,6 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
         */
 
         for(i in calendarsToSync){
-          console.log("for i in calendarsToSync", calendarsToSync[i].category)
           loadEvents(calendarsToSync[i]);
 
         }
@@ -129,7 +125,6 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
 
       request.execute(function(resp) {
         //call the DataHandler.updateEvents-function
-        console.log("in load", calendar.category)
         DataHandler.updateEvents(calendar, resp.items);
 
       });

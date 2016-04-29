@@ -6,7 +6,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	*/
 
 	this.initiateUser = function(userId){
-		console.log("initializing user ", userId);
 		this.userId = userId; //if we need to save this?
 		this.firebaseRef = new Firebase("https://time-trackertest.firebaseio.com/" + userId);
 
@@ -84,7 +83,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 	*/
 	this.updateEvents = function(calendar, resp){
-		console.log(calendar, calendar.category)
 		var currentEvents = TimeTracker.getTestData();
 		var calendarCategory = calendar.category; 
 
@@ -106,7 +104,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 					currentEvents[retValue].updated = newEvent.updated;
 					currentEvents[retValue].start = newEvent.start;
 					currentEvents[retValue].end =  newEvent.end;
-					//console.log("ändrat Event", currentEvents[retValue]);
 				}
 				
 			}
@@ -114,19 +111,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 				newEvents.push(newEvent);
 	
 			}
-
-
-			/*
-			var exists = existsInList(newEvent, currentEvents);
-			if(!exists && newEvent.start.dateTime){
-
-			if(!existsInList(newEvent, currentEvents) && newEvent.start.dateTime){
-				newEvents.push(newEvent);
-				console.log("new event!");
-			}	
-			else{
-				console.log("event already exists");
-			}*/
 		}
 
 		TimeTracker.iterateData(newEvents, calendar);
@@ -170,7 +154,6 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	}
 
 	this.setTimeTrackerData = function(){
-		console.log("in setTimeTrackerData")
 		this.testCategories.once("value", function(snapshot){
 			
 			//if the firebase was empty, we set it to the default Undefined category
