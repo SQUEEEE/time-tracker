@@ -172,6 +172,20 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		}
 	}
 
+	this.updateEventFromGoogle = function(googleEvent) {
+
+		for (index in data) {
+			if (data[index].id == googleEvent.id) {
+				data[index].title = googleEvent.summary;
+				data[index].updated = googleEvent.updated;
+				data[index].start = googleEvent.start.dateTime;
+				data[index].end =  googleEvent.end.dateTime;
+			}
+		}
+	}
+
+		
+
 	/******* Categories *****/
 	var colorsTaken = [];
 

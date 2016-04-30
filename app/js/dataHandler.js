@@ -98,11 +98,18 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 				currentListMs = Date.parse(currentEvents[retValue].updated);
 				newEventMs = Date.parse(newEvent.updated);
+
+				if (isNaN(currentListMs)) {
+					currentListMs = currentEvents[retValue].updated;
+				}
+			
 				if (currentListMs < newEventMs) {	// event updated from google
+					
 					currentEvents[retValue].summary = newEvent.summary;
 					currentEvents[retValue].updated = newEvent.updated;
-					//currentEvents[retValue].start = newEvent.start;
-					//currentEvents[retValue].end =  newEvent.end;
+					currentEvents[retValue].start = newEvent.start;
+					currentEvents[retValue].end =  newEvent.end;
+					TimeTracker.updateEventFromGoogle(newEvent);
 				}
 				
 			}

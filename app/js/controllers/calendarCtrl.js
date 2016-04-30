@@ -124,10 +124,10 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
         endZone = dateE.getTimezoneOffset();
             
         startDate = new Date(event.start);
-        startDate.setTime(startDate.getTime() + startZone*60*1000);
+        startDate.setTime(startDate.getTime()); // + startZone*60*1000);
 
         endDate = new Date(event.end);
-        endDate.setTime(endDate.getTime() + endZone*60*1000);
+        endDate.setTime(endDate.getTime()); // + endZone*60*1000);
         
 
         TimeTracker.updateTime(event, startDate, endDate);
