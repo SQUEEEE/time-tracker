@@ -139,6 +139,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
     //with this you can handle the click on the events
     $scope.eventClick = function(calEvent, jsEvent, view){  //when click on an event
         $scope.modalEvent = calEvent;
+        console.log(calEvent);
         $('#fullCalModal').modal();                     //starts the modal box
 
         return false;
@@ -170,6 +171,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
             timeFormat: 'HH:mm',
             columnFormat: 'ddd D/M',
             titleFormat: 'D MMMM, YYYY',
+            timezone: 'local',
 
         eventClick: $scope.eventClick,
         eventDrop: $scope.alertOnResizeAndDrop,
