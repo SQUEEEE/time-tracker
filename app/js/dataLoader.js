@@ -87,19 +87,33 @@ timeTrackerApp.factory("DataLoader", function($http, DataHandler, TimeTracker){
         //calendars to get events from
 
         calendarsToSync = TimeTracker.getSyncedCalendars();
-
+        unsyncedCalendars = TimeTracker.getUnsyncedCalendars();
+        //console.log("sync", calendarsToSync);
+        //console.log("unsync", unsyncedCalendars);
 
         /*
           loop through the calendarsToSync-list and then call the loadEvents function for every one 
         */
-
-        for(i in calendarsToSync){
-          loadEvents(calendarsToSync[i]);
+        
+        for (j in calendarsToSync){
+          loadEvents(calendarsToSync[j]);
 
         }
 
+        if (calendarsToSync.length == 0) {
+          TimeTracker.resetData();
+        }
+
+        for (i in unsyncedCalendars) {
+          TimeTracker.removeUnsyncedEvents(unsyncedCalendars[i]);
+        }
+
+        //console.log(TimeTracker.getTestData());
 
         DataHandler.save(); // save everything to firebase once everything is loaded
+
+        // fujt3r8bscbg6rkv30r41h1cmo@group.calendar.google.com
+        // fujt3r8bscbg6rkv30r41h1cmo@group.calendar.google.com
 
        
       });

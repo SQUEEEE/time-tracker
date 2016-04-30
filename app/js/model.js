@@ -28,6 +28,10 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 		return loadedData;
 	}
 
+	this.resetData = function() {
+		data = [];
+	}
+
 	// generates a new ID to use for an event
 	this.createID = function() {
 	    possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -80,6 +84,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 							if(data[e].calendarId == calendarArray[i].id){
 								if (data[e].category == calendarArray[i].category.name) {
 									data[e].category = categoryArray[j].name;
+									data[e].autoReport = categoryArray[j].autoReport;
 									data[e].color = categoryArray[j].color;
 									if (data[e].logged == true){
 										data[e].borderColor = categoryArray[j].color;
@@ -106,8 +111,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	// changes sync for a calendar
 	this.changeSync = function(calendar) {
+		//console.log(calendar);
 		for (index in calendarArray) {
-			if (calendarArray[index].name == calendar.name) {
+			if (calendarArray[index].id == calendar.id) {
 				calendarArray[index].sync == calendar.sync;
 			}
 		}
@@ -390,21 +396,35 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	var iterateData = this.iterateData = function(testData, calendar){
 		var iteratedData = [];
+		//data = [];
+		console.log("data1: " ,data);
 
-		for(index in testData){
-			var current = testData[index];
-			randNum = Math.floor((Math.random() * categoryArray.length));
-			end = current.end.dateTime;
-			current.end = end;
-			start = current.start.dateTime;
-			current.start = start;
+		if (calendar.sync == true) {
+			for(index in testData){
+				var current = testData[index];
+				randNum = Math.floor((Math.random() * categoryArray.length));
+				end = current.end.dateTime;
+				current.end = end;
+				start = current.start.dateTime;
+				current.start = start;
 
-			var eventObject = new EventClass(current, calendar.category, false, iteratedData, calendar.id);
-			iteratedData.push(eventObject);
-			data.push(eventObject);
+				var eventObject = new EventClass(current, calendar.category, false, iteratedData, calendar.id);
+				iteratedData.push(eventObject);
+				data.push(eventObject);
+			}	
 		}
+		else {
+			for (i in data) {
+				if (data[i].calendarId == calendar.id) {
+					data.splice(i, 1);
+				}
+			}
+		}
+
+		
 		//data.push(iteratedData);
-	
+		console.log("updated: ", iteratedData);
+		console.log("data", data);
 		autoReportAll();
 		//return data;
 	};
@@ -920,6 +940,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	}
 
 	this.getSyncedCalendars = function(){
+		console.log(calendarArray);
 		var toSync = [];
 		for(i in calendarArray){
 			cal = calendarArray[i];
@@ -928,6 +949,28 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 			}
 		}
 		return toSync;
+	}
+
+	this.getUnsyncedCalendars = function(){
+		unsyncedCalendars = [];
+		for (i in calendarArray){
+			if(calendarArray[i].sync == false){
+				unsyncedCalendars.push(calendarArray[i]);
+			}
+		}
+		return unsyncedCalendars;
+	}
+
+	this.removeUnsyncedEvents = function(unsyncedCalendar) {
+
+		for (index = 0; index < data.length; index++) {
+			//console.log(unsyncedCalendar);
+			if (unsyncedCalendar.id == data[index].calendarId) {
+				//console.log("remove", data[index]);
+				data.splice(index, 1);
+				index -= 1;
+			}
+		}
 	}
 
 	this.addCalendar = function(calendar){

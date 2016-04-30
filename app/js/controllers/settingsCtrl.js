@@ -78,6 +78,7 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 	}
 
 	$scope.updateCalendars = function() {
+		$scope.save();
 		DataLoader.loadData();
 	}
 

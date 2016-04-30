@@ -95,7 +95,16 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 
 
 			if (retValue != false) {	// exists in currentEvents
-		
+
+				currentListMs = Date.parse(currentEvents[retValue].updated);
+				newEventMs = Date.parse(newEvent.updated);
+				if (currentListMs < newEventMs) {	// event updated from google
+					currentEvents[retValue].summary = newEvent.summary;
+					currentEvents[retValue].updated = newEvent.updated;
+					currentEvents[retValue].start = newEvent.start;
+					currentEvents[retValue].end =  newEvent.end;
+				}
+				
 
 				currentListMs = Date.parse(currentEvents[retValue].updated);
 				newEventMs = Date.parse(newEvent.updated);
@@ -112,7 +121,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	
 			}
 		}
-
+		console.log("call iterate data");
 		TimeTracker.iterateData(newEvents, calendar);
 		TimeTracker.autoReportAll();
 		this.save();
