@@ -121,7 +121,7 @@ timeTrackerApp.factory("DataHandler", function($firebaseArray, $firebaseObject, 
 	
 			}
 		}
-		console.log("call iterate data");
+
 		TimeTracker.iterateData(newEvents, calendar);
 		TimeTracker.autoReportAll();
 		this.save();

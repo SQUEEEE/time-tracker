@@ -396,35 +396,20 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 
 	var iterateData = this.iterateData = function(testData, calendar){
 		var iteratedData = [];
-		//data = [];
-		console.log("data1: " ,data);
 
-		if (calendar.sync == true) {
-			for(index in testData){
-				var current = testData[index];
-				randNum = Math.floor((Math.random() * categoryArray.length));
-				end = current.end.dateTime;
-				current.end = end;
-				start = current.start.dateTime;
-				current.start = start;
+		for(index in testData){
+			var current = testData[index];
+			randNum = Math.floor((Math.random() * categoryArray.length));
+			end = current.end.dateTime;
+			current.end = end;
+			start = current.start.dateTime;
+			current.start = start;
 
-				var eventObject = new EventClass(current, calendar.category, false, iteratedData, calendar.id);
-				iteratedData.push(eventObject);
-				data.push(eventObject);
-			}	
-		}
-		else {
-			for (i in data) {
-				if (data[i].calendarId == calendar.id) {
-					data.splice(i, 1);
-				}
-			}
-		}
-
+			var eventObject = new EventClass(current, calendar.category, false, iteratedData, calendar.id);
+			iteratedData.push(eventObject);
+			data.push(eventObject);
+		}	
 		
-		//data.push(iteratedData);
-		console.log("updated: ", iteratedData);
-		console.log("data", data);
 		autoReportAll();
 		//return data;
 	};
@@ -940,8 +925,7 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 	}
 
 	this.getSyncedCalendars = function(){
-		console.log(calendarArray);
-		var toSync = [];
+		toSync = [];
 		for(i in calendarArray){
 			cal = calendarArray[i];
 			if(cal.sync){

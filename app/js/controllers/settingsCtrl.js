@@ -54,6 +54,7 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 	$scope.changeSync = function(calendar) {
 		TimeTracker.changeSync(calendar);
 		$scope.save();
+		$scope.updateCalendars();
 	}
 
 	$scope.autoReportNow = function() {
