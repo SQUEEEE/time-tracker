@@ -247,6 +247,9 @@ timeTrackerApp.factory('TimeTracker', function ($resource, $http) {
 				data[i].category = categoryArray[0].name;
 				data[i].color = categoryArray[0].color;
 				data[i].autoReport = categoryArray[0].autoReport;
+				if (data[i].logged == true) {
+					data[i].borderColor = categoryArray[0].color;
+				}
 			}
 		}
 
