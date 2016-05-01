@@ -20,18 +20,18 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker, DataLo
 
     $scope.active = "Total";
 
-
+    // returns if a statistics view is active 
     $scope.isActive = function(type) {
         if (type == $scope.active) {
             return "active";
         }
         return "";
     }
+    // sets which statistics view is active
     $scope.setActive = function(selected) {
         $scope.active = selected;
     }
  
-
     // initial value for statistics page
     $scope.startValue = function() {
         $scope.showTotal();
@@ -157,7 +157,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker, DataLo
         });
     }
 
-    // stats for total logged time  
+    // stats for total logged time for a week
     $scope.showWeekTotal = function(whichWeek) {
         if (whichWeek == 0) {
             $scope.week = 0;
@@ -258,7 +258,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker, DataLo
             series: TimeTracker.statWeekSeries($scope.week) // $scope.weekData
         });
     };
-
+    // creates the correct month title
     $scope.titleMonth = function() {
         months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -273,6 +273,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker, DataLo
         return months[titleMonth%12];
     }
 
+    // creates the correct date title
     $scope.titleDates = function(whichWeek) {
     
         now = new Date();
@@ -357,7 +358,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker, DataLo
         });
     };
 
-    // stats for categories percentage 
+    // stats for categories percentage for a month
     $scope.showMonthPercentage = function(whichMonth) {
 
         if (whichMonth == 0) {
@@ -404,7 +405,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker, DataLo
         });
     }
 
-    // stats for total logged time  
+    // stats for total logged time for a month 
     $scope.showMonthTotal = function(whichMonth) {
         if (whichMonth== 0) {
             $scope.month = 0;
@@ -447,7 +448,7 @@ timeTrackerApp.controller('StatisticsCtrl', function($scope, TimeTracker, DataLo
         }]
         });
     };
-
+    // shows logged time during a year
     $scope.showYear = function(whichYear) {
 
         if (whichYear == 0) {

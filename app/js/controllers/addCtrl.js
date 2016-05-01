@@ -39,8 +39,8 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, 
     };
     $scope.reset();
 
-
-	$scope.getNumberOfDays = function(){	//returns number of days in the month we are right now
+    //returns number of days in the month we are right now
+	$scope.getNumberOfDays = function(){	
 		var month = $scope.selectedDate.month;		//to make it easier to refer to 
 		if(month==2){		//february depends on which year it is
 			if($scope.selectedDate.year%4==0){
@@ -94,7 +94,7 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, 
 	}
 
 
-    $scope.checkEverything = function(){//controlls everything is right in the form and then pressButton will be true
+    $scope.checkEverything = function(){//controls everything is right in the form and then pressButton will be true
     	$scope.checkDuration();
     	$scope.checkDate();
     	$scope.checkStart();
@@ -106,27 +106,13 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, 
     	}
     	
     }
-
-	$scope.setTimer = function(_hour,_minute,_second){		//puts the data from the timer in the selectedDuration
+    //puts the data from the timer in the selectedDuration
+	$scope.setTimer = function(_hour,_minute,_second){		
 		$scope.selectedDuration.hour = $scope.hours;
 		$scope.selectedDuration.minute = $scope.min;
 		$scope.selectedDuration.second = $scope.sec;
 		$scope.checkEverything();
 	}
-	
-	
-/*		// selecting category in list
-	$scope.selectCategory = function(selected) {
-
-		console.log("categories", $scope.categories);
-		console.log("sel", selected);
-        for (index in $scope.categories) {
-            if (selected == $scope.categories[index].name) { 
-                $scope.categoryChoice.category = selected;
-                console.log("ändrat", $scope.categoryChoice.category);
-            }
-        }
-    }*/
 
 	// saves the timers time when it stops
 	$scope.$on('timer-stopped', function (event, data){
@@ -185,9 +171,6 @@ timeTrackerApp.controller('AddCtrl', function($scope, TimeTracker, DataHandler, 
     	else{
     		return true;
     	}	
-    
 	}
-
-
 
 });
