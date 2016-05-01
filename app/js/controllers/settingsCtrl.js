@@ -1,4 +1,4 @@
-timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoader, DataHandler, DataLoader) {
+timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoader, DataHandler, DataLoader, $route) {
 
 	if(TimeTracker.getLoadedData() == false){
 		DataLoader.loadData();
@@ -83,6 +83,7 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 		$scope.save();
 		DataLoader.loadData();
 	}
+
 
 
 });
