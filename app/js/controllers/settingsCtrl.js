@@ -11,6 +11,7 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 	$scope.showAutoReportInfo = false;		// bool to decide if info about auto report is shown or not
 	$scope.showSyncInfo = false;			// bool to decide if info about sync is shown or not
 
+	// save everything to firebase 
 	$scope.save = function(){
 		DataHandler.save();
 	}
@@ -57,27 +58,27 @@ timeTrackerApp.controller('SettingsCtrl', function($scope, TimeTracker, DataLoad
 		$scope.updateCalendars();
 	}
 
+	// call autoReport
 	$scope.autoReportNow = function() {
 		TimeTracker.autoReportAll();
 		$scope.save();
 	}
 
-
-
+	// change category for a calendar
 	$scope.saveCalendarChanges = function(calendar, selected) {
 		if (selected != null && selected != "") {
 			TimeTracker.changeCalendarCategory(calendar, selected);
 			$scope.save();
 		}
 	}
-
+	// save category name change
 	$scope.saveCategoryName = function(category, newName) {
 		if (newName != null && newName != "") {
 			TimeTracker.changeCategoryName(category, newName);
 			$scope.save();
 		}
 	}
-
+	// update calendars from google
 	$scope.updateCalendars = function() {
 		$scope.save();
 		DataLoader.loadData();

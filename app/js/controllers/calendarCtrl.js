@@ -14,8 +14,8 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
 
     $scope.showModal = false;
 
-
-	$scope.logOrNotLog = function(calEvent) {		//changes the status of logged or not logged
+    //changes the logged status
+	$scope.logOrNotLog = function(calEvent) {		
 
         if (calEvent.logged == true) {
             calEvent.borderColor = calEvent.color;
@@ -32,6 +32,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
         return calEvent;
 	}
 
+    // change the autoReport status of an event
     $scope.changeAutoReport = function(calEvent) {
         $scope.modalEvent = calEvent;
         TimeTracker.changeEventAutoReport(calEvent);
@@ -43,9 +44,10 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
     // currently chosen category in list
     $scope.currentSelCat = function(selected) {
         $scope.currentCat = selected;
-    };
+    }
 
-    $scope.changeCategory = function(calEvent) {       //changes the category
+    //changes the category of an event
+    $scope.changeCategory = function(calEvent) {       
         if ($scope.currentCat != null){
             calEvent.category = $scope.currentCat;
             calEvent.color = TimeTracker.getColorByCategory(calEvent.category);
@@ -62,7 +64,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
             DataHandler.save();       
         }
     }
-
+    // remove an event
     $scope.deleteEvent = function(calEvent){
         $scope.modalEvent = calEvent;
         TimeTracker.deleteEvent(calEvent);
@@ -70,6 +72,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
         DataHandler.save();         
     }
 
+    // hide an event
     $scope.hideEvent = function(calEvent){
         calEvent.logged = false;
         calEvent.autoReport = false;
@@ -83,6 +86,7 @@ timeTrackerApp.controller('CalendarCtrl', function($scope, $http, TimeTracker, D
         DataHandler.save();         
     }
 
+    // unhide an event
     $scope.unHideEvent = function(calEvent){
         currentTime = Date.now();
         eventEndTime = Date.parse(calEvent.end);
